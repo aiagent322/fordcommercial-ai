@@ -44,7 +44,7 @@
     
     <!-- Preload Critical Assets -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" as="style">
-    <link rel="preload" href="https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg" as="image">
+    <link rel="preload" href="https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg" as="image" fetchpriority="high">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -356,6 +356,20 @@
             "availability": "https://schema.org/InStock",
             "seller": {"@type": "AutoDealer", "name": "Peoria Ford"}
           }
+        },
+        {
+          "@type": "ItemList",
+          "name": "2026 Ford Commercial Truck Lineup",
+          "description": "Ford commercial trucks available at Peoria Ford, Arizona",
+          "numberOfItems": 6,
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Ford F-250 Super Duty", "url": "https://fordcommercial.ai/trucks/f-250"},
+            {"@type": "ListItem", "position": 2, "name": "Ford F-350 Super Duty", "url": "https://fordcommercial.ai/trucks/f-350"},
+            {"@type": "ListItem", "position": 3, "name": "Ford F-450 Super Duty", "url": "https://fordcommercial.ai/trucks/f-450"},
+            {"@type": "ListItem", "position": 4, "name": "Ford F-550 Chassis Cab", "url": "https://fordcommercial.ai/trucks/f-550"},
+            {"@type": "ListItem", "position": 5, "name": "Ford F-650/F-750 Medium Duty", "url": "https://fordcommercial.ai/trucks/f-650-f-750"},
+            {"@type": "ListItem", "position": 6, "name": "Ford Transit Cargo Van", "url": "https://fordcommercial.ai/trucks/transit"}
+          ]
         }
       ]
     }
@@ -1973,7 +1987,7 @@
                 <!-- F-250 -->
                 <article class="truck-card">
                     <a href="/trucks/f-250" class="truck-card__image truck-card__image--f250">
-                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg" alt="2026 Ford F-250 Super Duty Crew Cab commercial work truck" loading="lazy">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg" alt="2026 Ford F-250 Super Duty Crew Cab commercial work truck" fetchpriority="high">
                         <span>F-250</span><small>Super Duty</small>
                     </a>
                     <div class="truck-card__body">
