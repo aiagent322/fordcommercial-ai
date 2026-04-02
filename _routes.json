@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/google6c73ac9707a26184.html",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/favicon.ico",
+    "/*.jpg"
+  ]
+}
