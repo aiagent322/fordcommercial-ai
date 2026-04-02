@@ -68,6 +68,19 @@
             "latitude": 33.6397,
             "longitude": -112.2384
           },
+          "areaServed": [
+            {"@type": "State", "name": "Arizona"},
+            {"@type": "City", "name": "Phoenix"},
+            {"@type": "City", "name": "Scottsdale"},
+            {"@type": "City", "name": "Tempe"},
+            {"@type": "City", "name": "Mesa"},
+            {"@type": "City", "name": "Chandler"},
+            {"@type": "City", "name": "Glendale"},
+            {"@type": "City", "name": "Gilbert"},
+            {"@type": "City", "name": "Peoria"},
+            {"@type": "City", "name": "Surprise"},
+            {"@type": "City", "name": "Tucson"}
+          ],
           "openingHoursSpecification": [
             {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "21:00"},
             {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:00", "closes": "18:00"}
@@ -172,6 +185,36 @@
                 "@type": "Answer",
                 "text": "Fuel (5–15% savings): Reduce idling, optimize routing, coach drivers. Maintenance: Predictive alerts prevent breakdowns. Productivity: Dispatch closest vehicle, verify arrivals. 10-vehicle fleet typically saves $10K–$20K annually."
               }
+            }
+          ]
+        },
+        {
+          "@type": "FinancialService",
+          "@id": "https://fordcommercial.ai/#financing",
+          "name": "Ford Commercial Truck Financing",
+          "description": "Commercial vehicle financing including loans, TRAC leases, and fleet lines of credit for Ford trucks and vans",
+          "provider": {
+            "@type": "Organization",
+            "name": "Ford Pro FinSimple",
+            "url": "https://www.ford.com/finance/commercial-financing/"
+          },
+          "areaServed": {"@type": "State", "name": "Arizona"},
+          "serviceType": ["Commercial Vehicle Loan", "TRAC Lease", "Fleet Line of Credit", "Upfit Financing"],
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Commercial Truck Loan",
+              "description": "Traditional financing with terms up to 84 months, $0 down options available"
+            },
+            {
+              "@type": "Offer",
+              "name": "TRAC Lease",
+              "description": "Terminal Rental Adjustment Clause lease with lower monthly payments and flexible end-of-term options"
+            },
+            {
+              "@type": "Offer",
+              "name": "Fleet Line of Credit",
+              "description": "Revolving credit line for businesses purchasing multiple vehicles"
             }
           ]
         }
