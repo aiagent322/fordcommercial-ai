@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government & Municipal Fleet Sales | GSA Contracts | FordCommercial.ai</title>
+    <meta name="description" content="Government fleet vehicles, municipal trucks, GSA contract pricing, state contract holder for police vehicles, fire apparatus, public works trucks, and agency fleet procurement.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 2px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .content p {
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-orange-hover);
+        }
+
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p {
+            font-size: 0.95rem;
+            color: var(--gray-mid);
+            margin: 0;
+        }
+
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--white);
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .content {
+                padding: 2rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="fleet-sales.html">Fleet Sales</a></li>
+                <li><a href="government-sales.html" class="active">Government Sales</a></li>
+                <li><a href="service-upfitting.html">Service & Upfitting</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Government & Municipal Contracts</h1>
+        <p>GSA schedule pricing, state contracts, and streamlined procurement for federal, state, and local agencies</p>
+    </section>
+
+    <main class="content">
+        <h2>Government Fleet Procurement</h2>
+        <p>FordCommercial.ai serves as a qualified supplier for government agencies at every level—federal, state, county, and municipal. Our government sales division understands the unique procurement requirements, compliance standards, and budget cycles that public sector fleet managers navigate. From police interceptor vehicles and fire apparatus chassis to public works trucks and administrative fleet sedans, we supply the full range of government fleet vehicles through authorized contract channels.</p>
+
+        <p>Government vehicle purchasing operates under strict regulatory frameworks designed to ensure fair pricing, competitive bidding, and taxpayer accountability. FordCommercial.ai participates in GSA (General Services Administration) schedule contracts, state cooperative purchasing agreements, and municipal bid programs that pre-negotiate pricing and terms. These contract vehicles eliminate the need for individual agencies to conduct time-consuming RFP processes for routine fleet purchases, accelerating delivery timelines while guaranteeing compliant pricing.</p>
+
+        <h2>GSA Schedule and Federal Contracts</h2>
+        <p>Federal agencies benefit from GSA schedule pricing that has been pre-negotiated to reflect volume discounts and standardized terms. FordCommercial.ai supplies vehicles under GSA schedules covering light trucks, medium-duty trucks, passenger vehicles, and specialty equipment. Our federal sales team handles the documentation requirements specific to government purchasing, including TAA (Trade Agreements Act) compliance verification, country-of-origin certifications, and required delivery documentation.</p>
+
+        <p>Beyond standard vehicle supply, federal fleet managers often require mission-specific configurations. Law enforcement agencies need pursuit-rated vehicles with specific performance packages. Investigative agencies require unmarked vehicles that blend into civilian traffic. Land management agencies need off-road capable trucks with protective equipment. FordCommercial.ai coordinates with authorized upfitters to deliver vehicles that arrive ready for agency use, eliminating the delays and complications of post-delivery modification.</p>
+
+        <h2>State and Local Government Programs</h2>
+        <p>State governments maintain their own cooperative purchasing contracts that extend pricing benefits to state agencies, public universities, school districts, and often local governments within the state. FordCommercial.ai holds positions on state contracts across multiple jurisdictions, providing consistent pricing and service regardless of which agency initiates the purchase. Our contract compliance team stays current on state-specific requirements, ensuring documentation meets the standards your purchasing department requires.</p>
+
+        <p>Municipal fleet managers face particular challenges balancing tight budgets against aging equipment. Police departments need reliable patrol vehicles. Fire departments require chassis for apparatus builds. Public works departments depend on dump trucks, utility trucks, and service vehicles to maintain infrastructure. Parks departments need pickups and utility vehicles for grounds maintenance. FordCommercial.ai provides volume pricing that helps municipal budgets stretch further while maintaining the vehicle quality that public safety and essential services demand.</p>
+
+        <h2>Vehicle Categories for Government Fleets</h2>
+        <p>Government fleets encompass virtually every vehicle category manufactured:</p>
+        <ul>
+            <li>Police interceptor sedans and utility vehicles</li>
+            <li>Fire and EMS chassis (F-450, F-550, F-600 for Type I ambulances)</li>
+            <li>Public works dump trucks and service bodies</li>
+            <li>Administrative fleet sedans and SUVs</li>
+            <li>Transit vans for prisoner transport and agency logistics</li>
+            <li>Electric vehicles for sustainability mandates and fleet electrification goals</li>
+            <li>Hybrid vehicles for reduced fuel consumption and emissions compliance</li>
+        </ul>
+
+        <h2>Compliance and Documentation</h2>
+        <p>Government purchasing requires documentation that commercial transactions do not. FordCommercial.ai provides complete compliance packages including MSRP verification, contract pricing confirmation, delivery receipts, and warranty documentation in formats that satisfy audit requirements. For agencies with specific insurance, bonding, or certification requirements, our compliance team supplies the documentation your procurement office needs to process orders without delays.</p>
+
+        <p>We understand that government fleet managers answer to oversight bodies, elected officials, and ultimately taxpayers. Every transaction through FordCommercial.ai creates a clear paper trail demonstrating competitive pricing, authorized contract utilization, and proper procurement procedures. When auditors review fleet purchases, the documentation we provide supports the decisions your agency made.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Government Fleet Inquiry</h3>
+        <p>Contact our government sales team for contract pricing and availability.</p>
+        <a href="#contact" class="cta-button">Request Government Quote →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>Explore More Services</h3>
+        <div class="link-cards">
+            <a href="fleet-sales.html" class="link-card">
+                <h4>Fleet Sales & Leasing</h4>
+                <p>Commercial trucks, cargo vans, and fleet vehicles with factory-direct pricing.</p>
+            </a>
+            <a href="service-upfitting.html" class="link-card">
+                <h4>Commercial Service & Upfitting</h4>
+                <p>Service bodies, shelving, lifts, and vocational equipment installation.</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Sales, Leasing & Service</p>
+    </footer>
+</body>
+</html>
