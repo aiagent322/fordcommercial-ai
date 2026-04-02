@@ -70,6 +70,108 @@
             {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "21:00"},
             {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:00", "closes": "18:00"}
           ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://fordcommercial.ai/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I build and price a Ford commercial truck?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Start with the chassis that matches your payload requirements. Configure cab style, engine (gas/diesel), drivetrain, and options. Key specs: GVWR (total weight capacity), payload capacity, towing capacity, and cab-to-axle length for body installations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the difference between F-250, F-350, F-450, and F-550?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "F-250: Class 2 (8,501–10,000 lbs GVWR), best daily driver/work truck balance. F-350: Class 3 (10,001–14,000 lbs), available SRW or DRW, heavy towing. F-450: Class 4 (14,001–16,000 lbs), chassis cab for service bodies, flatbeds. F-550: Class 5 (16,001–19,500 lbs), maximum Super Duty capability."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Should I get gas or diesel?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "7.3L Gas V8: Lower price, simpler maintenance, under 20K miles/year, cold-weather reliability. 6.7L Power Stroke Diesel: 25K+ miles/year, heavy towing, maximum torque, 200K+ mile ownership. Break-even is typically 75,000–100,000 miles depending on fuel prices."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is an upfitted truck?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A truck modified with aftermarket bodies or equipment: service bodies, van shelving, dump bodies, flatbeds, cranes, refrigeration. Transforms stock vehicles into purpose-built work machines ready to generate revenue on day one."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I buy a Ford truck already upfitted?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. In-Stock: Pre-built units for immediate delivery. Ship-Thru: Factory to Upfitter to Delivered complete, most popular option. Dealer-Arranged: Buy chassis, dealer coordinates upfitter."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does upfitting cost?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Basic ($5K–$10K): Bed liner, toolbox, shelving, lighting. Trade ($10K–$25K): Full shelving, partitions, ladder racks, power. Service bodies ($25K–$75K): Utility bodies, storage, inverters. Specialty ($75K–$250K+): Crane, bucket, refrigeration."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I finance the truck and upfit together?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Ford Pro FinSimple finances truck + upfit in one loan: single payment, extended terms (60–84 months), potential Section 179 deduction on complete vehicle. Keeps cash in your business."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What credit score do I need for commercial financing?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Commercial financing evaluates your total business profile: personal credit, business credit, time in business, cash flow, industry experience. Strong cash flow often qualifies even with imperfect credit. New businesses may need stronger personal credit."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is Section 179?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Deduct full purchase price of qualifying equipment in year of purchase. 2024 limit: $1,160,000. Vehicles over 6,000 lbs GVWR (F-250+) qualify. Must be 50%+ business use. Upfits included. Consult your tax advisor."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will upfitting void my Ford warranty?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not if done correctly. Factory warranty remains intact for proper installations. Upfit-related issues are upfitter's responsibility. Use QVM-certified upfitters and keep documentation. Ship-thru programs provide cleanest warranty protection."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is Ford Pro Intelligence?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ford's connected vehicle platform: GPS tracking, driver behavior monitoring, vehicle health diagnostics, fuel management, geofencing. Embedded in 2020+ vehicles—no aftermarket device needed. Essentials tier is complimentary."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does fleet telematics save money?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fuel (5–15% savings): Reduce idling, optimize routing, coach drivers. Maintenance: Predictive alerts prevent breakdowns. Productivity: Dispatch closest vehicle, verify arrivals. 10-vehicle fleet typically saves $10K–$20K annually."
+              }
+            }
+          ]
         }
       ]
     }
@@ -475,8 +577,16 @@
             font-family: var(--font-display);
             position: relative;
             overflow: hidden;
-            background-size: cover;
-            background-position: center;
+            text-decoration: none;
+        }
+        
+        .truck-card__image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
         
         .truck-card__image::before {
@@ -513,32 +623,26 @@
         
         .truck-card__image--f250 {
             background-color: var(--ford-blue);
-            background-image: url('https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg');
         }
         
         .truck-card__image--f350 {
             background-color: #2d4a1a;
-            background-image: url('https://images.worktrucksolutions.com/img/00564/inventory/TED14530/medium/2026-ford-f-250-crew-pickup-1.jpg');
         }
         
         .truck-card__image--f450 {
             background-color: #5c3a1a;
-            background-image: url('https://images.worktrucksolutions.com/img/00564/inventory/TED80079/medium/2026-ford-f-450-crew-cab-chassis-1.jpg');
         }
         
         .truck-card__image--f550 {
             background-color: #4a4a4a;
-            background-image: url('https://images.worktrucksolutions.com/img/00564/inventory/TDA11571/medium/2026-ford-f-450-regular-cab-chassis-25.jpg');
         }
         
         .truck-card__image--f650 {
             background-color: #6b1a1a;
-            background-image: url('https://images.worktrucksolutions.com/img/00564/inventory/TEC85244/medium/2026-ford-f-450-crew-steel-force-truck-bodies-contractor-truck-57.jpg');
         }
         
         .truck-card__image--transit {
             background-color: #1a4a6b;
-            background-image: url('https://images.worktrucksolutions.com/img/00564/inventory/TKA41069/medium/2026-ford-transit-350-hd-empty-cargo-van-30.jpg');
         }
         
         .truck-card__body {
@@ -1683,7 +1787,10 @@
             <div class="trucks-grid">
                 <!-- F-250 -->
                 <article class="truck-card">
-                    <a href="/trucks/f-250" class="truck-card__image truck-card__image--f250"><span>F-250</span><small>Super Duty</small></a>
+                    <a href="/trucks/f-250" class="truck-card__image truck-card__image--f250">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg" alt="2026 Ford F-250 Super Duty Crew Cab commercial work truck" loading="lazy">
+                        <span>F-250</span><small>Super Duty</small>
+                    </a>
                     <div class="truck-card__body">
                         <h3 class="truck-card__model">F-250 Super Duty</h3>
                         <p class="truck-card__tagline">Balance of capability and affordability</p>
@@ -1711,7 +1818,10 @@
                 
                 <!-- F-350 -->
                 <article class="truck-card">
-                    <a href="/trucks/f-350" class="truck-card__image truck-card__image--f350"><span>F-350</span><small>Super Duty</small></a>
+                    <a href="/trucks/f-350" class="truck-card__image truck-card__image--f350">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED14530/medium/2026-ford-f-250-crew-pickup-1.jpg" alt="2026 Ford F-350 Super Duty commercial truck for heavy towing" loading="lazy">
+                        <span>F-350</span><small>Super Duty</small>
+                    </a>
                     <div class="truck-card__body">
                         <h3 class="truck-card__model">F-350 Super Duty</h3>
                         <p class="truck-card__tagline">Increased payload with SRW or DRW options</p>
@@ -1739,7 +1849,10 @@
                 
                 <!-- F-450 -->
                 <article class="truck-card">
-                    <a href="/trucks/f-450" class="truck-card__image truck-card__image--f450"><span>F-450</span><small>Super Duty</small></a>
+                    <a href="/trucks/f-450" class="truck-card__image truck-card__image--f450">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED80079/medium/2026-ford-f-450-crew-cab-chassis-1.jpg" alt="2026 Ford F-450 Super Duty Crew Cab Chassis for service body upfits" loading="lazy">
+                        <span>F-450</span><small>Super Duty</small>
+                    </a>
                     <div class="truck-card__body">
                         <h3 class="truck-card__model">F-450 Super Duty</h3>
                         <p class="truck-card__tagline">Maximum capability. DRW standard.</p>
@@ -1767,7 +1880,10 @@
                 
                 <!-- F-550 Chassis Cab -->
                 <article class="truck-card">
-                    <a href="/trucks/f-550" class="truck-card__image truck-card__image--f550"><span>F-550</span><small>Chassis Cab</small></a>
+                    <a href="/trucks/f-550" class="truck-card__image truck-card__image--f550">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TDA11571/medium/2026-ford-f-450-regular-cab-chassis-25.jpg" alt="2026 Ford F-550 Chassis Cab ready for dump body or service body upfit" loading="lazy">
+                        <span>F-550</span><small>Chassis Cab</small>
+                    </a>
                     <div class="truck-card__body">
                         <h3 class="truck-card__model">F-550 Chassis Cab</h3>
                         <p class="truck-card__tagline">Upfit-ready for specialized applications</p>
@@ -1795,7 +1911,10 @@
                 
                 <!-- F-650/F-750 -->
                 <article class="truck-card">
-                    <a href="/trucks/f-650-f-750" class="truck-card__image truck-card__image--f650"><span>F-650/750</span><small>Medium Duty</small></a>
+                    <a href="/trucks/f-650-f-750" class="truck-card__image truck-card__image--f650">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TEC85244/medium/2026-ford-f-450-crew-steel-force-truck-bodies-contractor-truck-57.jpg" alt="2026 Ford F-650 F-750 Medium Duty commercial truck with contractor body" loading="lazy">
+                        <span>F-650/750</span><small>Medium Duty</small>
+                    </a>
                     <div class="truck-card__body">
                         <h3 class="truck-card__model">F-650 / F-750 Medium Duty</h3>
                         <p class="truck-card__tagline">Commercial-grade for serious operations</p>
@@ -1823,7 +1942,10 @@
                 
                 <!-- Transit -->
                 <article class="truck-card">
-                    <div class="truck-card__image truck-card__image--transit"><span>TRANSIT</span><small>Cargo Van</small></div>
+                    <div class="truck-card__image truck-card__image--transit">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TKA41069/medium/2026-ford-transit-350-hd-empty-cargo-van-30.jpg" alt="2026 Ford Transit 350 HD Cargo Van for commercial upfit and shelving" loading="lazy">
+                        <span>TRANSIT</span><small>Cargo Van</small>
+                    </div>
                     <div class="truck-card__body">
                         <h3 class="truck-card__model">Transit Cargo Van</h3>
                         <p class="truck-card__tagline">Versatile commercial workhorse</p>
