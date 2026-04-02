@@ -1,5 +1,5 @@
-# Google Search Console verification - must serve as-is
-/google6c73ac9707a26184.html /google6c73ac9707a26184.html 200
+# Google Search Console verification - rewrite to txt file
+/google6c73ac9707a26184.html /google6c73ac9707a26184.txt 200
 
 # Clean URL redirects (remove .html extension)
 /index.html / 301
