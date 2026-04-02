@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Behavior Monitoring | Fleet Safety & Coaching | FordCommercial.ai</title>
+    <meta name="description" content="Driver behavior monitoring for commercial fleets. Track speeding, hard braking, acceleration patterns, and provide coaching insights to improve safety and reduce costs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover { opacity: 0.8; }
+        .nav-links a.active { border-bottom: 2px solid var(--accent-orange); padding-bottom: 2px; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+        }
+
+        .content h2:first-of-type { margin-top: 0; }
+        .content p { margin-bottom: 1.25rem; font-size: 1.05rem; }
+        .content ul { margin: 1rem 0 1.5rem 1.5rem; }
+        .content li { margin-bottom: 0.5rem; font-size: 1.05rem; }
+
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover { background: var(--accent-orange-hover); }
+
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p { font-size: 0.9rem; color: var(--gray-mid); margin: 0; }
+
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p { opacity: 0.8; font-size: 0.9rem; }
+
+        @media (max-width: 600px) {
+            .nav-links { gap: 1rem; }
+            .content { padding: 2rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="gps-tracking.html">GPS Tracking</a></li>
+                <li><a href="vehicle-health.html">Vehicle Health</a></li>
+                <li><a href="driver-behavior.html" class="active">Driver Behavior</a></li>
+                <li><a href="fuel-monitoring.html">Fuel Monitoring</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-icon">👤</div>
+        <h1>Driver Behavior</h1>
+        <p>Speed, braking, and coaching insights that improve safety and reduce costs</p>
+    </section>
+
+    <main class="content">
+        <h2>Driver Performance Monitoring</h2>
+        <p>FordCommercial.ai driver behavior monitoring captures the driving patterns that impact safety, fuel efficiency, vehicle wear, and operational costs. The system tracks speeding events, hard braking incidents, rapid acceleration, harsh cornering, and idle time—translating raw data into actionable insights that help fleet managers identify risk, coach drivers, and improve overall fleet performance. Understanding how drivers operate vehicles reveals opportunities invisible to traditional fleet management.</p>
+
+        <p>Every driver develops habits over time—some beneficial, some problematic. Without objective measurement, managers rely on accident reports, customer complaints, and visible vehicle damage to identify issues. Driver behavior monitoring provides continuous visibility into how every driver operates every day, catching patterns before they result in accidents, tickets, or complaints. The data supports fair, consistent evaluation based on measurable performance rather than subjective impressions or isolated incidents.</p>
+
+        <h2>Safety Event Detection</h2>
+        <p>The system detects and records specific safety events that indicate risk. Speeding events capture when vehicles exceed posted limits or company policy thresholds. Hard braking events record sudden deceleration that suggests following too closely, distraction, or aggressive driving. Rapid acceleration events identify jackrabbit starts that waste fuel and stress drivetrains. Harsh cornering events detect turns taken at speeds that could cause rollovers or cargo shifts.</p>
+
+        <p>Event detection goes beyond simple threshold monitoring. Context matters—hard braking to avoid a collision differs from habitual aggressive driving. The system distinguishes between isolated events and patterns. A single hard brake event may reflect road conditions; repeated events across multiple days indicate a driver requiring coaching. Geographic correlation reveals whether events cluster at specific intersections, suggesting route changes rather than driver behavior changes.</p>
+
+        <h2>Driver Scorecards and Rankings</h2>
+        <p>Driver behavior data consolidates into scorecards that quantify performance across multiple dimensions. Composite scores combine speeding, braking, acceleration, and other metrics into overall safety ratings. Rankings compare drivers against fleet averages and against each other, identifying top performers and drivers needing improvement. Trend tracking shows whether individual drivers are improving or declining over time, measuring the effectiveness of coaching interventions.</p>
+
+        <p>Scorecard systems support recognition programs that motivate safe driving through positive reinforcement. Drivers who maintain high scores earn recognition, incentives, or preferred assignments. Competitive comparison among drivers creates social motivation to improve. Transparent scoring criteria ensure drivers understand exactly what behaviors the system measures and how to improve their standings. The combination of measurement, visibility, and incentive alignment drives sustained behavior change more effectively than punitive approaches alone.</p>
+
+        <h2>Coaching and Training Integration</h2>
+        <p>Driver behavior data identifies specific coaching opportunities for individual drivers. Rather than generic safety training that treats all drivers identically, targeted coaching addresses each driver's actual weakness areas. A driver with speeding issues receives different coaching than a driver with hard braking patterns. Training resources deployed against actual performance gaps produce better results than broad programs that may not address individual needs.</p>
+
+        <p>Automated coaching workflows can deliver immediate feedback to drivers after events occur. In-cab alerts warn drivers of speeding in real time. Post-trip summaries review daily performance. Escalation paths ensure persistent issues reach supervisors for personal intervention. The graduated response—automated feedback for minor issues, manager involvement for serious or repeated concerns—scales coaching effort appropriately without overwhelming managers with minor events or leaving serious issues unaddressed.</p>
+
+        <h2>Insurance and Liability Benefits</h2>
+        <p>Commercial fleet insurance premiums reflect risk, and driver behavior directly impacts that risk. Fleets that demonstrate proactive driver monitoring, coaching programs, and documented improvement often qualify for insurance discounts. In accident situations, driver behavior data provides objective documentation of pre-incident driving patterns, supporting defense against exaggerated claims and demonstrating the fleet's commitment to safety.</p>
+
+        <p>Beyond insurance benefits, driver behavior monitoring reduces the underlying accidents that generate claims, injuries, and liability. Every accident avoided saves more than insurance premiums—it prevents injuries to drivers and others, avoids vehicle downtime and repair costs, eliminates the operational disruption of accident investigation and vehicle replacement, and protects the company's reputation. The safety improvements that driver monitoring enables create value far exceeding the system's cost.</p>
+
+        <h2>Fuel and Maintenance Savings</h2>
+        <p>Driving behavior directly impacts fuel consumption and vehicle wear. Aggressive acceleration burns more fuel than smooth starts. Hard braking wears brake components faster than gradual stops. Excessive speed increases fuel consumption exponentially. Drivers coached to moderate these behaviors reduce fuel costs and extend component life across the fleet. The savings compound across every vehicle, every day, every mile—small per-trip improvements multiply into significant annual cost reductions.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Improve Driver Safety</h3>
+        <p>See how behavior monitoring reduces risk and costs.</p>
+        <a href="#contact" class="cta-button">Request Demo →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>More Fleet Intelligence</h3>
+        <div class="link-cards">
+            <a href="gps-tracking.html" class="link-card">
+                <h4>Live GPS Tracking</h4>
+                <p>Real-time vehicle location monitoring</p>
+            </a>
+            <a href="vehicle-health.html" class="link-card">
+                <h4>Vehicle Health Alerts</h4>
+                <p>Proactive maintenance notifications</p>
+            </a>
+            <a href="fuel-monitoring.html" class="link-card">
+                <h4>Fuel Monitoring</h4>
+                <p>Track consumption and reduce costs</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Intelligence</p>
+    </footer>
+</body>
+</html>
