@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Monitoring | Fleet Fuel Management & Cost Reduction | FordCommercial.ai</title>
+    <meta name="description" content="Fleet fuel monitoring and management. Track fuel consumption, identify waste, detect theft, and reduce fuel costs across your commercial vehicle fleet.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover { opacity: 0.8; }
+        .nav-links a.active { border-bottom: 2px solid var(--accent-orange); padding-bottom: 2px; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+        }
+
+        .content h2:first-of-type { margin-top: 0; }
+        .content p { margin-bottom: 1.25rem; font-size: 1.05rem; }
+        .content ul { margin: 1rem 0 1.5rem 1.5rem; }
+        .content li { margin-bottom: 0.5rem; font-size: 1.05rem; }
+
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover { background: var(--accent-orange-hover); }
+
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p { font-size: 0.9rem; color: var(--gray-mid); margin: 0; }
+
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p { opacity: 0.8; font-size: 0.9rem; }
+
+        @media (max-width: 600px) {
+            .nav-links { gap: 1rem; }
+            .content { padding: 2rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="gps-tracking.html">GPS Tracking</a></li>
+                <li><a href="vehicle-health.html">Vehicle Health</a></li>
+                <li><a href="driver-behavior.html">Driver Behavior</a></li>
+                <li><a href="fuel-monitoring.html" class="active">Fuel Monitoring</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-icon">$</div>
+        <h1>Fuel Monitoring</h1>
+        <p>Track consumption and reduce costs across your entire fleet</p>
+    </section>
+
+    <main class="content">
+        <h2>Fleet Fuel Cost Management</h2>
+        <p>FordCommercial.ai fuel monitoring transforms one of the largest fleet operating expenses from an uncontrolled variable into a managed cost center. Fuel typically represents 20-30% of total fleet operating costs, yet many fleet managers lack visibility into how fuel is actually consumed, where waste occurs, and which vehicles or drivers consume disproportionate amounts. Fuel monitoring provides the data foundation for systematic fuel cost reduction through visibility, analysis, and targeted intervention.</p>
+
+        <p>Understanding fuel consumption at the vehicle level reveals variations invisible in aggregate fuel purchasing data. Two identical trucks on similar routes may show 20% differences in fuel economy based on driver behavior, maintenance condition, and route selection. Without vehicle-level monitoring, these variations hide within overall fleet averages. With detailed consumption tracking, fleet managers identify specific opportunities—vehicles needing maintenance, drivers requiring coaching, routes worth optimizing—that produce measurable fuel savings.</p>
+
+        <h2>Consumption Tracking and Analysis</h2>
+        <p>Fuel monitoring captures consumption data continuously, calculating real-time fuel economy for every vehicle in the fleet. Dashboard views show current and historical MPG ratings, consumption trends, and comparisons against expected performance baselines. Alerts trigger when vehicles show declining fuel economy that may indicate maintenance needs, driver behavior changes, or developing mechanical problems. The early warning capability catches issues while small adjustments can restore normal efficiency.</p>
+
+        <p>Detailed analysis breaks down fuel consumption by multiple factors. Which vehicles consume the most fuel? Which drivers achieve the best economy? Which routes or territories show higher consumption? Which times of day or days of week correlate with efficiency changes? The answers inform operational decisions—reassigning efficient drivers to high-mileage routes, targeting inefficient vehicles for maintenance review, restructuring routes that consistently underperform, adjusting schedules to avoid conditions that hurt fuel economy.</p>
+
+        <h2>Idle Time Monitoring</h2>
+        <p>Excessive idling wastes fuel while producing zero productive miles. Vehicles idling for climate control, during loading operations, or while drivers take breaks consume fuel without advancing business purposes. Fuel monitoring tracks idle time by vehicle and driver, identifying patterns that represent reduction opportunities. Some idling may be operationally necessary, but much represents habit, convenience, or unawareness that can change with visibility and coaching.</p>
+
+        <p>Idle reduction programs pay back quickly. A heavy-duty truck idling one hour per day burns approximately one gallon of diesel. Across a fleet of fifty trucks over a year, that single hour of daily idle time costs over $70,000 at current fuel prices. Reducing average idle time by even fifteen minutes daily generates meaningful savings. Fuel monitoring provides the measurement foundation for setting idle reduction targets, tracking progress, and sustaining improvements over time.</p>
+
+        <h2>Fuel Card Integration and Fraud Detection</h2>
+        <p>Fuel monitoring integrates with fuel card programs to correlate purchased fuel with actual vehicle consumption. Discrepancies between fuel card transactions and vehicle fuel level changes can indicate fraud, theft, or misuse. A fuel purchase that does not correspond to a vehicle tank level increase raises immediate questions. Fuel purchases at locations inconsistent with vehicle GPS positions suggest potential problems requiring investigation.</p>
+
+        <p>Beyond fraud detection, fuel card integration provides complete fuel cost accounting by vehicle. Managers see not just consumption but actual fuel expenses including price variations, tax recovery opportunities, and vendor performance comparisons. The combined view of consumption and cost data supports vendor negotiations, fueling strategy optimization, and accurate cost allocation to departments, projects, or customers that consume fleet resources.</p>
+
+        <h2>Benchmark Comparisons</h2>
+        <p>Fuel monitoring establishes performance benchmarks that put individual vehicle and driver performance in context. How does each vehicle compare to others of the same type in similar service? How do drivers compare to their peers on similar routes? Benchmark comparisons distinguish between acceptable variation and outliers requiring attention. A vehicle running 15% below fleet average clearly needs investigation; a vehicle running 2% below average falls within normal variation.</p>
+
+        <p>Benchmarks also evolve with operational changes. When fuel prices spike, consumption patterns often shift as drivers unconsciously moderate behavior. When new vehicles enter the fleet, they establish new efficiency expectations. Seasonal variations affect consumption as climate control demands change. Dynamic benchmarking that adjusts for these factors maintains meaningful comparisons regardless of external conditions, keeping focus on controllable performance variations.</p>
+
+        <h2>Environmental and Compliance Reporting</h2>
+        <p>Fuel consumption directly correlates with carbon emissions and environmental impact. Fuel monitoring data supports sustainability reporting, emissions calculations, and environmental compliance documentation. Organizations with carbon reduction commitments need accurate baseline data and progress tracking—fuel monitoring provides both. For fleets subject to emissions regulations or operating in jurisdictions with carbon reporting requirements, consumption data simplifies compliance documentation.</p>
+
+        <p>The fuel efficiency improvements that monitoring enables reduce both costs and environmental impact simultaneously. Every gallon saved eliminates approximately 22 pounds of CO2 emissions. Fleet fuel management thus serves both financial and sustainability objectives, making the business case for monitoring compelling from multiple perspectives. Organizations can demonstrate environmental responsibility while simultaneously reducing operating costs.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Reduce Fuel Costs</h3>
+        <p>See how fuel monitoring cuts consumption and waste.</p>
+        <a href="#contact" class="cta-button">Request Demo →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>More Fleet Intelligence</h3>
+        <div class="link-cards">
+            <a href="gps-tracking.html" class="link-card">
+                <h4>Live GPS Tracking</h4>
+                <p>Real-time vehicle location monitoring</p>
+            </a>
+            <a href="vehicle-health.html" class="link-card">
+                <h4>Vehicle Health Alerts</h4>
+                <p>Proactive maintenance notifications</p>
+            </a>
+            <a href="driver-behavior.html" class="link-card">
+                <h4>Driver Behavior</h4>
+                <p>Speed, braking, and coaching insights</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Intelligence</p>
+    </footer>
+</body>
+</html>
