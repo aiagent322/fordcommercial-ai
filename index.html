@@ -2757,28 +2757,24 @@
             
             console.log('Lead Submission:', payload);
             
-            // TODO: Replace with actual API endpoint
-            // For now, simulate success and show confirmation
-            // In production, this would POST to Cloudflare Worker endpoint
-            
-            /*
-            fetch('https://api.fordcommercial.ai/leads', {
+            // Submit to Cloudflare Worker endpoint
+            fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
             .then(response => response.json())
             .then(result => {
-                showSuccess(formType);
+                if (result.success) {
+                    showSuccess(formType);
+                } else {
+                    throw new Error(result.error || 'Submission failed');
+                }
             })
             .catch(error => {
                 console.error('Lead submission error:', error);
                 alert('There was an error submitting your request. Please try again or call (844) 877-9033.');
             });
-            */
-            
-            // Simulate success for now
-            showSuccess(formType);
         }
         
         function showSuccess(formType) {
