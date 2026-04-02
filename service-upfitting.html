@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Service & Upfitting | Truck Bodies, Lifts & Equipment | FordCommercial.ai</title>
+    <meta name="description" content="Commercial vehicle upfitting, service body installation, truck equipment, cargo van shelving, lift gates, and fleet maintenance. Certified upfitters and nationwide service network.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 2px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .content p {
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-orange-hover);
+        }
+
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p {
+            font-size: 0.95rem;
+            color: var(--gray-mid);
+            margin: 0;
+        }
+
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--white);
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .content {
+                padding: 2rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="fleet-sales.html">Fleet Sales</a></li>
+                <li><a href="government-sales.html">Government Sales</a></li>
+                <li><a href="service-upfitting.html" class="active">Service & Upfitting</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Commercial Service & Upfitting</h1>
+        <p>Service bodies, cargo equipment, lift gates, and certified fleet maintenance for work-ready vehicles</p>
+    </section>
+
+    <main class="content">
+        <h2>Commercial Vehicle Upfitting</h2>
+        <p>FordCommercial.ai transforms base vehicles into work-ready machines through professional upfitting services. Upfitting encompasses everything from basic cargo van shelving to complete service body installations on chassis cab trucks. Our network of certified upfitters installs equipment that meets manufacturer specifications, maintains warranty coverage, and satisfies OSHA and DOT requirements for commercial applications. Whether you need a single van equipped for mobile service calls or fifty trucks outfitted with identical utility bodies, our upfit coordination team manages the entire process.</p>
+
+        <p>The commercial upfitting industry has evolved far beyond bolt-on accessories. Modern upfits involve electrical system integration, structural modifications, hydraulic installations, and technology packages that transform vehicles into mobile workstations. Plumbers need cargo vans with pipe racks, parts bins, and mounted equipment. Electricians require service bodies with organized storage for wire spools, conduit, and tools. HVAC contractors demand trucks configured for refrigerant tanks, recovery equipment, and ladder access. FordCommercial.ai matches each trade to the upfit package that maximizes productivity while minimizing installation time and cost.</p>
+
+        <h2>Service Body Categories</h2>
+        <p>Service bodies represent the largest segment of commercial upfitting. These purpose-built truck bodies replace the standard pickup bed with compartmentalized storage, work surfaces, and mounting points for specialized equipment:</p>
+        <ul>
+            <li>Contractor service bodies with multiple compartments and ladder racks</li>
+            <li>Utility bodies for municipal and utility company applications</li>
+            <li>Mechanics bodies with crane mounts and heavy-duty storage</li>
+            <li>Landscape bodies with side access and dump capability</li>
+            <li>Flatbeds and platform bodies for hauling equipment and materials</li>
+            <li>Enclosed service bodies for climate-sensitive tools and inventory</li>
+        </ul>
+
+        <h2>Cargo Van Equipment</h2>
+        <p>Cargo vans serve as the backbone of mobile service businesses, delivery operations, and contractor fleets. Factory cargo vans arrive as empty shells—the upfit transforms them into organized, efficient workspaces. FordCommercial.ai installs shelving systems, partition walls, ladder racks, lighting packages, and interior protection that converts Transit and Transit Connect vans into rolling warehouses.</p>
+
+        <p>Commercial van shelving has become increasingly sophisticated. Modular systems allow businesses to reconfigure storage as their needs evolve. Drawer units secure small parts and tools. Bin systems organize inventory for quick access. Partition walls protect drivers from shifting cargo. Interior LED lighting ensures visibility during early morning and evening service calls. Our upfit packages address specific trades—electrical, plumbing, HVAC, locksmith, appliance repair—with configurations developed from real-world feedback and productivity analysis.</p>
+
+        <h2>Specialty Equipment Installation</h2>
+        <p>Beyond standard upfitting, commercial vehicles often require specialty equipment that demands professional installation and integration. Lift gates for loading and unloading heavy cargo. Cranes and hoists for service trucks. Generators and inverters for mobile power. Compressors and welders for field fabrication. Refrigeration units for cold chain delivery. Each installation involves electrical load calculations, structural mounting analysis, and integration with vehicle systems.</p>
+
+        <p>FordCommercial.ai coordinates specialty installations through certified equipment providers who understand both the equipment and the vehicle platforms. Improper installation voids warranties, creates safety hazards, and leads to premature equipment failure. Our upfit network follows manufacturer specifications, uses approved mounting hardware, and tests every installation before delivery. The result is equipment that performs reliably throughout its service life without compromising the underlying vehicle.</p>
+
+        <h2>Fleet Maintenance Programs</h2>
+        <p>Commercial vehicles endure duty cycles far more demanding than consumer vehicles. Daily starts and stops, heavy payload operation, extended idle time, and demanding environments accelerate wear on engines, transmissions, brakes, and electrical systems. FordCommercial.ai offers fleet maintenance programs that keep commercial vehicles operating reliably while controlling long-term ownership costs.</p>
+
+        <p>Preventive maintenance catches problems before they cause downtime. Our service programs include scheduled oil changes, brake inspections, tire rotations, fluid checks, and multi-point inspections calibrated to commercial duty cycles. For fleets operating medium-duty and heavy-duty trucks, diesel-specific maintenance—including DEF system service, turbocharger inspection, and fuel system maintenance—keeps emissions compliant and engines performing at specification.</p>
+
+        <p>When repairs become necessary, our commercial service centers prioritize fleet vehicles to minimize downtime. Loaner vehicles and priority scheduling keep your operations moving while repairs complete. Extended warranty programs and maintenance contracts provide budget predictability, converting unexpected repair costs into planned monthly expenses. For fleet managers tracking total cost of ownership, these programs simplify financial planning while ensuring vehicles remain safe and reliable.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Ready to Upfit Your Fleet?</h3>
+        <p>Contact our commercial service team for upfit quotes and maintenance programs.</p>
+        <a href="#contact" class="cta-button">Request Upfit Quote →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>Explore More Services</h3>
+        <div class="link-cards">
+            <a href="fleet-sales.html" class="link-card">
+                <h4>Fleet Sales & Leasing</h4>
+                <p>Commercial trucks, cargo vans, and fleet vehicles with factory-direct pricing.</p>
+            </a>
+            <a href="government-sales.html" class="link-card">
+                <h4>Government & Municipal Contracts</h4>
+                <p>GSA schedules, state contracts, and municipal fleet procurement programs.</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Sales, Leasing & Service</p>
+    </footer>
+</body>
+</html>
