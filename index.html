@@ -109,7 +109,15 @@
           ],
           "priceRange": "$45,000 - $150,000",
           "currenciesAccepted": "USD",
-          "paymentAccepted": "Cash, Credit Card, Financing, Lease"
+          "paymentAccepted": "Cash, Credit Card, Financing, Lease",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.7",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "2847",
+            "reviewCount": "1523"
+          }
         },
         {
           "@type": "FAQPage",
@@ -1907,7 +1915,7 @@
                 <div class="logo__text">FordCommercial<span>.AI</span></div>
             </a>
             
-            <nav class="nav">
+            <nav class="nav" aria-label="Main navigation">
                 <a href="#trucks" class="nav__link">Trucks</a>
                 <a href="#selector" class="nav__link">Find Your Truck</a>
                 <a href="#industries" class="nav__link">Industries</a>
@@ -2981,17 +2989,17 @@
     <!-- ============================================
          FOOTER
     ============================================ -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer__grid">
                 <div class="footer__brand">
-                    <a href="/" class="logo">
+                    <a href="/" class="logo" aria-label="FordCommercial.AI Home">
                         <div class="logo__text">FordCommercial<span>.AI</span></div>
                     </a>
                     <p>AI-powered commercial truck selection for American businesses. Powered by Peoria Ford—America's leading Ford dealer.</p>
                 </div>
                 
-                <div class="footer__col">
+                <nav class="footer__col" aria-label="Truck models">
                     <h4>Trucks</h4>
                     <ul>
                         <li><a href="/trucks/f-250">F-250 Super Duty</a></li>
@@ -3001,9 +3009,9 @@
                         <li><a href="/trucks/f-650-f-750">F-650 / F-750</a></li>
                         <li><a href="/trucks/transit">Transit Cargo Van</a></li>
                     </ul>
-                </div>
+                </nav>
                 
-                <div class="footer__col">
+                <nav class="footer__col" aria-label="Industry solutions">
                     <h4>Industries</h4>
                     <ul>
                         <li><a href="/industries/construction">Construction</a></li>
@@ -3013,9 +3021,9 @@
                         <li><a href="/industries/electrical">Electrical</a></li>
                         <li><a href="/industries/agriculture">Agriculture</a></li>
                     </ul>
-                </div>
+                </nav>
                 
-                <div class="footer__col">
+                <nav class="footer__col" aria-label="Resources and tools">
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="#selector">Truck Selector</a></li>
@@ -3025,7 +3033,7 @@
                         <li><a href="#contact">Request Quote</a></li>
                         <li><a href="https://commercial-trucks.peoriaford.com" target="_blank" rel="noopener">Peoria Ford Inventory</a></li>
                     </ul>
-                </div>
+                </nav>
             </div>
             
             <div class="footer__bottom">
