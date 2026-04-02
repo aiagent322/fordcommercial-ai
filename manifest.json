@@ -1,0 +1,24 @@
+{
+  "name": "FordCommercial.AI",
+  "short_name": "FordCommercial",
+  "description": "AI-powered commercial truck selection for American businesses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#003478",
+  "theme_color": "#003478",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "automotive"],
+  "lang": "en-US"
+}
