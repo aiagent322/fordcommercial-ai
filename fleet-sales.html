@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Sales & Leasing | Commercial Trucks, Vans & Vehicles | FordCommercial.ai</title>
+    <meta name="description" content="Commercial fleet sales and leasing for work trucks, cargo vans, box trucks, chassis cabs, and service vehicles. Factory-direct pricing with nationwide delivery from FordCommercial.ai">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 2px;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .content p {
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-orange-hover);
+        }
+
+        /* Internal Links Section */
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p {
+            font-size: 0.95rem;
+            color: var(--gray-mid);
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--white);
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .content {
+                padding: 2rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="fleet-sales.html" class="active">Fleet Sales</a></li>
+                <li><a href="government-sales.html">Government Sales</a></li>
+                <li><a href="service-upfitting.html">Service & Upfitting</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Fleet Sales & Leasing</h1>
+        <p>Commercial trucks, cargo vans, and fleet vehicles with factory-direct pricing and nationwide delivery</p>
+    </section>
+
+    <main class="content">
+        <h2>Commercial Fleet Vehicle Sales</h2>
+        <p>FordCommercial.ai connects businesses with the commercial vehicles they need to operate, grow, and compete. Our fleet sales division specializes in work trucks, cargo vans, box trucks, chassis cabs, cutaway vans, service bodies, and specialty commercial vehicles. Whether your operation requires a single pickup truck or a fleet of fifty transit vans, our certified fleet specialists deliver volume pricing, priority allocation, and streamlined procurement that independent buyers cannot access.</p>
+
+        <p>Commercial fleet purchasing differs fundamentally from retail vehicle buying. Fleet managers require consistent specifications across multiple units, predictable delivery timelines, and pricing structures that support long-term budgeting. FordCommercial.ai maintains direct relationships with commercial vehicle manufacturers and authorized distributors, enabling us to secure factory-direct pricing on high-demand models including the Ford F-Series Super Duty, Ford Transit, Ford E-Transit, Ford Transit Connect, and Ford Maverick. Our inventory access extends to chassis cab configurations ready for custom body installation, cutaway models for box truck and ambulance builds, and stripped chassis for specialized vocational applications.</p>
+
+        <h2>Flexible Leasing Programs</h2>
+        <p>Commercial vehicle leasing provides businesses with predictable monthly expenses, reduced maintenance liability, and built-in fleet refresh cycles. FordCommercial.ai offers lease terms from 24 to 60 months with mileage allowances structured for commercial use patterns. Our leasing programs include closed-end leases for businesses that prefer to return vehicles at term, open-end leases for operations that put heavy miles on equipment, and TRAC leases designed specifically for commercial fleet applications.</p>
+
+        <p>Lease versus purchase analysis depends on your tax situation, cash flow requirements, and fleet utilization patterns. Our fleet consultants provide side-by-side comparisons showing total cost of ownership under each scenario, factoring depreciation schedules, interest rates, maintenance projections, and residual value estimates. Many fleet operators choose a blended approach, purchasing core vehicles they will operate long-term while leasing specialty units or vehicles assigned to high-turnover positions.</p>
+
+        <h2>Vehicle Categories and Configurations</h2>
+        <p>The commercial vehicle market encompasses far more than standard pickup trucks. FordCommercial.ai supplies vehicles across every commercial category:</p>
+        <ul>
+            <li>Light-duty pickups and chassis cabs (F-150, F-250, F-350)</li>
+            <li>Medium-duty trucks and chassis (F-450, F-550, F-600, F-650, F-750)</li>
+            <li>Full-size cargo vans and passenger vans (Transit, E-Transit)</li>
+            <li>Compact cargo vans (Transit Connect)</li>
+            <li>Cutaway and stripped chassis for custom body installation</li>
+            <li>Electric commercial vehicles for zero-emission fleet requirements</li>
+        </ul>
+
+        <h2>Nationwide Delivery and Support</h2>
+        <p>Geography should not limit your fleet options. FordCommercial.ai coordinates nationwide delivery for single units and multi-vehicle fleet orders. Our logistics team manages factory-to-dealer transfers, upfitter staging, and final-mile delivery to your facility. For fleet orders requiring identical specifications, we coordinate production scheduling to ensure all units arrive within your deployment window.</p>
+
+        <p>After-sale support matters as much as the initial transaction. Our fleet account managers remain your point of contact for warranty coordination, service scheduling, parts procurement, and future vehicle orders. When your operation expands or your fleet ages out, the relationship you have built with FordCommercial.ai ensures priority access to replacement inventory and loyalty pricing on subsequent orders.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Ready to Build Your Fleet?</h3>
+        <p>Contact our commercial team for volume pricing and availability.</p>
+        <a href="#contact" class="cta-button">Request Fleet Pricing →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>Explore More Services</h3>
+        <div class="link-cards">
+            <a href="government-sales.html" class="link-card">
+                <h4>Government & Municipal Contracts</h4>
+                <p>GSA schedules, state contracts, and municipal fleet procurement programs.</p>
+            </a>
+            <a href="service-upfitting.html" class="link-card">
+                <h4>Commercial Service & Upfitting</h4>
+                <p>Service bodies, shelving, lifts, and vocational equipment installation.</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Sales, Leasing & Service</p>
+    </footer>
+</body>
+</html>
