@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live GPS Fleet Tracking | Real-Time Vehicle Location | FordCommercial.ai</title>
+    <meta name="description" content="Real-time GPS fleet tracking for commercial vehicles. Live location monitoring, geofencing, route optimization, and fleet visibility from one dashboard.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 2px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .content p {
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-orange-hover);
+        }
+
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p {
+            font-size: 0.9rem;
+            color: var(--gray-mid);
+            margin: 0;
+        }
+
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .content {
+                padding: 2rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="gps-tracking.html" class="active">GPS Tracking</a></li>
+                <li><a href="vehicle-health.html">Vehicle Health</a></li>
+                <li><a href="driver-behavior.html">Driver Behavior</a></li>
+                <li><a href="fuel-monitoring.html">Fuel Monitoring</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-icon">📍</div>
+        <h1>Live GPS Tracking</h1>
+        <p>Know where every vehicle is in real time with fleet-wide location visibility</p>
+    </section>
+
+    <main class="content">
+        <h2>Real-Time Fleet Location Monitoring</h2>
+        <p>FordCommercial.ai delivers live GPS tracking that shows you exactly where every vehicle in your fleet is operating at any moment. Fleet managers gain complete visibility into vehicle locations, movement patterns, and stop durations through a centralized dashboard accessible from desktop computers, tablets, and smartphones. Whether your fleet includes five vehicles or five hundred, real-time tracking transforms how you dispatch, monitor, and manage daily operations.</p>
+
+        <p>Modern GPS fleet tracking goes far beyond simple dots on a map. The system captures continuous location data, creating detailed records of where vehicles travel throughout each workday. This data feeds into route analysis, customer service verification, and operational reporting. When a customer calls asking for an ETA, dispatchers can provide accurate arrival times based on actual vehicle positions rather than estimates. When questions arise about job completion or site visits, GPS records provide objective documentation of when vehicles arrived and departed.</p>
+
+        <h2>Geofencing and Boundary Alerts</h2>
+        <p>Geofencing allows fleet managers to define virtual boundaries around job sites, customer locations, service territories, and restricted areas. When vehicles enter or exit these predefined zones, the system generates automatic notifications. This capability supports multiple operational needs—confirming technicians arrived at scheduled appointments, alerting when vehicles leave authorized operating areas, tracking time spent at specific locations, and documenting customer site visits for billing verification.</p>
+
+        <p>Construction companies use geofencing to monitor equipment arriving at job sites. Service businesses track technician arrivals for appointment verification. Delivery operations confirm drop-off completions. Security and compliance teams receive alerts when vehicles enter restricted zones or travel outside approved territories. The flexibility of geofencing adapts to virtually any business requirement where location-based awareness adds value.</p>
+
+        <h2>Route Optimization and Efficiency</h2>
+        <p>GPS tracking data reveals inefficiencies invisible to traditional fleet management. Analysis of actual routes traveled exposes unnecessary mileage, inefficient sequencing, and patterns that increase fuel consumption and vehicle wear. Fleet managers can compare planned routes against actual routes, identifying drivers who consistently deviate from optimal paths and routes that should be restructured for better efficiency.</p>
+
+        <p>Historical tracking data supports strategic planning decisions. Understanding where vehicles spend time, which routes experience delays, and how territory coverage actually unfolds helps managers redesign service territories, adjust staffing levels, and optimize scheduling. The insights extend beyond individual trips to reveal fleet-wide patterns that impact profitability and customer service quality.</p>
+
+        <h2>Dispatch and Customer Service</h2>
+        <p>Real-time location visibility transforms dispatch operations. Rather than calling drivers to determine their positions, dispatchers see the entire fleet on a single screen. Assigning the nearest available vehicle to urgent calls becomes instant rather than investigative. Rerouting vehicles around traffic delays or shifting priorities happens with complete situational awareness. Customer service representatives provide accurate ETAs and proactively communicate delays before customers need to call and ask.</p>
+
+        <p>The integration of GPS tracking with scheduling and dispatch systems creates seamless workflows. Jobs assigned in the morning automatically populate driver routes. As vehicles complete stops, the system updates job status in real time. Managers monitor progress throughout the day without interrupting drivers for status updates. End-of-day reporting generates automatically from tracked data rather than requiring manual driver input.</p>
+
+        <h2>Security and Asset Protection</h2>
+        <p>GPS tracking provides 24/7 visibility into vehicle locations, even outside business hours. If vehicles move unexpectedly during nights or weekends, alerts notify designated contacts immediately. In theft situations, real-time tracking helps law enforcement locate and recover vehicles quickly. The deterrent effect alone reduces theft risk—vehicles known to have GPS tracking become less attractive targets.</p>
+
+        <p>Beyond theft prevention, tracking supports accountability and policy compliance. Managers can verify that vehicles return to authorized parking locations at shift end. Unauthorized personal use of company vehicles becomes visible through after-hours tracking data. The transparency GPS tracking provides supports clear expectations and consistent policy enforcement across the entire fleet.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Get Fleet Visibility</h3>
+        <p>See how GPS tracking transforms fleet operations.</p>
+        <a href="#contact" class="cta-button">Request Demo →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>More Fleet Intelligence</h3>
+        <div class="link-cards">
+            <a href="vehicle-health.html" class="link-card">
+                <h4>Vehicle Health Alerts</h4>
+                <p>Proactive maintenance notifications</p>
+            </a>
+            <a href="driver-behavior.html" class="link-card">
+                <h4>Driver Behavior</h4>
+                <p>Speed, braking, and coaching insights</p>
+            </a>
+            <a href="fuel-monitoring.html" class="link-card">
+                <h4>Fuel Monitoring</h4>
+                <p>Track consumption and reduce costs</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Intelligence</p>
+    </footer>
+</body>
+</html>
