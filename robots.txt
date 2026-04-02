@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fordcommercial-ai.pages.dev/sitemap.xml
+Sitemap: https://fordcommercial.ai/sitemap.xml
