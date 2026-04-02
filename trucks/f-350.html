@@ -2,194 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#003478">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Ford F-350 Super Duty | Heavy-Duty Commercial Truck | FordCommercial.AI</title>
     <meta name="description" content="The Ford F-350 Super Duty delivers maximum payload and towing for serious commercial work. Dually and SRW configurations. Get fleet pricing from Peoria Ford.">
     <meta name="keywords" content="Ford F-350 Phoenix, F-350 Super Duty Arizona, F-350 dually, commercial truck dealer Peoria, heavy duty work truck">
-    <link rel="canonical" href="https://fordcommercial.ai/trucks/f-350.html">
-    
+    <link rel="canonical" href="https://fordcommercial.ai/trucks/f-350">
     <meta property="og:title" content="Ford F-350 Super Duty | FordCommercial.AI">
     <meta property="og:description" content="Maximum capability for maximum demands. F-350 Super Duty for construction, towing, and heavy commercial work.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fordcommercial.ai/trucks/f-350.html">
-    
+    <meta property="og:url" content="https://fordcommercial.ai/trucks/f-350">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --ford-blue: #003478;
-            --ford-blue-dark: #00254d;
-            --ford-blue-light: #1a5dab;
-            --ford-silver: #a7a8aa;
-            --ford-silver-light: #d1d3d4;
-            --arizona-copper: #b87333;
-            --arizona-sunset: #e85d04;
-            --white: #ffffff;
-            --off-white: #f8f9fa;
-            --charcoal: #1a1a1a;
-            --text-dark: #2d2d2d;
-            --text-muted: #6c757d;
-            --font-display: 'Oswald', sans-serif;
-            --font-body: 'Source Sans 3', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-        body { font-family: var(--font-body); color: var(--text-dark); line-height: 1.6; background: var(--white); font-size: 16px; overflow-x: hidden; }
-        .header { background: var(--ford-blue); border-bottom: 3px solid var(--arizona-copper); padding: 0.75rem 0; position: sticky; top: 0; z-index: 100; }
-        .header__inner { display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; }
-        .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--white); }
-        .logo__icon { width: 36px; height: 36px; background: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .logo__icon svg { width: 22px; height: 22px; fill: var(--ford-blue); }
-        .logo__text { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
-        .logo__text span { color: var(--arizona-copper); }
-        .header__cta { background: var(--arizona-sunset); color: var(--white); padding: 0.5rem 0.75rem; font-family: var(--font-display); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; text-decoration: none; border-radius: 2px; }
-        .hero { background: linear-gradient(145deg, var(--ford-blue-dark) 0%, var(--ford-blue) 100%); color: var(--white); padding: 2rem 1rem 2.5rem; text-align: center; }
-        .hero__badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.12); padding: 0.4rem 0.8rem; border-radius: 2rem; font-size: 0.75rem; margin-bottom: 1rem; }
-        .hero__badge svg { width: 12px; height: 12px; }
-        .hero__title { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; text-transform: uppercase; line-height: 1.1; margin-bottom: 0.25rem; }
-        .hero__subtitle { font-family: var(--font-display); font-size: 1rem; color: var(--arizona-copper); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
-        .hero__tagline { font-size: 0.95rem; line-height: 1.5; opacity: 0.9; }
-        .specs-bar { background: var(--charcoal); padding: 1.25rem 1rem; }
-        .specs-bar__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: center; }
-        .spec-item__value { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--arizona-copper); }
-        .spec-item__label { font-size: 0.65rem; color: var(--ford-silver-light); text-transform: uppercase; letter-spacing: 0.05em; }
-        .content { padding: 2rem 1rem; }
-        .content__grid { display: flex; flex-direction: column; gap: 2rem; }
-        .content h2 { font-family: var(--font-display); font-size: 1.3rem; color: var(--ford-blue); text-transform: uppercase; margin: 1.5rem 0 0.75rem; }
-        .content h2:first-child { margin-top: 0; }
-        .content p { margin-bottom: 0.9rem; font-size: 0.95rem; line-height: 1.65; }
-        .content ul { margin: 0.75rem 0 1.25rem 1.25rem; font-size: 0.95rem; }
-        .content li { margin-bottom: 0.4rem; line-height: 1.5; }
-        .sidebar { background: var(--off-white); border: 2px solid var(--ford-silver-light); padding: 1.5rem; }
-        .sidebar__title { font-family: var(--font-display); font-size: 1.1rem; color: var(--ford-blue); text-transform: uppercase; margin-bottom: 1rem; text-align: center; }
-        .sidebar__cta { display: block; background: var(--arizona-sunset); color: var(--white); padding: 0.9rem; font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; text-align: center; text-decoration: none; margin-bottom: 0.75rem; }
-        .sidebar__cta--secondary { background: var(--ford-blue); }
-        .sidebar__note { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
-        .other-trucks { background: var(--ford-blue); padding: 2rem 1rem; color: var(--white); }
-        .other-trucks__title { font-family: var(--font-display); font-size: 1.2rem; text-transform: uppercase; text-align: center; margin-bottom: 1.25rem; }
-        .trucks-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-        .truck-link { display: block; background: rgba(255,255,255,0.1); padding: 1rem 0.5rem; text-align: center; text-decoration: none; color: var(--white); border: 2px solid transparent; }
-        .truck-link:active { background: rgba(255,255,255,0.2); border-color: var(--arizona-copper); }
-        .truck-link__model { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
-        .truck-link__type { font-size: 0.65rem; color: var(--arizona-copper); text-transform: uppercase; }
-        .footer { background: var(--charcoal); color: var(--ford-silver); padding: 1.5rem 1rem; text-align: center; font-size: 0.8rem; }
-        .footer a { color: var(--arizona-copper); }
-        @media (min-width: 600px) {
-            .header__inner { padding: 0 1.5rem; }
-            .logo__icon { width: 42px; height: 42px; }
-            .logo__icon svg { width: 26px; height: 26px; }
-            .logo__text { font-size: 1.25rem; }
-            .header__cta { padding: 0.6rem 1rem; font-size: 0.8rem; }
-            .hero { padding: 2.5rem 1.5rem 3rem; }
-            .hero__title { font-size: 2.8rem; }
-            .hero__subtitle { font-size: 1.2rem; }
-            .specs-bar__grid { grid-template-columns: repeat(4, 1fr); }
-            .spec-item__value { font-size: 1.6rem; }
-            .content { padding: 2.5rem 1.5rem; }
-            .content h2 { font-size: 1.5rem; }
-            .trucks-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (min-width: 900px) {
-            .header { padding: 1rem 0; }
-            .header__inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-            .logo__icon { width: 48px; height: 48px; }
-            .logo__icon svg { width: 32px; height: 32px; }
-            .logo__text { font-size: 1.4rem; }
-            .header__cta { padding: 0.75rem 1.5rem; font-size: 0.85rem; }
-            .hero { padding: 4rem 2rem 5rem; }
-            .hero__title { font-size: 3.5rem; }
-            .hero__subtitle { font-size: 1.5rem; }
-            .hero__tagline { font-size: 1.15rem; max-width: 600px; margin: 0 auto; }
-            .specs-bar { padding: 2rem; }
-            .specs-bar__grid { max-width: 1000px; margin: 0 auto; }
-            .spec-item__value { font-size: 2rem; }
-            .spec-item__label { font-size: 0.8rem; }
-            .content { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
-            .content__grid { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; align-items: start; }
-            .content h2 { font-size: 1.8rem; margin: 2rem 0 1rem; }
-            .content p { font-size: 1.05rem; }
-            .sidebar { position: sticky; top: 5rem; padding: 2rem; }
-            .sidebar__title { font-size: 1.3rem; }
-            .other-trucks { padding: 4rem 2rem; }
-            .other-trucks__title { font-size: 1.8rem; margin-bottom: 2rem; }
-            .trucks-grid { max-width: 900px; margin: 0 auto; gap: 1.5rem; }
-            .truck-link { padding: 1.5rem; }
-            .truck-link:hover { background: rgba(255,255,255,0.15); border-color: var(--arizona-copper); }
-            .truck-link__model { font-size: 1.4rem; }
-            .footer { padding: 2rem; font-size: 0.9rem; }
-        }
+        :root{--ford-blue:#003478;--ford-blue-dark:#00254d;--ford-blue-light:#1a5dab;--ford-silver:#a7a8aa;--ford-silver-light:#d1d3d4;--arizona-copper:#b87333;--arizona-sunset:#e85d04;--arizona-sunset-dark:#c94e00;--white:#fff;--off-white:#f8f9fa;--charcoal:#1a1a1a;--text-dark:#2d2d2d;--text-muted:#6c757d;--font-display:'Oswald',sans-serif;--font-body:'Source Sans 3',sans-serif;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--touch-min:44px}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(184,115,51,.3)}body{font-family:var(--font-body);color:var(--text-dark);line-height:1.6;background:var(--white);font-size:16px;overflow-x:hidden;padding-top:var(--safe-top);padding-bottom:var(--safe-bottom)}.header{background:var(--ford-blue);border-bottom:3px solid var(--arizona-copper);padding:.5rem 0;position:sticky;top:0;z-index:100}.header__inner{display:flex;align-items:center;justify-content:space-between;padding:0 .75rem;gap:.5rem}.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--white);min-height:var(--touch-min);padding:.25rem 0}.logo__icon{width:32px;height:32px;background:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.logo__icon svg{width:20px;height:20px;fill:var(--ford-blue)}.logo__text{font-family:var(--font-display);font-size:1rem;font-weight:700;line-height:1.2}.logo__text span{color:var(--arizona-copper)}.header__cta{background:var(--arizona-sunset);color:var(--white);padding:.6rem .9rem;font-family:var(--font-display);font-size:.7rem;font-weight:600;text-transform:uppercase;text-decoration:none;border-radius:3px;min-height:var(--touch-min);display:flex;align-items:center;white-space:nowrap}.header__cta:active{background:var(--arizona-sunset-dark);transform:scale(.98)}.hero{background:linear-gradient(145deg,var(--ford-blue-dark) 0%,var(--ford-blue) 100%);color:var(--white);padding:1.75rem 1rem 2rem;text-align:center}.hero__badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.12);padding:.35rem .7rem;border-radius:2rem;font-size:.7rem;margin-bottom:.75rem}.hero__badge svg{width:11px;height:11px}.hero__title{font-family:var(--font-display);font-size:2.4rem;font-weight:700;text-transform:uppercase;line-height:1;margin-bottom:.15rem}.hero__subtitle{font-family:var(--font-display);font-size:.95rem;color:var(--arizona-copper);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.85rem}.hero__tagline{font-size:.9rem;line-height:1.45;opacity:.92;max-width:320px;margin:0 auto}.specs-bar{background:var(--charcoal);padding:1rem .75rem}.specs-bar__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem .5rem;text-align:center}.spec-item{padding:.5rem .25rem}.spec-item__value{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--arizona-copper);line-height:1.1}.spec-item__label{font-size:.6rem;color:var(--ford-silver-light);text-transform:uppercase;letter-spacing:.04em;margin-top:.15rem;line-height:1.2}.content{padding:1.75rem 1rem}.content__grid{display:flex;flex-direction:column;gap:1.5rem}.content h2{font-family:var(--font-display);font-size:1.25rem;color:var(--ford-blue);text-transform:uppercase;margin:1.25rem 0 .6rem;line-height:1.15}.content h2:first-child{margin-top:0}.content p{margin-bottom:.85rem;font-size:.95rem;line-height:1.6}.content ul{margin:.6rem 0 1rem 1.1rem;font-size:.95rem}.content li{margin-bottom:.35rem;line-height:1.5;padding-left:.25rem}.sidebar{background:var(--off-white);border:2px solid var(--ford-silver-light);border-radius:4px;padding:1.25rem 1rem}.sidebar__title{font-family:var(--font-display);font-size:1.05rem;color:var(--ford-blue);text-transform:uppercase;margin-bottom:.85rem;text-align:center}.sidebar__cta{display:flex;align-items:center;justify-content:center;background:var(--arizona-sunset);color:var(--white);padding:.85rem 1rem;font-family:var(--font-display);font-size:.85rem;font-weight:600;text-transform:uppercase;text-decoration:none;margin-bottom:.6rem;border-radius:3px;min-height:var(--touch-min)}.sidebar__cta:active{background:var(--arizona-sunset-dark);transform:scale(.98)}.sidebar__cta--secondary{background:var(--ford-blue)}.sidebar__cta--secondary:active{background:var(--ford-blue-dark)}.sidebar__cta--phone{background:transparent;border:2px solid var(--ford-blue);color:var(--ford-blue)}.sidebar__cta--phone:active{background:var(--ford-blue);color:var(--white)}.sidebar__note{font-size:.75rem;color:var(--text-muted);text-align:center;margin-top:.6rem;line-height:1.4}.other-trucks{background:var(--ford-blue);padding:1.75rem .75rem;color:var(--white)}.other-trucks__title{font-family:var(--font-display);font-size:1.1rem;text-transform:uppercase;text-align:center;margin-bottom:1rem}.trucks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}.truck-link{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.08);padding:.9rem .5rem;text-decoration:none;color:var(--white);border:2px solid transparent;border-radius:3px;min-height:70px}.truck-link:active{background:rgba(255,255,255,.18);border-color:var(--arizona-copper)}.truck-link__model{font-family:var(--font-display);font-size:1.15rem;font-weight:700;line-height:1.1}.truck-link__type{font-size:.6rem;color:var(--arizona-copper);text-transform:uppercase;margin-top:.2rem}.footer{background:var(--charcoal);color:var(--ford-silver);padding:1.25rem 1rem calc(1.25rem + var(--safe-bottom));text-align:center;font-size:.75rem;line-height:1.6}.footer a{color:var(--arizona-copper)}.footer__line{display:block;margin-top:.25rem}@media(min-width:600px){.header{padding:.65rem 0}.header__inner{padding:0 1.25rem}.logo__icon{width:40px;height:40px}.logo__icon svg{width:24px;height:24px}.logo__text{font-size:1.2rem}.header__cta{padding:.65rem 1.1rem;font-size:.75rem}.hero{padding:2.5rem 1.5rem 3rem}.hero__badge{font-size:.8rem}.hero__title{font-size:3rem}.hero__subtitle{font-size:1.15rem}.hero__tagline{font-size:1rem;max-width:480px}.specs-bar{padding:1.25rem 1.5rem}.specs-bar__grid{grid-template-columns:repeat(4,1fr);gap:1rem}.spec-item__value{font-size:1.5rem}.spec-item__label{font-size:.65rem}.content{padding:2.5rem 1.5rem}.content h2{font-size:1.4rem;margin:1.5rem 0 .75rem}.content p{font-size:1rem}.sidebar{padding:1.5rem}.sidebar__title{font-size:1.15rem}.other-trucks{padding:2.5rem 1.5rem}.other-trucks__title{font-size:1.3rem;margin-bottom:1.25rem}.trucks-grid{grid-template-columns:repeat(4,1fr);gap:.85rem}.truck-link{padding:1.1rem .75rem;min-height:80px}.truck-link__model{font-size:1.25rem}.truck-link__type{font-size:.65rem}.footer{padding:1.5rem;font-size:.8rem}.footer__line{display:inline;margin:0}}@media(min-width:900px){.header{padding:.85rem 0}.header__inner{max-width:1200px;margin:0 auto;padding:0 2rem}.logo__icon{width:46px;height:46px}.logo__icon svg{width:28px;height:28px}.logo__text{font-size:1.35rem}.header__cta{padding:.75rem 1.4rem;font-size:.8rem}.header__cta:hover{background:var(--arizona-sunset-dark)}.hero{padding:4rem 2rem 4.5rem}.hero__badge{font-size:.9rem}.hero__title{font-size:3.5rem}.hero__subtitle{font-size:1.4rem;margin-bottom:1.25rem}.hero__tagline{font-size:1.1rem;max-width:580px}.specs-bar{padding:1.75rem 2rem}.specs-bar__grid{max-width:900px;margin:0 auto}.spec-item__value{font-size:1.9rem}.spec-item__label{font-size:.75rem}.content{padding:3.5rem 2rem;max-width:1200px;margin:0 auto}.content__grid{display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start}.content h2{font-size:1.65rem;margin:1.75rem 0 .85rem}.content p{font-size:1.02rem;line-height:1.65}.sidebar{position:sticky;top:5rem;padding:1.75rem}.sidebar__title{font-size:1.2rem}.sidebar__cta:hover{opacity:.92}.other-trucks{padding:3.5rem 2rem}.other-trucks__title{font-size:1.6rem;margin-bottom:1.75rem}.trucks-grid{max-width:850px;margin:0 auto;gap:1.25rem}.truck-link{padding:1.35rem 1rem}.truck-link:hover{background:rgba(255,255,255,.14);border-color:var(--arizona-copper)}.truck-link__model{font-size:1.35rem}.truck-link__type{font-size:.7rem}.footer{padding:1.75rem 2rem;font-size:.85rem}}
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header__inner">
-            <a href="/" class="logo">
-                <div class="logo__icon"><svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
-                <div class="logo__text">FordCommercial<span>.AI</span></div>
-            </a>
-            <a href="/#find-your-truck" class="header__cta">Find Your Truck</a>
-        </div>
-    </header>
-    <section class="hero">
-        <div class="hero__badge"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Super Duty Series</div>
-        <h1 class="hero__title">Ford F-350</h1>
-        <p class="hero__subtitle">Super Duty</p>
-        <p class="hero__tagline">When capability matters most. The F-350 delivers maximum towing and payload for construction, agriculture, and heavy commercial applications.</p>
-    </section>
-    <section class="specs-bar">
-        <div class="specs-bar__grid">
-            <div class="spec-item"><div class="spec-item__value">24,200</div><div class="spec-item__label">Max Towing (lbs)</div></div>
-            <div class="spec-item"><div class="spec-item__value">7,850</div><div class="spec-item__label">Max Payload (lbs)</div></div>
-            <div class="spec-item"><div class="spec-item__value">DRW</div><div class="spec-item__label">Dually Available</div></div>
-            <div class="spec-item"><div class="spec-item__value">1,050</div><div class="spec-item__label">Diesel Torque (lb-ft)</div></div>
-        </div>
-    </section>
-    <section class="content">
-        <div class="content__grid">
-            <div class="content__main">
-                <h2>Maximum Capability for Maximum Demands</h2>
-                <p>The Ford F-350 Super Duty stands as the definitive choice for Arizona commercial operators who refuse to compromise on capability. With a maximum payload capacity of 7,850 pounds and conventional towing ratings reaching 24,200 pounds, the F-350 handles loads that would overwhelm lesser trucks. For construction companies moving heavy equipment between Phoenix job sites, ranchers hauling livestock across Arizona's vast agricultural regions, and contractors who need to tow fully-loaded gooseneck trailers, the F-350 delivers without hesitation.</p>
-                <p>At Peoria Ford's commercial department, the F-350 consistently ranks among our highest-volume commercial sales. Arizona businesses recognize that the incremental investment over the F-250 pays dividends in capability, durability, and resale value. The truck's reinforced frame, upgraded axles, and heavy-duty suspension components translate directly into longer service life and lower total cost of ownership for demanding commercial applications.</p>
-                <h2>Single Rear Wheel vs. Dual Rear Wheel</h2>
-                <p>One of the most important decisions when specifying an F-350 involves choosing between single rear wheel (SRW) and dual rear wheel (DRW) configurations. Each serves distinct commercial purposes, and Peoria Ford's commercial specialists help Arizona businesses select the optimal configuration for their specific operations.</p>
-                <p>The single rear wheel F-350 provides exceptional payload and towing capability while maintaining the narrower profile that simplifies parking and maneuvering in urban construction sites across the Phoenix metro area. For contractors who need to access tight residential work zones or navigate crowded commercial parking areas, the SRW configuration delivers F-350 capability in a more manageable package.</p>
-                <p>The dual rear wheel configuration—commonly called the "dually"—maximizes stability under heavy loads and provides the ultimate platform for fifth-wheel and gooseneck towing. Arizona horse haulers, RV towers, and heavy equipment transporters gravitate toward the DRW F-350 for its planted, confident feel when pulling substantial trailers across desert highways and mountain passes. The wider rear track distributes weight more effectively, reducing sway and improving braking performance under load.</p>
-                <h2>Commercial Body Configurations</h2>
-                <p>The F-350 chassis supports virtually any commercial body configuration, making it the platform of choice for specialized upfits. Popular F-350 configurations we deliver to Arizona businesses include:</p>
-                <ul>
-                    <li>Flatbed and stake bed trucks for construction materials and landscaping</li>
-                    <li>Heavy-duty service bodies with crane installations for utility work</li>
-                    <li>Dump body configurations for excavation and hauling operations</li>
-                    <li>Enclosed service bodies for HVAC, plumbing, and electrical contractors</li>
-                    <li>Custom welding rig setups with integrated power generation</li>
-                    <li>Tow truck and recovery vehicle platforms</li>
-                </ul>
-                <h2>Power Stroke Diesel Performance</h2>
-                <p>While the 7.3-liter gas V8 serves admirably in lighter-duty F-350 applications, the 6.7-liter Power Stroke turbodiesel transforms this truck into an unstoppable commercial force. The diesel's 1,050 lb-ft of torque—available at just 1,800 RPM—provides effortless acceleration even when climbing Arizona's steepest grades with maximum loads. The engine's exhaust brake reduces wear on the service brakes during descents, extending brake life and reducing maintenance costs for fleets operating in mountainous terrain.</p>
-                <p>Ford's decade-plus refinement of the current Power Stroke architecture has produced exceptional reliability records. Arizona commercial operators report six-figure mileage without major engine work when following Ford's recommended maintenance schedules. The diesel's superior fuel economy under load often results in fuel savings that offset the higher purchase price within 18-24 months of typical commercial operation.</p>
-                <h2>Built for Arizona's Toughest Jobs</h2>
-                <p>The F-350 Super Duty proves itself daily across Arizona's diverse commercial landscape. From the scorching Phoenix summer that tests cooling systems to the dusty construction sites that challenge air filtration, the truck's commercial-grade components handle conditions that would sideline consumer-focused vehicles. Heavy-duty alternators support auxiliary equipment, reinforced mounting points accommodate commercial upfits, and the truck's electrical architecture handles the additional loads that service bodies and power equipment demand.</p>
-                <p>Contact Peoria Ford's commercial department to discuss F-350 configurations, fleet pricing, and upfit options tailored to your Arizona business requirements.</p>
-            </div>
-            <aside class="sidebar">
-                <h3 class="sidebar__title">Get Your F-350 Quote</h3>
-                <a href="/#find-your-truck" class="sidebar__cta">Find Your Truck →</a>
-                <a href="/#contact" class="sidebar__cta sidebar__cta--secondary">Contact Commercial Dept</a>
-                <p class="sidebar__note">Fleet discounts available for 3+ vehicles. Same-day quotes for Arizona businesses.</p>
-            </aside>
-        </div>
-    </section>
-    <section class="other-trucks">
-        <h2 class="other-trucks__title">Explore Other Models</h2>
-        <div class="trucks-grid">
-            <a href="/trucks/f-250.html" class="truck-link"><div class="truck-link__model">F-250</div><div class="truck-link__type">Super Duty</div></a>
-            <a href="/trucks/f-450.html" class="truck-link"><div class="truck-link__model">F-450</div><div class="truck-link__type">Super Duty</div></a>
-            <a href="/trucks/f-550.html" class="truck-link"><div class="truck-link__model">F-550</div><div class="truck-link__type">Chassis Cab</div></a>
-            <a href="/trucks/f-650-f-750.html" class="truck-link"><div class="truck-link__model">F-650/750</div><div class="truck-link__type">Medium Duty</div></a>
-        </div>
-    </section>
-    <footer class="footer"><p>&copy; 2026 FordCommercial.AI | Powered by <a href="https://www.peoriaford.com" target="_blank">Peoria Ford</a> | Arizona's Commercial Truck Headquarters</p></footer>
+    <header class="header"><div class="header__inner"><a href="/" class="logo"><div class="logo__icon"><svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div><div class="logo__text">FordCommercial<span>.AI</span></div></a><a href="/#find-your-truck" class="header__cta">Find Your Truck</a></div></header>
+    <section class="hero"><div class="hero__badge"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Super Duty Series</div><h1 class="hero__title">Ford F-350</h1><p class="hero__subtitle">Super Duty</p><p class="hero__tagline">When capability matters most. Maximum towing and payload for construction, agriculture, and heavy commercial work.</p></section>
+    <section class="specs-bar"><div class="specs-bar__grid"><div class="spec-item"><div class="spec-item__value">24,200</div><div class="spec-item__label">Max Towing (lbs)</div></div><div class="spec-item"><div class="spec-item__value">7,850</div><div class="spec-item__label">Max Payload (lbs)</div></div><div class="spec-item"><div class="spec-item__value">DRW</div><div class="spec-item__label">Dually Available</div></div><div class="spec-item"><div class="spec-item__value">1,050</div><div class="spec-item__label">Diesel Torque (lb-ft)</div></div></div></section>
+    <section class="content"><div class="content__grid"><div class="content__main">
+        <h2>Maximum Capability for Maximum Demands</h2>
+        <p>The Ford F-350 Super Duty stands as the definitive choice for Arizona commercial operators who refuse to compromise on capability. With a maximum payload capacity of 7,850 pounds and conventional towing ratings reaching 24,200 pounds, the F-350 handles loads that would overwhelm lesser trucks. For construction companies moving heavy equipment between Phoenix job sites, ranchers hauling livestock across Arizona's vast agricultural regions, and contractors who need to tow fully-loaded gooseneck trailers, the F-350 delivers without hesitation.</p>
+        <p>At Peoria Ford's commercial department, the F-350 consistently ranks among our highest-volume commercial sales. Arizona businesses recognize that the incremental investment over the F-250 pays dividends in capability, durability, and resale value. The truck's reinforced frame, upgraded axles, and heavy-duty suspension components translate directly into longer service life and lower total cost of ownership for demanding commercial applications.</p>
+        <h2>Single Rear Wheel vs. Dual Rear Wheel</h2>
+        <p>One of the most important decisions when specifying an F-350 involves choosing between single rear wheel (SRW) and dual rear wheel (DRW) configurations. Each serves distinct commercial purposes, and Peoria Ford's commercial specialists help Arizona businesses select the optimal configuration for their specific operations.</p>
+        <p>The single rear wheel F-350 provides exceptional payload and towing capability while maintaining the narrower profile that simplifies parking and maneuvering in urban construction sites across the Phoenix metro area. For contractors who need to access tight residential work zones or navigate crowded commercial parking areas, the SRW configuration delivers F-350 capability in a more manageable package.</p>
+        <p>The dual rear wheel configuration—commonly called the "dually"—maximizes stability under heavy loads and provides the ultimate platform for fifth-wheel and gooseneck towing. Arizona horse haulers, RV towers, and heavy equipment transporters gravitate toward the DRW F-350 for its planted, confident feel when pulling substantial trailers across desert highways and mountain passes.</p>
+        <h2>Commercial Body Configurations</h2>
+        <p>The F-350 chassis supports virtually any commercial body configuration, making it the platform of choice for specialized upfits. Popular F-350 configurations we deliver to Arizona businesses include:</p>
+        <ul><li>Flatbed and stake bed trucks for construction materials and landscaping</li><li>Heavy-duty service bodies with crane installations for utility work</li><li>Dump body configurations for excavation and hauling operations</li><li>Enclosed service bodies for HVAC, plumbing, and electrical contractors</li><li>Custom welding rig setups with integrated power generation</li><li>Tow truck and recovery vehicle platforms</li></ul>
+        <h2>Power Stroke Diesel Performance</h2>
+        <p>While the 7.3-liter gas V8 serves admirably in lighter-duty F-350 applications, the 6.7-liter Power Stroke turbodiesel transforms this truck into an unstoppable commercial force. The diesel's 1,050 lb-ft of torque—available at just 1,800 RPM—provides effortless acceleration even when climbing Arizona's steepest grades with maximum loads. The engine's exhaust brake reduces wear on the service brakes during descents, extending brake life and reducing maintenance costs for fleets operating in mountainous terrain.</p>
+        <p>Ford's decade-plus refinement of the current Power Stroke architecture has produced exceptional reliability records. Arizona commercial operators report six-figure mileage without major engine work when following Ford's recommended maintenance schedules. The diesel's superior fuel economy under load often results in fuel savings that offset the higher purchase price within 18-24 months of typical commercial operation.</p>
+        <h2>Built for Arizona's Toughest Jobs</h2>
+        <p>The F-350 Super Duty proves itself daily across Arizona's diverse commercial landscape. From the scorching Phoenix summer that tests cooling systems to the dusty construction sites that challenge air filtration, the truck's commercial-grade components handle conditions that would sideline consumer-focused vehicles. Heavy-duty alternators support auxiliary equipment, reinforced mounting points accommodate commercial upfits, and the truck's electrical architecture handles the additional loads that service bodies and power equipment demand.</p>
+        <p>Contact Peoria Ford's commercial department to discuss F-350 configurations, fleet pricing, and upfit options tailored to your Arizona business requirements.</p>
+    </div><aside class="sidebar"><h3 class="sidebar__title">Get Your F-350 Quote</h3><a href="/#find-your-truck" class="sidebar__cta">Find Your Truck →</a><a href="/#contact" class="sidebar__cta sidebar__cta--secondary">Contact Commercial Dept →</a><a href="tel:+16236abordr" class="sidebar__cta sidebar__cta--phone">📞 Call Now</a><p class="sidebar__note">Fleet discounts for 3+ vehicles.<br>Same-day quotes for AZ businesses.</p></aside></div></section>
+    <section class="other-trucks"><h2 class="other-trucks__title">Explore Other Models</h2><div class="trucks-grid"><a href="/trucks/f-250" class="truck-link"><div class="truck-link__model">F-250</div><div class="truck-link__type">Super Duty</div></a><a href="/trucks/f-450" class="truck-link"><div class="truck-link__model">F-450</div><div class="truck-link__type">Super Duty</div></a><a href="/trucks/f-550" class="truck-link"><div class="truck-link__model">F-550</div><div class="truck-link__type">Chassis Cab</div></a><a href="/trucks/f-650-f-750" class="truck-link"><div class="truck-link__model">F-650/750</div><div class="truck-link__type">Medium Duty</div></a></div></section>
+    <footer class="footer"><p>&copy; 2026 FordCommercial.AI<span class="footer__line"> | Powered by <a href="https://www.peoriaford.com" target="_blank">Peoria Ford</a></span><span class="footer__line"> | Arizona's Commercial Truck HQ</span></p></footer>
 </body>
 </html>
