@@ -29,21 +29,33 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "Ford F-250 Super Duty",
-        "description": "Commercial work truck for contractors, landscapers, and tradespeople",
-        "brand": {"@type": "Brand", "name": "Ford"},
-        "category": "Commercial Truck",
-        "offers": {
-            "@type": "Offer",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock",
-            "seller": {
-                "@type": "AutoDealer",
-                "name": "Peoria Ford",
-                "address": {"@type": "PostalAddress", "addressLocality": "Peoria", "addressRegion": "AZ"}
+        "@graph": [
+            {
+                "@type": "Product",
+                "name": "Ford F-250 Super Duty",
+                "description": "Commercial work truck for contractors, landscapers, and tradespeople",
+                "brand": {"@type": "Brand", "name": "Ford"},
+                "category": "Commercial Truck",
+                "offers": {
+                    "@type": "Offer",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "AutoDealer",
+                        "name": "Peoria Ford",
+                        "address": {"@type": "PostalAddress", "addressLocality": "Peoria", "addressRegion": "AZ"}
+                    }
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://fordcommercial.ai/"},
+                    {"@type": "ListItem", "position": 2, "name": "Trucks", "item": "https://fordcommercial.ai/#trucks"},
+                    {"@type": "ListItem", "position": 3, "name": "F-250 Super Duty", "item": "https://fordcommercial.ai/trucks/f-250"}
+                ]
             }
-        }
+        ]
     }
     </script>
     
