@@ -662,6 +662,31 @@
             margin-bottom: 0;
         }
         
+        .hero__nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hero__nav-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        
+        .hero__nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--arizona-copper);
+        }
+        
         .hero__actions {
             display: flex;
             flex-wrap: wrap;
@@ -1969,18 +1994,27 @@
                 </a>
                 
                 <h1 class="hero__title">
-                    Ford Commercial Trucks for Sale Near You <span>Work Trucks, Fleet Vehicles & Upfits</span>
+                    Ford Commercial Truck Guide <span>Work Trucks, Upfitting, Specs, Pricing & Fleet Solutions</span>
                 </h1>
                 
                 <h2 class="hero__h2">
-                    Ford Super Duty®, Transit Vans & Chassis Cab Work Trucks for Contractors, Fleets & Businesses
+                    Compare → Configure → Upfit → Finance → Deploy Ford Work Trucks
                 </h2>
                 
                 <div class="hero__body">
-                    <p>Search available Ford commercial trucks, work vans, and fleet vehicles including F-250, F-350, F-450, F-550 chassis cab trucks and Ford Transit commercial vans.</p>
-                    <p>Find upfitted work trucks ready for service, including service body trucks, utility trucks, flatbeds, dump trucks, and contractor-ready builds for electricians, plumbers, construction crews, and fleet operators.</p>
-                    <p>Compare towing capacity up to 40,000 lbs, payload ratings, diesel vs gas engines, and real-time dealer inventory near you. Access Ford fleet pricing, commercial financing, and bulk purchase options from a trusted commercial truck dealer.</p>
+                    <p>Get expert answers on Ford commercial trucks, work vans, and fleet vehicles, including Ford Super Duty® (F-250, F-350, F-450, F-550), chassis cab trucks, and Ford Transit commercial vans.</p>
+                    <p>Explore upfitted truck options like service body trucks, utility trucks, flatbeds, dump trucks, and contractor-ready builds. Learn how to choose the right engine (6.7L Power Stroke® diesel vs 7.3L gas), towing capacity, payload ratings, and body configurations for your business.</p>
+                    <p>Access insights on Ford commercial truck pricing, fleet discounts, leasing, financing, warranties, and upfitter integration—so you can spec, purchase, and deploy faster.</p>
                 </div>
+                
+                <nav class="hero__nav" aria-label="Quick links">
+                    <a href="#selector" class="hero__nav-link">Build & Price Ford Work Trucks</a>
+                    <a href="#trucks" class="hero__nav-link">Upfitted Ford Trucks for Sale</a>
+                    <a href="#industries" class="hero__nav-link">Truck Body Types (Service, Flatbed, Dump)</a>
+                    <a href="/trucks/transit" class="hero__nav-link">Ford Transit Commercial Vans</a>
+                    <a href="#financing" class="hero__nav-link">Commercial Truck Financing & Leasing</a>
+                    <a href="#fordpro" class="hero__nav-link">Upfitters, Warranties & Fleet Programs</a>
+                </nav>
                 
                 <div class="hero__actions">
                     <a href="#selector" class="btn btn--primary">
