@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Health Alerts | Predictive Maintenance | FordCommercial.ai</title>
+    <meta name="description" content="Proactive vehicle health monitoring and predictive maintenance alerts for commercial fleets. Reduce downtime with real-time diagnostics and automated service scheduling.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ford-blue: #003478;
+            --ford-blue-dark: #00254d;
+            --accent-orange: #d35400;
+            --accent-orange-hover: #b84700;
+            --gray-light: #f4f6f8;
+            --gray-mid: #6b7280;
+            --gray-dark: #1f2937;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        nav {
+            background: var(--ford-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover { opacity: 0.8; }
+        .nav-links a.active { border-bottom: 2px solid var(--accent-orange); padding-bottom: 2px; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .content h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.75rem;
+            color: var(--ford-blue);
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+        }
+
+        .content h2:first-of-type { margin-top: 0; }
+        .content p { margin-bottom: 1.25rem; font-size: 1.05rem; }
+        .content ul { margin: 1rem 0 1.5rem 1.5rem; }
+        .content li { margin-bottom: 0.5rem; font-size: 1.05rem; }
+
+        .cta-section {
+            background: var(--gray-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .cta-button:hover { background: var(--accent-orange-hover); }
+
+        .internal-links {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .internal-links h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--ford-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
+            background: var(--gray-light);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--ford-blue);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .link-card h4 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--ford-blue);
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .link-card p { font-size: 0.9rem; color: var(--gray-mid); margin: 0; }
+
+        footer {
+            background: var(--ford-blue-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p { opacity: 0.8; font-size: 0.9rem; }
+
+        @media (max-width: 600px) {
+            .nav-links { gap: 1rem; }
+            .content { padding: 2rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">FordCommercial.ai</a>
+            <ul class="nav-links">
+                <li><a href="gps-tracking.html">GPS Tracking</a></li>
+                <li><a href="vehicle-health.html" class="active">Vehicle Health</a></li>
+                <li><a href="driver-behavior.html">Driver Behavior</a></li>
+                <li><a href="fuel-monitoring.html">Fuel Monitoring</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-icon">✓</div>
+        <h1>Vehicle Health Alerts</h1>
+        <p>Proactive maintenance notifications that prevent breakdowns before they happen</p>
+    </section>
+
+    <main class="content">
+        <h2>Predictive Maintenance Intelligence</h2>
+        <p>FordCommercial.ai vehicle health monitoring transforms reactive maintenance into proactive fleet care. Instead of waiting for warning lights, breakdowns, or driver complaints, the system continuously monitors critical vehicle systems and alerts fleet managers to developing issues before they cause downtime. This predictive approach catches problems early—when repairs cost less, take less time, and can be scheduled around operational demands rather than dictated by emergency failures.</p>
+
+        <p>Modern commercial vehicles generate thousands of data points about engine performance, transmission behavior, brake condition, battery health, fluid levels, and emissions systems. Vehicle health monitoring collects this diagnostic data in real time, analyzing patterns that indicate developing problems. A gradual decrease in battery voltage predicts failure before a driver gets stranded. Unusual transmission temperature patterns suggest issues that will escalate without attention. Brake wear indicators trigger service scheduling before pads reach dangerous levels.</p>
+
+        <h2>Diagnostic Trouble Code Monitoring</h2>
+        <p>When vehicles generate diagnostic trouble codes (DTCs), fleet managers receive immediate notification with plain-language explanations of what the code means and recommended actions. Rather than waiting for drivers to report check engine lights—or worse, ignoring warnings until problems compound—the system ensures every alert receives appropriate attention. Critical codes trigger immediate notifications. Less urgent codes queue for scheduled review. Historical code data reveals patterns that indicate chronic issues requiring deeper diagnosis.</p>
+
+        <p>The context around diagnostic codes matters as much as the codes themselves. A single occurrence may indicate a sensor glitch. Repeated occurrences signal genuine mechanical issues. Codes appearing after specific driving conditions or in specific geographic areas point to environmental or operational factors. Vehicle health analytics correlate code data with vehicle usage patterns, helping maintenance teams distinguish between false alarms and legitimate concerns requiring shop attention.</p>
+
+        <h2>Automated Service Scheduling</h2>
+        <p>Vehicle health monitoring integrates with maintenance scheduling to automate routine service based on actual vehicle condition rather than arbitrary calendar intervals. Oil change intervals adjust based on operating conditions—vehicles working in severe duty cycles receive more frequent service while vehicles in light-duty applications extend intervals safely. Tire rotations, fluid checks, filter replacements, and other maintenance items schedule automatically based on mileage, engine hours, and monitored conditions.</p>
+
+        <p>Integration with service providers streamlines the entire maintenance workflow. When vehicles need service, the system can automatically request appointments at preferred facilities, generate work orders with diagnostic data attached, and track repair status through completion. Fleet managers spend less time coordinating maintenance logistics and more time managing operations. Vehicles return to service faster with fewer scheduling conflicts and communication delays.</p>
+
+        <h2>Fleet-Wide Health Visibility</h2>
+        <p>Dashboard views present vehicle health status across the entire fleet at a glance. Color-coded indicators show which vehicles are operating normally, which have pending maintenance needs, and which require immediate attention. Drill-down capability provides detailed diagnostic data for individual vehicles. Comparison views reveal whether issues affect single vehicles or indicate fleet-wide patterns requiring different responses—a single transmission problem requires repair, but transmission issues across multiple vehicles suggest driver training or route changes.</p>
+
+        <p>Health monitoring data supports long-term fleet planning decisions. Vehicles with chronic issues that consume disproportionate maintenance resources become candidates for early replacement. Vehicle specifications that perform well under your operating conditions inform future purchase decisions. Total cost of ownership calculations incorporate actual maintenance expenses rather than generic estimates, improving budgeting accuracy and fleet composition optimization.</p>
+
+        <h2>Reducing Unplanned Downtime</h2>
+        <p>Every roadside breakdown costs more than the repair itself. Tow charges, missed appointments, customer dissatisfaction, rescheduling complexity, and driver time waiting for assistance compound the direct repair expense. Vehicle health monitoring attacks these hidden costs by catching issues while vehicles remain operational. Scheduled repairs during planned downtime cost a fraction of emergency repairs that interrupt revenue-generating operations.</p>
+
+        <p>The financial impact of predictive maintenance extends beyond avoided breakdowns. Catching issues early means smaller repairs—replacing a failing component before it damages related systems, addressing fluid leaks before they cause major damage, servicing brakes before rotors need replacement along with pads. Fleet health monitoring pays for itself through reduced repair costs, extended vehicle life, and maximized operational uptime.</p>
+    </main>
+
+    <section class="cta-section">
+        <h3>Protect Your Fleet</h3>
+        <p>See how vehicle health alerts reduce downtime and maintenance costs.</p>
+        <a href="#contact" class="cta-button">Request Demo →</a>
+    </section>
+
+    <section class="internal-links">
+        <h3>More Fleet Intelligence</h3>
+        <div class="link-cards">
+            <a href="gps-tracking.html" class="link-card">
+                <h4>Live GPS Tracking</h4>
+                <p>Real-time vehicle location monitoring</p>
+            </a>
+            <a href="driver-behavior.html" class="link-card">
+                <h4>Driver Behavior</h4>
+                <p>Speed, braking, and coaching insights</p>
+            </a>
+            <a href="fuel-monitoring.html" class="link-card">
+                <h4>Fuel Monitoring</h4>
+                <p>Track consumption and reduce costs</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FordCommercial.ai — Commercial Fleet Intelligence</p>
+    </footer>
+</body>
+</html>
