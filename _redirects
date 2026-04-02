@@ -1,2 +1,8 @@
 # Cloudflare Pages redirects
 /index.html  /  301
+/financing.html  /financing  301
+/trucks/f-250.html  /trucks/f-250  301
+/trucks/f-350.html  /trucks/f-350  301
+/trucks/f-450.html  /trucks/f-450  301
+/trucks/f-550.html  /trucks/f-550  301
+/trucks/f-650-f-750.html  /trucks/f-650-f-750  301
