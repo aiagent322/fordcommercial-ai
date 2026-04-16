@@ -1,0 +1,8 @@
+/*
+  Cache-Control: public, max-age=86400, s-maxage=86400
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/*.html
+  Cache-Control: public, max-age=3600, s-maxage=3600
