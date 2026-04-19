@@ -580,7 +580,7 @@
         ============================================ */
         .hero {
             min-height: auto;
-            padding: clamp(2rem, 4vw, 3rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+            padding: clamp(1.5rem, 3vw, 2rem) 0 clamp(1rem, 2vw, 1.5rem);
             background: linear-gradient(135deg, var(--ford-blue-dark) 0%, var(--ford-blue) 50%, var(--ford-blue-light) 100%);
             position: relative;
             display: flex;
@@ -644,22 +644,6 @@
             text-transform: uppercase;
         }
         
-        .hero__body {
-            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-            color: rgba(255,255,255,0.9);
-            line-height: 1.7;
-            margin-bottom: 0.75rem;
-            max-width: 650px;
-        }
-        
-        .hero__body p {
-            margin-bottom: 1rem;
-        }
-        
-        .hero__body p:last-child {
-            margin-bottom: 0;
-        }
-        
         .btn {
             display: inline-flex;
             align-items: center;
@@ -698,33 +682,6 @@
             color: var(--ford-blue);
         }
         
-        .hero__stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 1.5rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid rgba(255,255,255,0.15);
-        }
-        
-        .stat {
-            text-align: left;
-        }
-        
-        .stat__number {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            color: var(--arizona-copper);
-        }
-        
-        .stat__label {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.7);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
         .hero__image {
             position: absolute;
             right: -10%;
@@ -736,10 +693,6 @@
         }
         
         @media (max-width: 768px) {
-            .hero__stats {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
         }
         
         /* ============================================
@@ -1923,11 +1876,6 @@
             /* Hero: stack CTAs full-width */
 
             /* Hero: tighten stats row */
-            .hero__stats {
-                margin-top: 2rem;
-                padding-top: 1.5rem;
-                gap: 1rem;
-            }
 
             /* Hero: shrink nav pills */
 
@@ -2014,10 +1962,6 @@
             }
 
             /* Stats: go vertical at 375 */
-            .hero__stats {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
 
             /* Truck spec grid: single column */
             .truck-card__specs {
@@ -2787,26 +2731,10 @@
                     Compare → Configure → Upfit → Finance
                 </h2>
                 
-                <div class="hero__body">
-                    <p>F-250 through F-750, Transit vans, and full upfitting — spec, finance, and deploy through Peoria Ford, Arizona's #1 commercial fleet dealer.</p>
-                </div>
-                
 
 
-                <div class="hero__stats">
-                    <div class="stat">
-                        <div class="stat__number">49</div>
-                        <div class="stat__label">Years #1 Selling Truck</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat__number">40K</div>
-                        <div class="stat__label">Max Towing (lbs)</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat__number">1,200</div>
-                        <div class="stat__label">Max Torque (lb-ft)</div>
-                    </div>
-                </div>
+
+
             </div>
         </div>
     </section>
