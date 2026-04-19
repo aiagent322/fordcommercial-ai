@@ -2099,17 +2099,9 @@
             }
 
             /* Matchmaker on iPhone SE */
-            .mm-step__question {
-                font-size: 1.2rem;
-            }
-            .mm-option {
-                padding: 0.75rem 1rem;
-                min-height: 52px;
-            }
-            .mm-btn {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.85rem;
-            }
+            
+            
+            
             .mm-card__body {
                 padding: 1rem;
             }
@@ -2146,89 +2138,31 @@
         }
 
         /* Progress Bar */
-        .mm-progress {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-        }
-        .mm-progress__bar {
-            flex: 1;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .mm-progress__fill {
-            height: 100%;
-            background: var(--arizona-copper);
-            border-radius: 2px;
-            transition: width 0.4s ease;
-            width: 0%;
-        }
-        .mm-progress__label {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.5);
-            white-space: nowrap;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        
+        
+        
+        
 
         /* Steps */
-        .mm-steps { min-height: 320px; }
-        .mm-step { display: none; animation: mmFadeIn 0.3s ease; }
-        .mm-step.active { display: block; }
-        .mm-step.exit { animation: mmFadeOut 0.2s ease forwards; }
-        @keyframes mmFadeIn {
-            from { opacity: 0; transform: translateX(20px); }
+        
+        
+        
+        
+        
             to   { opacity: 1; transform: translateX(0); }
         }
-        @keyframes mmFadeOut {
-            from { opacity: 1; transform: translateX(0); }
+        
             to   { opacity: 0; transform: translateX(-20px); }
         }
-        .mm-step__question {
-            font-family: var(--font-display);
-            font-size: clamp(1.35rem, 3vw, 1.75rem);
-            font-weight: 700;
-            color: var(--white);
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.02em;
-        }
+        
 
         /* Option Buttons */
-        .mm-options {
-            display: grid;
-            gap: 0.75rem;
-        }
-        .mm-options--2col { grid-template-columns: repeat(2, 1fr); }
-        .mm-options--3col { grid-template-columns: repeat(3, 1fr); }
-        .mm-option {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 1rem 1.25rem;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.1);
-            color: var(--white);
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-height: 64px;
-        }
-        .mm-option:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.3);
-        }
-        .mm-option.selected {
-            background: rgba(184,115,51,0.2);
-            border-color: var(--arizona-copper);
-            box-shadow: 0 0 0 1px var(--arizona-copper);
-        }
+        
+        
+        
+        
+        
+        
         .mm-option--full { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 1rem; }
         .mm-option__sub {
             font-size: 0.8rem;
@@ -2237,36 +2171,11 @@
         }
 
         /* Navigation */
-        .mm-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 1.75rem;
-            gap: 1rem;
-        }
-        .mm-btn {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.875rem 1.75rem;
-            min-height: 44px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .mm-btn--back {
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.6);
-        }
+        
+        
+        
         .mm-btn--back:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
-        .mm-btn--next {
-            background: var(--arizona-sunset);
-            color: var(--white);
-            margin-left: auto;
-        }
+        
         .mm-btn--next:hover:not(:disabled) { background: #d14e00; transform: translateY(-2px); }
         .mm-btn--next:disabled {
             background: rgba(255,255,255,0.1);
@@ -2275,13 +2184,8 @@
             transform: none;
         }
         .mm-nav__dots { display: flex; gap: 0.5rem; }
-        .mm-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transition: all 0.2s;
-        }
-        .mm-dot.active { background: var(--arizona-copper); transform: scale(1.4); }
+        
+        
         .mm-dot.done { background: rgba(184,115,51,0.5); }
 
         /* Loading */
@@ -2512,13 +2416,13 @@
             .mm-results__grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
-            .mm-options--3col { grid-template-columns: repeat(2, 1fr); }
-            .mm-options--2col { grid-template-columns: 1fr; }
+            
+            
             .mm-form-row { grid-template-columns: 1fr; }
             .mm-lead-form { padding: 1.5rem 1rem; }
         }
         @media (max-width: 375px) {
-            .mm-options--3col { grid-template-columns: 1fr; }
+            
         }
     
         /* Matchmaker — live inventory enhancements */
@@ -4409,8 +4313,8 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
         async function mmRunAI() {
             // ── UI: hide steps, show loader ─────────────────────────────────
             document.getElementById('mm-loading').style.display = 'block';
-            document.getElementById('mm-progress-fill').style.width = '100%';
-            document.getElementById('mm-progress-label').textContent = 'Matching your trucks...';
+            
+            ;
 
             const msgs   = ['Analyzing your requirements...','Reviewing the Ford Super Duty lineup...','Checking live Peoria Ford inventory...','Preparing your 3 recommendations...'];
             let   msgIdx = 0;
