@@ -2908,9 +2908,9 @@
         }
 
         
-        .fin-card-link { text-decoration: none; display: block; color: inherit; }
+        .fin-card-link { text-decoration: none; display: contents; color: inherit; }
         .fin-card-link:hover .fin-card { border-color: var(--arizona-copper); filter: brightness(1.08); }
-        .fin-card { transition: filter 0.15s, border-color 0.15s; }
+        .fin-card { transition: filter 0.15s, border-color 0.15s; cursor: pointer; }
 
         
         /* ════════════════════════════════════════════════
@@ -3009,6 +3009,12 @@
                 text-align: center;
                 justify-content: center;
             }
+        }
+
+        
+        @media (max-width: 860px) {
+            .fin-grid { grid-template-columns: 1fr !important; }
+            .fin-card-link { display: block !important; }
         }
 
         </style>
