@@ -490,7 +490,15 @@
             color: var(--white);
         }
         
-        .logo__icon { width:52px; display:flex; align-items:center; flex-shrink:0; }
+        .logo__icon {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         
         .logo__icon svg {
             width: 32px;
@@ -1973,7 +1981,10 @@
                 font-size: 1.1rem;
             }
 
-            .logo__icon { width:52px; display:flex; align-items:center; flex-shrink:0; }
+            .logo__icon {
+                width: 36px;
+                height: 36px;
+            }
 
             .btn {
                 padding: 0.875rem 1.25rem;
@@ -2761,10 +2772,737 @@
         }
         @media(max-width:768px) { .fin-grid { grid-template-columns: 1fr; } }
 
+        
+        /* ── CONTACT INFO CARDS ── */
+        .contact-info-card {
+            background: var(--ford-blue);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-top: 3px solid var(--arizona-copper);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .contact-info-card__icon {
+            color: var(--arizona-copper);
+            margin-bottom: 0.25rem;
+        }
+        .contact-info-card__label {
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--arizona-copper);
+        }
+        .contact-info-card__value {
+            font-size: 0.95rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+        .contact-info-card__link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--arizona-copper);
+            text-decoration: none;
+        }
+        .contact-info-card__link:hover { opacity: 0.8; }
+        @media(max-width:768px) {
+            .contact-cards-grid { grid-template-columns: 1fr !important; }
+        }
+
         </style>
 </head>
 <body>
-    
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- ============================================
+         HEADER
+    ============================================ -->
+    <header class="header">
+        <div class="header__inner">
+            <a href="/" class="logo">
+                <div class="logo__icon">
+                    <svg viewBox="0 0 52 38" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="4" width="28" height="22" rx="3"/>
+                        <path d="M29 10L29 26L51 26L51 18L44 10Z"/>
+                        <path d="M31 12L31 24L49 24L49 18.5L43 12Z" fill="rgba(255,255,255,0.3)"/>
+                        <circle cx="10" cy="31" r="5.5"/>
+                        <circle cx="22" cy="31" r="5.5"/>
+                        <circle cx="42" cy="31" r="5.5"/>
+                        <circle cx="10" cy="31" r="2" fill="rgba(255,255,255,0.45)"/>
+                        <circle cx="22" cy="31" r="2" fill="rgba(255,255,255,0.45)"/>
+                        <circle cx="42" cy="31" r="2" fill="rgba(255,255,255,0.45)"/>
+                    </svg>
+                </div>
+                <div class="logo__text">FordCommercial<span>.AI</span></div>
+            </a>
+            
+            <nav class="nav" aria-label="Main navigation">
+                <a href="#trucks" class="nav__link">Trucks</a>
+                <a href="#selector" class="nav__link">Find Your Truck</a>
+                <a href="#fordpro" class="nav__link">Ford Pro</a>
+                <a href="#resources" class="nav__link">Resources</a>
+                <a href="/qa/" class="nav__link">Q&amp;A</a>
+                <a href="#contact" class="nav__cta">Get a Quote</a>
+            </nav>
+            
+            <button class="mobile-toggle" aria-label="Menu">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============================================
+         HERO SECTION
+    ============================================ -->
+    <section id="main-content" class="hero">
+        <div class="container">
+            <div class="hero__content">
+
+                <h1 class="hero__title">Ford Commercial Truck Guide</h1>
+                
+                <h2 class="hero__h2">
+                    Compare → Configure → Upfit → Finance
+                </h2>
+                
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TRUCK LINEUP SECTION
+    ============================================ -->
+    <section id="selector" class="matchmaker section">
+        <div class="container">
+
+            <div class="matchmaker__header">
+                <span class="section__eyebrow">AI Truck Matchmaker</span>
+                <h2 class="section__title" style="color:var(--white)">Find Your <span style="color:var(--arizona-copper)">Perfect Truck</span></h2>
+                <p>Answer 7 questions about your operation. Our AI scores the full Ford commercial lineup and returns your top 6 truck matches with live Peoria Ford inventory and personalized explanations.</p>
+            </div>
+
+            <!-- TRUCK PROFILE FORM CARD -->
+            <div class="mm-form-card" id="mm-form-card">
+                <div class="mm-form-title">Truck Profile</div>
+                <div class="mm-form-grid">
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Industry</label>
+                        <select id="mm-industry">
+                            <option value="">— Select —</option>
+                            <option value="construction">Construction</option>
+                            <option value="hvac">HVAC</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="electrical">Electrical</option>
+                            <option value="landscaping">Landscaping</option>
+                            <option value="agriculture">Agriculture / Ranch</option>
+                            <option value="roofing">Roofing</option>
+                            <option value="oilfield">Oil &amp; Gas / Oilfield</option>
+                            <option value="towing">Towing &amp; Recovery</option>
+                            <option value="government">Government / Municipal</option>
+                            <option value="delivery">Delivery / Logistics</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Primary Job</label>
+                        <select id="mm-job">
+                            <option value="">— Select —</option>
+                            <option value="towing_trailer">Towing trailers / equipment</option>
+                            <option value="hauling_materials">Hauling heavy materials</option>
+                            <option value="service_calls">Service calls / field work</option>
+                            <option value="crew_transport">Crew transport</option>
+                            <option value="delivery">Delivery / last mile</option>
+                            <option value="site_supervisor">Site supervisor / foreman</option>
+                            <option value="mixed">Mixed use</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Maximum Towing Need</label>
+                        <select id="mm-towing">
+                            <option value="">— Select —</option>
+                            <option value="none">No towing</option>
+                            <option value="under_10k">Under 10,000 lbs</option>
+                            <option value="10k_18k">10,000 – 18,000 lbs</option>
+                            <option value="18k_26k">18,000 – 26,000 lbs</option>
+                            <option value="26k_35k">26,000 – 35,000 lbs</option>
+                            <option value="over_35k">Over 35,000 lbs</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Daily Crew Size</label>
+                        <select id="mm-crew">
+                            <option value="">— Select —</option>
+                            <option value="1">1 person (driver only)</option>
+                            <option value="2">2 people</option>
+                            <option value="3">3 people</option>
+                            <option value="4-5">4 – 5 people (full crew cab)</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Body / Upfit</label>
+                        <select id="mm-body">
+                            <option value="">— Select —</option>
+                            <option value="stock_pickup">Stock pickup — no upfit</option>
+                            <option value="service_body">Service body (Knapheide / Reading)</option>
+                            <option value="flatbed">Flatbed deck</option>
+                            <option value="dump_body">Dump body</option>
+                            <option value="crane_mechanics">Crane / mechanics body</option>
+                            <option value="van_shelving">Van with shelving (Transit)</option>
+                            <option value="utility_body">Utility body</option>
+                            <option value="not_sure">Not sure yet</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Budget Per Truck</label>
+                        <select id="mm-budget">
+                            <option value="">— Select —</option>
+                            <option value="under_50k">Under $50,000</option>
+                            <option value="50k_65k">$50,000 – $65,000</option>
+                            <option value="65k_80k">$65,000 – $80,000</option>
+                            <option value="80k_100k">$80,000 – $100,000</option>
+                            <option value="over_100k">Over $100,000</option>
+                            <option value="flexible">Flexible — best truck for the job</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group mm-form-group--full">
+                        <label class="mm-form-label">Fuel Preference</label>
+                        <div class="mm-fuel-options">
+                            <button type="button" class="mm-fuel-btn" data-value="diesel">6.7L Power Stroke Diesel — Max tow &amp; torque</button>
+                            <button type="button" class="mm-fuel-btn" data-value="gas">7.3L V8 Gas — Lower cost, simpler maintenance</button>
+                            <button type="button" class="mm-fuel-btn" data-value="no_preference">No preference — recommend best fit</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mm-run-wrap">
+                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()">Find My Trucks →</button>
+                    <div class="mm-run-note">Live Peoria Ford inventory · Nationwide delivery · Fleet pricing on 2+</div>
+                </div>
+            </div>
+
+            <!-- LOADING STATE -->
+            <div class="mm-loading" id="mm-loading" style="display:none">
+                <div class="mm-loading__spinner"></div>
+                <div class="mm-loading__text" id="mm-loading__text">Matching your trucks<span class="mm-loading__dots"></span></div>
+                <div class="mm-loading__sub">Scoring full Ford lineup · Checking live inventory</div>
+            </div>
+
+            <!-- RESULTS -->
+            <div id="mm-results" style="display:none">
+                <div class="mm-results-header">
+                    <div class="mm-results-eyebrow">Your Matches</div>
+                    <div class="mm-results-summary" id="mm-results-summary"></div>
+                    <button class="mm-restart-btn" onclick="mmRestart()">← Start Over</button>
+                </div>
+                <div class="mm-results-grid" id="mm-results-grid"></div>
+
+                <!-- Quote form -->
+                <div class="mm-lead-wrap" id="mm-lead-wrap" style="display:none">
+                    <div class="mm-lead-title">Get Your Personalized Quote</div>
+                    <form id="mm-lead-form" class="mm-lead-form">
+                        <div class="mm-lead-grid">
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Name</label>
+                                <input type="text" id="mm-name" placeholder="John Smith" required>
+                                <span class="mm-error" id="mm-name-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Company</label>
+                                <input type="text" id="mm-company" placeholder="ABC Construction" required>
+                                <span class="mm-error" id="mm-company-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Email</label>
+                                <input type="email" id="mm-email" placeholder="john@company.com" required>
+                                <span class="mm-error" id="mm-email-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Phone</label>
+                                <input type="tel" id="mm-phone" placeholder="Your phone number" required>
+                                <span class="mm-error" id="mm-phone-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">State</label>
+                                <select id="mm-state" required>
+                                    <option value="">— State —</option>
+                                    <option>AZ</option><option>TX</option><option>CA</option><option>FL</option>
+                                    <option>CO</option><option>NV</option><option>NM</option><option>UT</option>
+                                    <option>OK</option><option>NC</option><option>GA</option><option>WA</option>
+                                    <option>OR</option><option>ID</option><option>MT</option><option>WY</option>
+                                    <option>Other</option>
+                                </select>
+                                <span class="mm-error" id="mm-state-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Timeline</label>
+                                <select id="mm-timeline" required>
+                                    <option value="">— Select —</option>
+                                    <option>Ready to buy now</option>
+                                    <option>Within 30 days</option>
+                                    <option>1 – 3 months</option>
+                                    <option>3 – 6 months</option>
+                                    <option>Just researching</option>
+                                </select>
+                                <span class="mm-error" id="mm-timeline-error"></span>
+                            </div>
+                        </div>
+                        <div class="mm-lead-group mm-lead-full">
+                            <label class="mm-form-label">Notes (optional)</label>
+                            <textarea id="mm-notes" rows="2" placeholder="Colors, special upfits, fleet quantity, or any other requirements"></textarea>
+                        </div>
+                        <button type="submit" class="mm-run-btn" style="margin-top:1rem">Submit Quote Request →</button>
+                        <div id="mm-lead-success" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
+                            Quote Submitted — A Peoria Ford Commercial Specialist Will Contact You Within 1 Business Day
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="financing" class="section" style="background:var(--ford-blue-dark);">
+        <div class="container">
+            <div class="section__header" style="margin-bottom:2rem;">
+                <div class="section__eyebrow" style="color:var(--arizona-copper);">Commercial Financing</div>
+                <h2 class="section__title" style="color:var(--white);">Finance the Truck &amp; the Upfit Together</h2>
+                <p style="color:rgba(255,255,255,0.65);max-width:620px;margin:.75rem auto 0;font-size:.95rem;">One payment, immediate deployment, preserved cash flow. All Ford Super Duty models qualify for Section 179 — deduct 100% in year one.</p>
+            </div>
+
+            <div class="fin-grid">
+
+                <div class="fin-card">
+                    <div class="fin-card__label">Commercial Loan</div>
+                    <div class="fin-card__sub">Traditional Purchase Financing</div>
+                    <div class="fin-card__rows">
+                        <div class="fin-card__row"><span>Terms</span><span>24 – 84 months</span></div>
+                        <div class="fin-card__row"><span>Ownership</span><span>Build equity from day one</span></div>
+                        <div class="fin-card__row"><span>Mileage</span><span>No restrictions</span></div>
+                        <div class="fin-card__row"><span>Section 179</span><span>Eligible — 100% year-one deduction</span></div>
+                    </div>
+                    <a href="/financing/commercial-loan" style="display:block;margin-top:.75rem;font-family:var(--fd);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--cop);text-decoration:none">Read Full Guide →</a><div class="fin-card__best">Best for: Long-term ownership, high-mileage operations</div>
+                </div>
+
+                <div class="fin-card">
+                    <div class="fin-card__label">TRAC Lease</div>
+                    <div class="fin-card__sub">Terminal Rental Adjustment Clause</div>
+                    <div class="fin-card__rows">
+                        <div class="fin-card__row"><span>Payments</span><span>Lower than purchase</span></div>
+                        <div class="fin-card__row"><span>End of Term</span><span>Purchase option available</span></div>
+                        <div class="fin-card__row"><span>Equity</span><span>Possible if value exceeds residual</span></div>
+                        <div class="fin-card__row"><span>Flexibility</span><span>Commercial operators' choice</span></div>
+                    </div>
+                    <div class="fin-card__best">Best for: Lower payments with flexibility at term end</div>
+                </div>
+
+                <div class="fin-card">
+                    <div class="fin-card__label">Fleet Line of Credit</div>
+                    <div class="fin-card__sub">Revolving Commercial Credit</div>
+                    <div class="fin-card__rows">
+                        <div class="fin-card__row"><span>Approval</span><span>Pre-approved credit limit</span></div>
+                        <div class="fin-card__row"><span>Process</span><span>Single application</span></div>
+                        <div class="fin-card__row"><span>Pricing</span><span>Volume discounts</span></div>
+                        <div class="fin-card__row"><span>Support</span><span>Dedicated account manager</span></div>
+                    </div>
+                    <a href="/financing/fleet-line-of-credit" style="display:block;margin-top:.75rem;font-family:var(--fd);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--cop);text-decoration:none">Read Full Guide →</a><div class="fin-card__best">Best for: Growing fleets adding multiple vehicles</div>
+                </div>
+
+            </div>
+
+            <div style="text-align:center;margin-top:2rem;">
+                <a href="https://www.peoriaford.com/financing/index.htm" target="_blank" rel="noopener" class="btn btn--primary" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--arizona-copper);color:var(--white);padding:.875rem 2rem;font-family:var(--font-display);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;">
+                    Apply for Commercial Financing &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="lead-form section">
+        <div class="container">
+
+            <!-- 3 contact info cards -->
+            <div class="contact-cards-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2.5rem;">
+
+                <div class="contact-info-card">
+                    <div class="contact-info-card__icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+                    </div>
+                    <div class="contact-info-card__label">Address</div>
+                    <div class="contact-info-card__value">9130 W. Bell Rd.</div>
+                    <div class="contact-info-card__value">Peoria, AZ 85382</div>
+                    <a href="https://maps.google.com/?q=9130+W+Bell+Rd+Peoria+AZ+85382" target="_blank" rel="noopener" class="contact-info-card__link">Get Directions →</a>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-info-card__icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <div class="contact-info-card__label">Commercial Sales</div>
+                    <div class="contact-info-card__value"><a href="tel:+18448779033" style="color:inherit;text-decoration:none;">(844) 877-9033</a></div>
+                    <a href="tel:+18448779033" class="contact-info-card__link">Call Now →</a>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-info-card__icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+                    </div>
+                    <div class="contact-info-card__label">Hours</div>
+                    <div class="contact-info-card__value">Mon–Sat: 8AM – 9PM</div>
+                    <div class="contact-info-card__value">Sunday: 10AM – 6PM</div>
+                    <a href="https://www.peoriaford.com" target="_blank" rel="noopener" class="contact-info-card__link">Visit Peoria Ford →</a>
+                </div>
+
+            </div>
+
+            <div class="lead-form__inner">
+                <h2>Get Your Commercial Quote</h2>
+                <p>Tell us about your needs and a Peoria Ford commercial specialist will contact you within 24 hours with a custom quote.</p>
+                
+                <form id="quote-form" novalidate>
+                    <div class="quote-form__grid">
+                        <div class="form-group">
+                            <label for="quote-name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="quote-name" name="name" placeholder="John Smith" required>
+                            <span class="error-msg" id="quote-name-error">Please enter your name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-company">Company Name <span class="required">*</span></label>
+                            <input type="text" id="quote-company" name="company" placeholder="ABC Construction" required>
+                            <span class="error-msg" id="quote-company-error">Please enter your company name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="quote-email" name="email" placeholder="john@company.com" required>
+                            <span class="error-msg" id="quote-email-error">Please enter a valid email</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="quote-phone" name="phone" placeholder="Your phone number" required>
+                            <span class="error-msg" id="quote-phone-error">Please enter your phone number</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-state">State <span class="required">*</span></label>
+                            <select id="quote-state" name="state" required>
+                                <option value="">Select your state...</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="other">Other State</option>
+                            </select>
+                            <span class="error-msg" id="quote-state-error">Please select your state</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-truck">Truck Interest <span class="required">*</span></label>
+                            <select id="quote-truck" name="truck-interest" required>
+                                <option value="">Select a truck...</option>
+                                <option value="f250">F-250 Super Duty</option>
+                                <option value="f350">F-350 Super Duty</option>
+                                <option value="f450">F-450 Super Duty</option>
+                                <option value="f550">F-550 Chassis Cab</option>
+                                <option value="f650">F-650 / F-750</option>
+                                <option value="transit">Transit Cargo Van</option>
+                                <option value="unsure">Not Sure – Need Guidance</option>
+                            </select>
+                            <span class="error-msg" id="quote-truck-error">Please select a truck</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-timeline">Purchase Timeline <span class="required">*</span></label>
+                            <select id="quote-timeline" name="timeline" required>
+                                <option value="">When are you looking to buy?</option>
+                                <option value="immediate">Immediate (0-30 days)</option>
+                                <option value="soon">Soon (1-3 months)</option>
+                                <option value="planning">Planning (3-6 months)</option>
+                                <option value="researching">Just Researching</option>
+                            </select>
+                            <span class="error-msg" id="quote-timeline-error">Please select a timeline</span>
+                        </div>
+                        <div class="form-group form-group--full">
+                            <label for="quote-message">Tell us about your business needs</label>
+                            <textarea id="quote-message" name="message" rows="4" placeholder="What kind of work will this truck do? Any specific features or upfits needed?"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Submit Quote Request</button>
+                </form>
+                
+                <!-- Success State -->
+                <div id="quote-success" class="quote-success" style="display:none;">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                    </div>
+                    <h3>Quote Request Submitted!</h3>
+                    <p>A Peoria Ford commercial specialist will contact you within 24 hours.</p>
+                    <button type="button" class="btn btn--secondary" onclick="resetQuoteForm()">Submit Another Request</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FINANCING SECTION
+    ============================================ -->
+    <section id="trucks" class="lineup section">
+        <div class="container">
+            <div class="section__header">
+                <div class="section__eyebrow">2026 Commercial Lineup</div>
+                <h2 class="section__title">The Right Truck for Every Job</h2>
+            </div>
+            
+            <div class="trucks-grid">
+                <!-- F-250 -->
+                <article class="truck-card">
+                    <a href="/trucks/f-250" class="truck-card__image truck-card__image--f250">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg" alt="2026 Ford F-250 Super Duty Crew Cab commercial work truck" fetchpriority="high" width="800" height="220" loading="lazy">
+                        <span>F-250</span><small>Super Duty</small>
+                    </a>
+                    <div class="truck-card__body">
+                        <h3 class="truck-card__model">F-250 Super Duty</h3>
+                        <p class="truck-card__tagline">Balance of capability and affordability</p>
+                        <div class="truck-card__specs">
+                            <div class="spec">
+                                <span class="spec__label">Starting MSRP</span>
+                                <span class="spec__value">$45,675</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Towing</span>
+                                <span class="spec__value">22,000 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Payload</span>
+                                <span class="spec__value">4,260 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Engine Options</span>
+                                <span class="spec__value">Gas & Diesel</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                </article>
+                
+                <!-- F-350 -->
+                <article class="truck-card">
+                    <a href="/trucks/f-350" class="truck-card__image truck-card__image--f350">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED14530/medium/2026-ford-f-250-crew-pickup-1.jpg" alt="2026 Ford F-350 Super Duty commercial truck for heavy towing" width="800" height="220" loading="lazy">
+                        <span>F-350</span><small>Super Duty</small>
+                    </a>
+                    <div class="truck-card__body">
+                        <h3 class="truck-card__model">F-350 Super Duty</h3>
+                        <p class="truck-card__tagline">Increased payload with SRW or DRW options</p>
+                        <div class="truck-card__specs">
+                            <div class="spec">
+                                <span class="spec__label">Starting MSRP</span>
+                                <span class="spec__value">$48,875</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Towing</span>
+                                <span class="spec__value">35,000 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Payload</span>
+                                <span class="spec__value">7,640 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Engine Options</span>
+                                <span class="spec__value">Gas & Diesel</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                </article>
+                
+                <!-- F-450 -->
+                <article class="truck-card">
+                    <a href="/trucks/f-450" class="truck-card__image truck-card__image--f450">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TED80079/medium/2026-ford-f-450-crew-cab-chassis-1.jpg" alt="2026 Ford F-450 Super Duty Crew Cab Chassis for service body upfits" width="800" height="220" loading="lazy">
+                        <span>F-450</span><small>Super Duty</small>
+                    </a>
+                    <div class="truck-card__body">
+                        <h3 class="truck-card__model">F-450 Super Duty</h3>
+                        <p class="truck-card__tagline">Maximum capability. DRW standard.</p>
+                        <div class="truck-card__specs">
+                            <div class="spec">
+                                <span class="spec__label">Starting MSRP</span>
+                                <span class="spec__value">$61,330</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Towing</span>
+                                <span class="spec__value">40,000 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Payload</span>
+                                <span class="spec__value">8,000 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Engine</span>
+                                <span class="spec__value">Diesel Only</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                </article>
+                
+                <!-- F-550 Chassis Cab -->
+                <article class="truck-card">
+                    <a href="/trucks/f-550" class="truck-card__image truck-card__image--f550">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TDA11571/medium/2026-ford-f-450-regular-cab-chassis-25.jpg" alt="2026 Ford F-550 Chassis Cab ready for dump body or service body upfit" width="800" height="220" loading="lazy">
+                        <span>F-550</span><small>Chassis Cab</small>
+                    </a>
+                    <div class="truck-card__body">
+                        <h3 class="truck-card__model">F-550 Chassis Cab</h3>
+                        <p class="truck-card__tagline">Upfit-ready for specialized applications</p>
+                        <div class="truck-card__specs">
+                            <div class="spec">
+                                <span class="spec__label">GVWR</span>
+                                <span class="spec__value">19,500 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Towing</span>
+                                <span class="spec__value">34,500 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Upfit Options</span>
+                                <span class="spec__value">Service / Dump</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Engine</span>
+                                <span class="spec__value">6.7L Diesel</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                </article>
+                
+                <!-- F-650/F-750 -->
+                <article class="truck-card">
+                    <a href="/trucks/f-650-f-750" class="truck-card__image truck-card__image--f650">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TEC85244/medium/2026-ford-f-450-crew-steel-force-truck-bodies-contractor-truck-57.jpg" alt="2026 Ford F-650 F-750 Medium Duty commercial truck with contractor body" width="800" height="220" loading="lazy">
+                        <span>F-650/750</span><small>Medium Duty</small>
+                    </a>
+                    <div class="truck-card__body">
+                        <h3 class="truck-card__model">F-650 / F-750 Medium Duty</h3>
+                        <p class="truck-card__tagline">Commercial-grade for serious operations</p>
+                        <div class="truck-card__specs">
+                            <div class="spec">
+                                <span class="spec__label">GVWR Range</span>
+                                <span class="spec__value">22K–37K lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Towing</span>
+                                <span class="spec__value">50,000 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Payload</span>
+                                <span class="spec__value">Up to 29,000 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Engine Options</span>
+                                <span class="spec__value">Gas & Diesel</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                </article>
+                
+                <!-- Transit -->
+                <article class="truck-card">
+                    <a href="/trucks/transit" class="truck-card__image truck-card__image--transit">
+                        <img src="https://images.worktrucksolutions.com/img/00564/inventory/TKA41069/medium/2026-ford-transit-350-hd-empty-cargo-van-30.jpg" alt="2026 Ford Transit 350 HD Cargo Van for commercial upfit and shelving" width="800" height="220" loading="lazy">
+                        <span>TRANSIT</span><small>Cargo Van</small>
+                    </a>
+                    <div class="truck-card__body">
+                        <h3 class="truck-card__model">Transit Cargo Van</h3>
+                        <p class="truck-card__tagline">Versatile commercial workhorse</p>
+                        <div class="truck-card__specs">
+                            <div class="spec">
+                                <span class="spec__label">Roof Heights</span>
+                                <span class="spec__value">Low / Med / High</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Cargo</span>
+                                <span class="spec__value">487 cu ft</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Max Payload</span>
+                                <span class="spec__value">4,650 lbs</span>
+                            </div>
+                            <div class="spec">
+                                <span class="spec__label">Upfit Ready</span>
+                                <span class="spec__value">Yes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TRUCK SELECTOR SECTION
+    ============================================ -->
+    <section id="fordpro" class="fordpro section">
+        <div class="container">
+            <div class="fordpro__grid">
+                <div class="fordpro__content">
+                    <h2>Ford Pro Intelligence</h2>
+                    <p>Manage your entire fleet from one dashboard. Real-time GPS tracking, vehicle health alerts, driver behavior insights, and automated maintenance scheduling—built directly into your Ford vehicles.</p>
+                    
+                    <div class="fordpro__features">
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+                            </div>
+                            <h4 class="feature__title">Live GPS Tracking</h4>
+                            <p class="feature__desc">Know where every vehicle is in real time</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.77 5.03l1.4 1.4L8.43 19.17l-5.6-5.6 1.4-1.4 4.2 4.2L19.77 5.03m0-2.83L8.43 13.54l-4.2-4.2L0 13.57 8.43 22 24 6.43 19.77 2.2z"/></svg>
+                            </div>
+                            <h4 class="feature__title">Vehicle Health Alerts</h4>
+                            <p class="feature__desc">Proactive maintenance notifications</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            </div>
+                            <h4 class="feature__title">Driver Behavior</h4>
+                            <p class="feature__desc">Speed, braking, and coaching insights</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                            </div>
+                            <h4 class="feature__title">Fuel Monitoring</h4>
+                            <p class="feature__desc">Track consumption and reduce costs</p>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
                 
                 <div class="fordpro__dashboard">
