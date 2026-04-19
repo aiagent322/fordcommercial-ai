@@ -410,7 +410,7 @@
             --font-body: 'Source Sans 3', sans-serif;
             
             /* Spacing */
-            --section-padding: clamp(3rem, 8vw, 6rem);
+            --section-padding: 2rem;
             --container-max: 1400px;
             --container-padding: clamp(1rem, 4vw, 2rem);
         }
@@ -580,7 +580,7 @@
         ============================================ */
         .hero {
             min-height: auto;
-            padding: clamp(1.5rem, 3vw, 2rem) 0 clamp(1rem, 2vw, 1.5rem);
+            padding: 1.25rem 0 1rem;
             background: linear-gradient(135deg, var(--ford-blue-dark) 0%, var(--ford-blue) 50%, var(--ford-blue-light) 100%);
             position: relative;
             display: flex;
@@ -1603,7 +1603,7 @@
         .lead-form p {
             color: rgba(255,255,255,0.8);
             font-size: 1.1rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1rem;
         }
         
         .quote-form__grid {
@@ -2006,20 +2006,15 @@
         ============================================ */
         .matchmaker {
             background: linear-gradient(135deg, var(--ford-blue-dark) 0%, var(--ford-blue) 60%, var(--ford-blue-light) 100%);
+            padding: 1.5rem 0 2rem;
             position: relative;
             overflow: hidden;
         }
-        .matchmaker::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: none;
-            pointer-events: none;
-        }
+        
         .matchmaker .container { position: relative; z-index: 1; }
         .matchmaker__header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1rem;
         }
         .matchmaker__header p {
             color: rgba(255,255,255,0.7);
@@ -2382,9 +2377,10 @@
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.15);
             border-top: 3px solid var(--arizona-copper);
-            padding: 2rem;
+            padding: 1.25rem;
             margin: 2rem auto 0;
             max-width: 860px;
+            margin-top: 1rem;
         }
         .mm-form-title {
             font-family: var(--font-display);
@@ -2400,7 +2396,7 @@
         .mm-form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 0.625rem;
         }
         .mm-form-group { display: flex; flex-direction: column; gap: 5px; }
         .mm-form-group--full { grid-column: 1 / -1; }
@@ -2446,7 +2442,7 @@
         }
         .mm-fuel-btn:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
         .mm-fuel-btn.selected { background: rgba(184,115,51,0.2); border-color: var(--arizona-copper); color: var(--white); }
-        .mm-run-wrap { margin-top: 1.75rem; }
+        .mm-run-wrap { margin-top: 1rem; }
         .mm-run-btn {
             width: 100%;
             background: var(--arizona-copper);
@@ -2784,8 +2780,7 @@
 
             <div class="matchmaker__header">
                 <span class="section__eyebrow">AI Truck Matchmaker</span>
-                <h2 class="section__title" style="color:var(--white)"><span style="color:var(--arizona-copper)">Here Are Your Matches!</span></h2>
-                <p style="color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto">Answer 7 questions about your operation. Our AI scores the full Ford commercial lineup and returns your top 3 trucks with live Peoria Ford inventory.</p>
+                <h2 class="section__title" style="color:var(--white)">Find Your <span style="color:var(--arizona-copper)">Perfect Truck</span></h2>
             </div>
 
             <!-- TRUCK PROFILE FORM CARD -->
