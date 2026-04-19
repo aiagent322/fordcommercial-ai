@@ -1335,7 +1335,7 @@
             width: 100%;
             padding: 0.875rem 1rem;
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 16px;
             background: var(--white);
             border: 2px solid transparent;
             transition: border-color 0.2s;
@@ -1441,6 +1441,7 @@
             color: var(--white);
             text-transform: uppercase;
             margin-bottom: 0.5rem;
+            word-break: break-word;
         }
         
         .industry-card__trucks {
@@ -1670,6 +1671,8 @@
             background: var(--white);
             border: 2px solid var(--ford-blue);
             padding: 2rem;
+            box-sizing: border-box;
+            width: 100%;
         }
         
         .dealer__contact h3 {
@@ -1786,7 +1789,7 @@
             width: 100%;
             padding: 1rem;
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 16px;
             border: 2px solid transparent;
             transition: border-color 0.2s;
         }
@@ -2052,6 +2055,11 @@
                 display: none;
             }
 
+            /* Hero decorative truck image — hide on mobile (saves render, avoids overlap) */
+            .hero__image {
+                display: none;
+            }
+
             /* Truck cards: single column */
             .trucks-grid {
                 grid-template-columns: 1fr;
@@ -2098,6 +2106,11 @@
 
         /* ---- 375px: Standard iPhone ------------------------------------- */
         @media (max-width: 375px) {
+
+            /* Tighten section vertical spacing on small phones */
+            .section {
+                padding: 2.5rem 0;
+            }
 
             .hero__title {
                 font-size: 1.45rem;
@@ -3540,7 +3553,7 @@
             </div>
             
             <style>
-                .qa-cat-btn { background: transparent; border: 1px solid var(--ford-silver); padding: 0.5rem 1rem; font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+                .qa-cat-btn { background: transparent; border: 1px solid var(--ford-silver); padding: 0.5rem 1rem; min-height: 44px; font-family: var(--font-display); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; }
                 .qa-cat-btn:hover, .qa-cat-btn.active { background: var(--arizona-copper); border-color: var(--arizona-copper); color: var(--white); }
                 .qa-item { border: 1px solid var(--ford-silver-light); margin-bottom: 0.75rem; background: var(--white); }
                 .qa-question { width: 100%; padding: 1rem 3rem 1rem 1rem; background: none; border: none; text-align: left; font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--ford-blue); cursor: pointer; position: relative; }
