@@ -2898,7 +2898,7 @@
             <!-- LOADING STATE -->
             <div class="mm-loading" id="mm-loading" style="display:none">
                 <div class="mm-loading__spinner"></div>
-                <div class="mm-loading__text">Matching your trucks<span class="mm-loading__dots"></span></div>
+                <div class="mm-loading__text" id="mm-loading__text">Matching your trucks<span class="mm-loading__dots"></span></div>
                 <div class="mm-loading__sub">Scoring full Ford lineup · Checking live inventory</div>
             </div>
 
@@ -4093,7 +4093,7 @@
             'Transit': 'https://commercial-trucks.peoriaford.com/Cargo_Van'
         };
 
-        const MM_SYSTEM_PROMPT = `You are an expert Ford commercial truck advisor for Peoria Ford, Arizona's #1 commercial fleet dealer. A business owner has answered 7 questions about their needs. Recommend exactly 3 Ford commercial truck configurations. Return ONLY a valid JSON array — no preamble, no markdown fences, no text outside the JSON.
+        const MM_SYSTEM_PROMPT = `You are an expert Ford commercial truck advisor for Peoria Ford, Arizona's #1 commercial fleet dealer. A business owner has answered 7 questions about their needs. Recommend exactly 6 Ford commercial truck configurations (3 primary + 3 alternatives). Return ONLY a valid JSON array — no preamble, no markdown fences, no text outside the JSON.
 
 FORD COMMERCIAL LINEUP:
 F-250 Super Duty: GVWR 10,000 lbs, Max Tow 22,000 lbs, Max Payload 4,260 lbs, Engines: 6.7L Power Stroke Diesel (475hp/1,050 lb-ft) or 7.3L V8 Gas (430hp), Cab: Regular/SuperCab/Crew, Starting $46,495. Best for: light-medium commercial, landscaping, electricians, plumbers, light construction.
