@@ -2816,6 +2816,32 @@
             .contact-cards-grid { grid-template-columns: 1fr !important; }
         }
 
+        
+        /* ── Q&A category buttons — black & bold ── */
+        .qa-cat-btn {
+            background: #000 !important;
+            color: #fff !important;
+            border: 2px solid #000 !important;
+            font-weight: 800 !important;
+            font-family: var(--font-display) !important;
+            font-size: 0.78rem !important;
+            letter-spacing: 0.08em !important;
+            text-transform: uppercase !important;
+            padding: 0.625rem 1.25rem !important;
+            cursor: pointer !important;
+            min-height: 44px !important;
+            transition: background 0.15s, color 0.15s !important;
+        }
+        .qa-cat-btn:hover {
+            background: #222 !important;
+            border-color: #222 !important;
+        }
+        .qa-cat-btn.active {
+            background: var(--arizona-copper) !important;
+            border-color: var(--arizona-copper) !important;
+            color: #fff !important;
+        }
+
         </style>
 </head>
 <body>
@@ -3535,8 +3561,8 @@
     <section id="qa" class="section">
         <div class="container">
             <div class="section__header">
-                <div class="section__eyebrow">Commercial Truck Q&A</div>
-                <h2 class="section__title">Get Answers</h2>
+                <div class="section__eyebrow" style="color:#000;font-weight:900;letter-spacing:.1em;">Commercial Truck Q&A</div>
+                <h2 class="section__title" style="color:#000;font-weight:900;">Get Answers</h2>
                 <p style="color: var(--text-muted); max-width: 700px; margin: 1rem auto 0;">Everything you need to know about Ford commercial trucks, upfitting, financing, and fleet management.</p>
             </div>
             
