@@ -380,8 +380,6 @@
       ]
     }
 
-        // Initialize AI Matchmaker
-        mmInit();
     </script>
     
     <!-- Fonts -->
@@ -4569,6 +4567,11 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
                     item.classList.remove('active');
                 });
             });
+        });
+
+        // Initialize AI Matchmaker — must run after all functions defined
+        document.addEventListener('DOMContentLoaded', function() {
+            mmInit();
         });
     </script>
 
