@@ -3,6 +3,12 @@
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self), payment=()
+  X-DNS-Prefetch-Control: on
 
 /*.html
   Cache-Control: public, max-age=3600, s-maxage=3600
+
+/
+  Cache-Control: public, max-age=1800, s-maxage=1800
