@@ -717,7 +717,7 @@
         
         .trucks-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
             gap: 2rem;
         }
         
@@ -2912,6 +2912,105 @@
         .fin-card-link:hover .fin-card { border-color: var(--arizona-copper); filter: brightness(1.08); }
         .fin-card { transition: filter 0.15s, border-color 0.15s; }
 
+        
+        /* ════════════════════════════════════════════════
+           MOBILE FIRST — comprehensive 480px and below
+           ════════════════════════════════════════════════ */
+        @media (max-width: 480px) {
+
+            /* Header — tighter, logo smaller */
+            .logo__icon { width: 56px !important; }
+            .logo__text { font-size: 1rem !important; }
+            .nav__cta { padding: 0.5rem 0.875rem !important; font-size: 0.75rem !important; }
+
+            /* Hero */
+            .hero { padding: 1rem 0 0.75rem !important; }
+            .hero__title { font-size: clamp(1.4rem, 6vw, 1.9rem) !important; }
+            .hero__h2 { font-size: 0.85rem !important; }
+
+            /* Matchmaker form */
+            .mm-form-card { padding: 1rem !important; }
+            .mm-form-grid { grid-template-columns: 1fr !important; gap: 0.5rem !important; }
+            .mm-fuel-options { grid-template-columns: 1fr !important; }
+            .mm-run-btn { font-size: 0.95rem !important; padding: 0.875rem !important; }
+
+            /* Results cards — single column */
+            .mm-three-cards { grid-template-columns: 1fr !important; }
+            .mm-card-score { font-size: 1.5rem !important; }
+
+            /* National delivery chips — stack vertically */
+            #national-delivery .container > div > div:last-child {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+
+            /* Truck cards — prevent overflow */
+            .trucks-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+            .truck-card__image { height: 160px !important; }
+
+            /* Financing cards */
+            .fin-grid { grid-template-columns: 1fr !important; }
+
+            /* Contact cards */
+            .contact-cards-grid { grid-template-columns: 1fr !important; }
+
+            /* Quote form */
+            .quote-form__grid { grid-template-columns: 1fr !important; }
+
+            /* Resources grid */
+            .resources-grid, .resource-cards { grid-template-columns: 1fr !important; }
+
+            /* Ford Pro */
+            .fordpro__grid { grid-template-columns: 1fr !important; }
+            .fordpro__features { grid-template-columns: 1fr !important; }
+
+            /* Footer */
+            .footer__grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+            .footer__legal p { font-size: 0.85rem !important; }
+            .footer__bottom { flex-direction: column !important; gap: 0.5rem !important; text-align: center !important; }
+
+            /* Section padding */
+            .section { padding: 1.5rem 0 !important; }
+
+            /* General container */
+            .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+            /* Q&A buttons wrap */
+            [data-category] { font-size: 0.7rem !important; padding: 0.5rem 0.75rem !important; }
+        }
+
+        /* ── 375px and below — smallest phones ── */
+        @media (max-width: 375px) {
+            .logo__icon { width: 48px !important; }
+            .logo__text { font-size: 0.9rem !important; }
+            .hero__title { font-size: 1.25rem !important; }
+            .section__title { font-size: 1.3rem !important; }
+            .fin-card { padding: 1rem !important; }
+            .mm-form-card { padding: 0.875rem !important; }
+        }
+
+        /* ── trucks-grid: fix minmax overflow on small screens ── */
+        @media (max-width: 700px) {
+            .trucks-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Nav link spacing on mobile nav dropdown ── */
+        @media (max-width: 900px) {
+            .nav__link {
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                width: 100%;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+            }
+            .nav__cta {
+                margin-top: 0.5rem;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
         </style>
 </head>
 <body>
@@ -4824,7 +4923,35 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
         }
         window.mmRestart = mmRestart;
 
-    </script>
+    
+        // ── Mobile nav toggle ─────────────────────────────────────────────
+        (function() {
+            var toggle = document.querySelector('.mobile-toggle');
+            var nav    = document.querySelector('.nav');
+            if (!toggle || !nav) return;
+            toggle.addEventListener('click', function() {
+                var open = nav.style.display === 'flex';
+                nav.style.display = open ? 'none' : 'flex';
+                nav.style.flexDirection = 'column';
+                nav.style.position = 'absolute';
+                nav.style.top = '100%';
+                nav.style.left = '0';
+                nav.style.right = '0';
+                nav.style.background = 'var(--ford-blue-dark)';
+                nav.style.padding = '1rem';
+                nav.style.gap = '0';
+                nav.style.zIndex = '999';
+                nav.style.borderTop = '2px solid var(--arizona-copper)';
+                this.setAttribute('aria-expanded', open ? 'false' : 'true');
+            });
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.header')) {
+                    nav.style.display = '';
+                }
+            });
+        })();
+</script>
 
 </body>
 </html>
