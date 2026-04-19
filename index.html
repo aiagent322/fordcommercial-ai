@@ -2530,13 +2530,7 @@
             min-height: 36px;
         }
         .mm-restart-btn:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
-        .mm-results-grid {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 1.25rem;
-            max-width: 860px;
-            margin: 0 auto;
-        }
+        .mm-results-area { max-width:900px; margin:0 auto; }
 
         /* ── RESULT CARD ── */
         .mm-card {
@@ -2649,12 +2643,67 @@
         @media(max-width:768px) {
             .mm-form-grid { grid-template-columns: 1fr; }
             .mm-fuel-options { grid-template-columns: 1fr; }
-            .mm-results-grid { grid-template-columns: 1fr; }
+            .mm-results-area { max-width:900px; margin:0 auto; }
             .mm-lead-grid { grid-template-columns: 1fr; }
         }
         @media(max-width:480px) {
             .mm-form-card, .mm-lead-wrap { padding: 1.25rem; }
         }
+
+        
+        /* ── TWO-ROW RESULTS LAYOUT ── */
+        .mm-three-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 0;
+        }
+        .mm-alt-label {
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .mm-alt-label span {
+            font-family: var(--font-display);
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .mm-alt-label::before, .mm-alt-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        .mm-card-alt { opacity: 0.85; }
+        .mm-card-alt:hover { opacity: 1; }
+        .mm-card-upfit {
+            font-size: 0.72rem;
+            color: var(--arizona-copper);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-family: var(--font-display);
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+        .mm-confidence {
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 7px;
+            margin-bottom: 4px;
+        }
+        .mm-confidence.high { background: rgba(184,115,51,0.2); color: var(--arizona-copper); }
+        .mm-confidence.med  { background: rgba(91,155,213,0.2); color: #5b9bd5; }
+        .mm-confidence.low  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+        @media(max-width:900px) { .mm-three-cards { grid-template-columns: 1fr 1fr; } }
+        @media(max-width:600px) { .mm-three-cards { grid-template-columns: 1fr; } }
 
         </style>
 </head>
@@ -2860,7 +2909,7 @@
                     <div class="mm-results-summary" id="mm-results-summary"></div>
                     <button class="mm-restart-btn" onclick="mmRestart()">← Start Over</button>
                 </div>
-                <div class="mm-results-grid" id="mm-results-grid"></div>
+                <div class="mm-results-grid" id="mm-results-grid" class="mm-results-area"></div>
 
                 <!-- Quote form -->
                 <div class="mm-lead-wrap" id="mm-lead-wrap" style="display:none">
@@ -4169,167 +4218,232 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
         }
 
         async function mmRunAI() {
-            // ── UI: hide steps, show loader ─────────────────────────────────
             document.getElementById('mm-loading').style.display = 'block';
-            
-            ;
 
-            const msgs   = ['Analyzing your requirements...','Reviewing the Ford Super Duty lineup...','Checking live Peoria Ford inventory...','Preparing your 3 recommendations...'];
-            let   msgIdx = 0;
-            const msgEl  = document.getElementById('mm-loading-text');
+            const msgs = ['Analyzing your requirements...','Scoring the Ford commercial lineup...','Checking live Peoria Ford inventory...','Building your 6-truck report...'];
+            let msgIdx = 0;
+            const msgEl  = document.getElementById('mm-loading__text');
             const ticker = setInterval(() => { msgIdx=(msgIdx+1)%msgs.length; if(msgEl) msgEl.textContent=msgs[msgIdx]; }, 1800);
 
-            const userMsg =
-                'Customer answers:\n' +
-                'Industry: '          + mmState.answers.industry    + '\n' +
-                'Primary job: '       + mmState.answers.primary_job + '\n' +
-                'Towing requirement: '+ mmState.answers.towing      + '\n' +
-                'Crew size: '         + mmState.answers.crew        + '\n' +
-                'Body/upfit: '        + mmState.answers.body        + '\n' +
-                'Budget: '            + mmState.answers.budget      + '\n' +
-                'Fuel preference: '   + mmState.answers.fuel        + '\n\n' +
-                'Recommend 3 Ford commercial trucks with upfits that best match these needs.';
+            const a = mmState.answers;
+            const userProfile =
+                'Industry: '          + a.industry    + '\n' +
+                'Primary job: '       + a.primary_job + '\n' +
+                'Max towing need: '   + a.towing      + '\n' +
+                'Crew size: '         + a.crew        + '\n' +
+                'Body / upfit: '      + a.body        + '\n' +
+                'Budget per truck: '  + a.budget      + '\n' +
+                'Fuel preference: '   + a.fuel;
+
+            // ── STEP 1: Score + pick 6 trucks ─────────────────────────────
+            const SCORE_PROMPT = MM_SYSTEM_PROMPT;
+            const scoreUser = userProfile + '\n\nReturn a JSON array of exactly 6 Ford commercial truck recommendations. First 3 are PRIMARY picks (tier: "primary", "value", "capable"). Next 3 are ALTERNATIVES (tier: "alt1", "alt2", "alt3"). Each object: {tier, model, config, score (0-100), price_range, upfit, explanation (1 sentence)}';
 
             try {
-                // ── PARALLEL: AI recommendation + live inventory ────────────
-                const [aiResp, invResp] = await Promise.all([
+                const [scoreResp, invResp] = await Promise.all([
                     fetch('https://api.anthropic.com/v1/messages', {
-                        method:  'POST',
+                        method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body:    JSON.stringify({
-                            model:    'claude-sonnet-4-20250514',
-                            max_tokens: 1000,
-                            system:   MM_SYSTEM_PROMPT,
-                            messages: [{ role: 'user', content: userMsg }]
+                        body: JSON.stringify({
+                            model: 'claude-sonnet-4-20250514',
+                            max_tokens: 1400,
+                            system: SCORE_PROMPT,
+                            messages: [{ role: 'user', content: scoreUser }]
                         })
                     }),
-                    // Pre-fetch all 6 model counts so we know what's in stock
                     fetch('https://fordcommercial-inventory.bridleandbit.workers.dev/inventory')
                 ]);
 
-                const aiData   = await aiResp.json();
-                const rawText  = aiData.content.map(c => c.text || '').join('').trim();
-                const clean    = rawText.replace(/```json|```/g, '').trim();
-                const results  = JSON.parse(clean);
+                const scoreData = await scoreResp.json();
+                const rawText   = scoreData.content.map(c => c.text || '').join('').trim();
+                const clean     = rawText.replace(/```json|```/g, '').trim();
+                const allTrucks = JSON.parse(clean);
+                const topPicks  = allTrucks.slice(0, 3);
+                const altPicks  = allTrucks.slice(3, 6);
 
-                const invMeta  = await invResp.json();
+                const invMeta   = await invResp.json();
                 const stockCounts = invMeta.models || {};
 
-                // ── Fetch real inventory for each AI-recommended model ──────
+                // Fetch inventory for top 3
                 const inventoryByModel = {};
-                await Promise.all(results.map(async truck => {
+                await Promise.all(topPicks.map(async truck => {
                     const modelKey = Object.keys(MM_TRUCK_IMAGES).find(k => truck.model.includes(k)) || truck.model;
-                    const bodyParam = mmState.answers.body || '';
-                    const fuelParam = mmState.answers.fuel === 'no-preference' ? '' : (mmState.answers.fuel || '');
-                    const invUrl    = 'https://fordcommercial-inventory.bridleandbit.workers.dev/inventory' +
+                    const fuelParam = a.fuel === 'no_preference' ? '' : (a.fuel || '');
+                    const invUrl = 'https://fordcommercial-inventory.bridleandbit.workers.dev/inventory' +
                         '?model=' + encodeURIComponent(modelKey) +
-                        (bodyParam ? '&body=' + encodeURIComponent(bodyParam) : '') +
                         (fuelParam ? '&fuel=' + encodeURIComponent(fuelParam) : '') +
                         '&limit=1';
                     try {
                         const r   = await fetch(invUrl);
                         const inv = await r.json();
-                        inventoryByModel[modelKey] = {
-                            vehicles:   inv.vehicles || [],
-                            totalCount: inv.count    || (stockCounts[modelKey] || 0),
-                        };
+                        inventoryByModel[modelKey] = { vehicles: inv.vehicles || [], totalCount: inv.count || (stockCounts[modelKey] || 0) };
                     } catch(e) {
                         inventoryByModel[modelKey] = { vehicles: [], totalCount: stockCounts[modelKey] || 0 };
                     }
                 }));
 
+                // ── STEP 2: Get long personalized explanations for all 6 ──
+                const EXPLAIN_SYSTEM = `You are a Ford commercial truck specialist at Peoria Ford. Write a personalized explanation for why each truck matches this buyer's SPECIFIC stated needs. Be direct, confident, commercial. No hedging. Reference their actual inputs. 120-160 words per explanation for primary picks, 80-100 words for alternatives. Return ONLY a JSON array of 6 strings in order.`;
+
+                const explainUser = 'Buyer Profile:\n' + userProfile + '\n\nTruck Recommendations:\n' +
+                    allTrucks.map((t, i) => (i+1) + '. ' + t.model + ' (' + t.config + ') — Score: ' + t.score + '/100\n   Upfit: ' + t.upfit + '\n   Price: ' + t.price_range).join('\n\n') +
+                    '\n\nWrite personalized explanations (why this specific truck fits THIS buyer\'s stated inputs). Return ONLY a JSON array of 6 strings.';
+
+                const explainResp = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1800,
+                        system: EXPLAIN_SYSTEM,
+                        messages: [{ role: 'user', content: explainUser }]
+                    })
+                });
+
+                const explainData = await explainResp.json();
+                const explainRaw  = explainData.content.map(c => c.text || '').join('').trim();
+                const explanations = JSON.parse(explainRaw.replace(/```json|```/g, '').trim());
+
                 clearInterval(ticker);
-                mmDisplayResults(results, inventoryByModel);
+                mmDisplayResults(topPicks, altPicks, explanations, inventoryByModel);
 
             } catch(err) {
                 clearInterval(ticker);
                 console.error('Matchmaker error:', err);
                 document.getElementById('mm-loading').style.display = 'none';
-                document.getElementById('mm-steps').style.display   = 'block';
-                document.getElementById('mm-nav').style.display     = 'flex';
+                document.getElementById('mm-form-card').style.display = 'block';
                 alert('Unable to connect. Please try again or call (844) 877-9033.');
             }
         }
 
-        function mmDisplayResults(results, inventoryByModel) {
-            inventoryByModel = inventoryByModel || {};
+        function mmDisplayResults(topPicks, altPicks, explanations, inventoryByModel) {
             document.getElementById('mm-loading').style.display = 'none';
             document.getElementById('mm-results').style.display = 'block';
 
-            const grid    = document.getElementById('mm-results-grid');
-            const summary = document.getElementById('mm-results-summary');
             const industry = mmState.answers.industry || 'your operation';
-            summary.textContent = 'Based on your ' +
-                industry.charAt(0).toUpperCase() + industry.slice(1).replace(/-/g,' ') +
-                ' operation — here are your top 3 Ford commercial truck matches from Peoria Ford\'s live inventory.';
+            document.getElementById('mm-results-summary').textContent =
+                'Based on your ' + industry.charAt(0).toUpperCase() + industry.slice(1).replace(/_/g,' ') +
+                ' operation — 3 primary matches and 3 strong alternatives from Peoria Ford\'s live inventory.';
 
-            mmState.results = results;
-            const badgeColors = { copper: 'var(--arizona-copper)', blue: 'var(--ford-blue)', charcoal: '#555' };
+            const area = document.getElementById('mm-results-grid');
+            area.innerHTML = '';
 
-            grid.innerHTML = results.map(function(truck, idx) {
-                // ── Resolve model key ──────────────────────────────────────
-                const modelKey = Object.keys(MM_TRUCK_IMAGES).find(k => truck.model.includes(k)) || 'F-350';
+            // ── TOP 3 CARDS ─────────────────────────────────────────────
+            const topGrid = document.createElement('div');
+            topGrid.className = 'mm-three-cards';
 
-                // ── Live inventory data (if available) ────────────────────
-                const invData     = inventoryByModel[modelKey] || {};
-                const liveVehicle = (invData.vehicles || [])[0];
-                const totalCount  = invData.totalCount || 0;
+            const tierLabels = { primary: '★ Primary Match', value: '✓ Best Value Match', capable: '◆ Maximum Capability' };
+            const tierTypes  = ['primary', 'value', 'capable'];
 
-                // Real image > fallback CDN image
-                const imgUrl  = (liveVehicle && liveVehicle.image) ? liveVehicle.image : MM_TRUCK_IMAGES[modelKey];
-
-                // Real price > AI estimate
-                const priceStr = (liveVehicle && liveVehicle.price && liveVehicle.price > 0)
-                    ? 'From $' + liveVehicle.price.toLocaleString()
-                    : truck.price_from;
-
-                // Stock number badge
-                const stockBadge = liveVehicle ? '· Stock #' + liveVehicle.stock : '';
-
-                // Real listing URL > model search > generic
-                const listingUrl = (liveVehicle && liveVehicle.url)
-                    ? liveVehicle.url
+            topPicks.forEach((truck, i) => {
+                const type  = tierTypes[i] || 'primary';
+                const label = tierLabels[type] || 'Top Match';
+                const expl  = explanations[i] || truck.explanation || '';
+                const score = truck.score || 88;
+                const modelKey = Object.keys(MM_TRUCK_IMAGES).find(k => truck.model.includes(k)) || truck.model;
+                const inv   = (inventoryByModel[modelKey] || {});
+                const inStockCount = inv.totalCount || 0;
+                const inStockVehicle = (inv.vehicles || [])[0];
+                const listingUrl = inStockVehicle
+                    ? 'https://commercial-trucks.peoriaford.com/VehicleDetails/' + inStockVehicle.stockNumber
                     : (MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com');
-
-                // Model-level search URL for "See all N in stock"
                 const searchUrl = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
+                const priceDisplay = inStockVehicle && inStockVehicle.price
+                    ? '$' + inStockVehicle.price.toLocaleString()
+                    : (truck.price_range || 'Call for pricing');
 
-                const badgeClr  = badgeColors[truck.badge_color] || 'var(--arizona-copper)';
-                const specsHtml = (truck.key_specs || []).map(s => '<li>' + s + '</li>').join('');
-                const upfitStr  = truck.upfit && truck.upfit !== 'None' ? ' + ' + truck.upfit : '';
+                const card = document.createElement('div');
+                card.className = 'mm-card';
+                card.innerHTML = \`
+                    <div class="mm-card-tier-bar \${type}">
+                        <div class="mm-card-tier-dot"></div>
+                        \${label}
+                    </div>
+                    <div class="mm-card-body">
+                        <div>
+                            <div class="mm-card-score-row">
+                                <div class="mm-card-score \${type}">\${score}</div>
+                                <div class="mm-card-denom">/ 100</div>
+                                <div class="mm-confidence \${score>=80?'high':score>=65?'med':'low'}">\${score>=80?'High Confidence':score>=65?'Good Match':'Solid Option'}</div>
+                            </div>
+                            <div class="mm-card-bar-wrap"><div class="mm-card-bar \${type}" style="width:\${score}%"></div></div>
+                        </div>
+                        <div>
+                            <div class="mm-card-model">\${truck.model}</div>
+                            <div class="mm-card-config">\${truck.config || ''}</div>
+                            \${truck.upfit ? '<div class="mm-card-upfit">' + truck.upfit + '</div>' : ''}
+                        </div>
+                        <div class="mm-card-explanation">\${expl}</div>
+                        <div class="mm-card-stock">
+                            \${inStockCount > 0
+                                ? '<a href="' + listingUrl + '" target="_blank" class="primary-link">' + inStockCount + ' In Stock →</a>'
+                                : '<a href="' + searchUrl + '" target="_blank" class="secondary-link">Check Availability →</a>'
+                            }
+                            <a href="#contact" class="secondary-link">Get Quote</a>
+                        </div>
+                    </div>
+                    <div class="mm-card-price">
+                        <span class="mm-card-price-label">Starting Price</span>
+                        <span class="mm-card-price-val">\${priceDisplay}</span>
+                    </div>
+                \`;
+                topGrid.appendChild(card);
+            });
+            area.appendChild(topGrid);
 
-                // In-stock bar
-                const stockBar = totalCount > 0
-                    ? '<div class="mm-card__stock-bar">✓ ' + totalCount + ' in stock at Peoria Ford</div>'
-                    : '<div class="mm-card__stock-bar mm-card__stock-bar--order">Available to Order · Call (844) 877-9033</div>';
+            // ── ALT 3 CARDS ─────────────────────────────────────────────
+            if (altPicks && altPicks.length) {
+                const altLabel = document.createElement('div');
+                altLabel.className = 'mm-alt-label';
+                altLabel.innerHTML = '<span>Also Worth Considering</span>';
+                area.appendChild(altLabel);
 
-                // See-all link
-                const seeAllLink = totalCount > 1
-                    ? '<a href="' + searchUrl + '" target="_blank" rel="noopener" class="mm-card__see-all">See all ' + totalCount + ' ' + modelKey + 's in stock →</a>'
-                    : '';
+                const altGrid = document.createElement('div');
+                altGrid.className = 'mm-three-cards mm-alt-cards';
 
-                return (
-                    '<article class="mm-card ' + (idx === 0 ? 'mm-card--featured' : '') + '">' +
-                        '<div class="mm-card__badge" style="background:' + badgeClr + '">' + truck.rank_label + '</div>' +
-                        stockBar +
-                        '<div class="mm-card__image"><img src="' + imgUrl + '" alt="2026 Ford ' + truck.model + '" loading="lazy" onerror="this.src=\'' + MM_TRUCK_IMAGES[modelKey] + '\'"></div>' +
-                        '<div class="mm-card__body">' +
-                            '<h4 class="mm-card__model">2026 Ford ' + truck.model + '</h4>' +
-                            '<p class="mm-card__config">' + truck.config + upfitStr + '</p>' +
-                            '<p class="mm-card__price">' + priceStr + ' <span class="mm-card__stock-num">' + stockBadge + '</span></p>' +
-                            '<ul class="mm-card__specs">' + specsHtml + '</ul>' +
-                            '<div class="mm-card__why"><span class="mm-card__why-label">Why This Truck</span><p>' + truck.why + '</p></div>' +
-                            '<a href="' + listingUrl + '" target="_blank" rel="noopener" class="mm-card__cta">View This Truck at Peoria Ford →</a>' +
-                            seeAllLink +
-                        '</div>' +
-                    '</article>'
-                );
-            }).join('');
+                altPicks.forEach((truck, i) => {
+                    const expl  = explanations[3 + i] || truck.explanation || '';
+                    const score = truck.score || 75;
 
-            document.getElementById('mm-hidden-trucks').value  = results.map(r => r.model + ' (' + r.config + ')').join(', ');
-            document.getElementById('mm-hidden-answers').value = JSON.stringify(mmState.answers);
-            document.getElementById('mm-results').style.display = 'block';
-            setTimeout(() => document.getElementById('mm-results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+                    const card = document.createElement('div');
+                    card.className = 'mm-card mm-card-alt';
+                    card.innerHTML = \`
+                        <div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">
+                            <div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.4);"></div>
+                            \${i===0?'Strong Alternative':i===1?'Next Best Value':'Additional Option'}
+                        </div>
+                        <div class="mm-card-body">
+                            <div>
+                                <div class="mm-card-score-row">
+                                    <div class="mm-card-score" style="color:rgba(255,255,255,0.5);">\${score}</div>
+                                    <div class="mm-card-denom">/ 100</div>
+                                </div>
+                                <div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:\${score}%;background:rgba(255,255,255,0.25);"></div></div>
+                            </div>
+                            <div>
+                                <div class="mm-card-model" style="font-size:.95rem;">\${truck.model}</div>
+                                <div class="mm-card-config">\${truck.config || ''}</div>
+                            </div>
+                            <div class="mm-card-explanation">\${expl}</div>
+                            <div class="mm-card-stock">
+                                <a href="\${MM_INVENTORY_URLS[truck.model] || 'https://commercial-trucks.peoriaford.com'}" target="_blank" class="secondary-link">View Inventory →</a>
+                                <a href="#contact" class="secondary-link">Get Quote</a>
+                            </div>
+                        </div>
+                        <div class="mm-card-price">
+                            <span class="mm-card-price-label">Starting Price</span>
+                            <span class="mm-card-price-val" style="color:rgba(255,255,255,0.6);">\${truck.price_range || 'Call for pricing'}</span>
+                        </div>
+                    \`;
+                    altGrid.appendChild(card);
+                });
+                area.appendChild(altGrid);
+            }
+
+            // Show lead form after short delay
+            setTimeout(() => {
+                document.getElementById('mm-lead-wrap').style.display = 'block';
+            }, 800);
         }
 
         function mmReset() {
