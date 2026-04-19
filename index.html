@@ -2625,6 +2625,7 @@
                 <a href="#selector" class="nav__link">Find Your Truck</a>
                 <a href="#industries" class="nav__link">Industries</a>
                 <a href="#fordpro" class="nav__link">Ford Pro</a>
+                <a href="#resources" class="nav__link">Resources</a>
                 <a href="#contact" class="nav__cta">Get a Quote</a>
             </nav>
             
@@ -3530,7 +3531,138 @@
                 .qa-answer__content ul { margin: 0.75rem 0; padding-left: 1.25rem; }
                 .qa-answer__content li { margin-bottom: 0.4rem; }
                 .qa-answer__content strong { color: var(--ford-blue); }
-            </style>
+            
+        /* ── FOOTER ──────────────────────────────────────────────────────── */
+        .footer {
+            background: var(--charcoal);
+            color: rgba(255,255,255,0.65);
+            padding: 3rem var(--section-padding) 1.5rem;
+            font-family: var(--font-body);
+        }
+        .footer__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer__logo {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+        .footer__logo span { color: var(--arizona-copper); }
+        .footer__tagline {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .footer__phone {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--arizona-copper);
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+        .footer__links-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+        .footer__links-inline a {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+        }
+        .footer__links-inline a:hover { color: var(--arizona-copper); }
+        .footer__cols {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.5rem;
+        }
+        .footer__col-head {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+        .footer__col a {
+            display: block;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            padding: 0.2rem 0;
+            transition: color 0.15s;
+        }
+        .footer__col a:hover { color: var(--arizona-copper); }
+        .footer__bottom {
+            max-width: 1200px;
+            margin: 1.25rem auto 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+        }
+        @media (max-width: 1024px) {
+            .footer__inner { grid-template-columns: 1fr; }
+            .footer__cols { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .footer__cols { grid-template-columns: repeat(2, 1fr); }
+            .footer__bottom { flex-direction: column; }
+        }
+
+        /* ── RESOURCES HUB ───────────────────────────────────────────────── */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .resource-group__head {
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--arizona-copper);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.875rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+        .resource-link {
+            display: block;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            padding: 0.3rem 0;
+            transition: color 0.15s;
+        }
+        .resource-link:hover { color: var(--white); }
+        .resource-link::before {
+            content: "→ ";
+            color: var(--arizona-copper);
+            font-size: 0.75rem;
+        }
+        @media (max-width: 900px) {
+            .resources-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .resources-grid { grid-template-columns: 1fr; }
+        }
+</style>
             
             <div class="qa-list" style="max-width: 900px; margin: 0 auto;">
                 <!-- BUILD & PRICE -->
@@ -3702,68 +3834,104 @@
     <!-- ============================================
          FOOTER
     ============================================ -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer__grid">
+    <footer class="footer" aria-label="Site footer">
+            <div class="footer__inner">
                 <div class="footer__brand">
-                    <a href="/" class="logo" aria-label="FordCommercial.AI Home">
-                        <div class="logo__text">FordCommercial<span>.AI</span></div>
-                    </a>
-                    <p>AI-powered commercial truck selection for American businesses.</p>
+                    <div class="footer__logo">FordCommercial<span>.AI</span></div>
+                    <p class="footer__tagline">AI-powered commercial truck selection. Powered by Peoria Ford — Arizona's Ford Pro BPN dealer.</p>
+                    <a href="tel:+18448779033" class="footer__phone">(844) 877-9033</a>
+                    <div class="footer__links-inline">
+                        <a href="https://www.peoriaford.com" target="_blank" rel="noopener">Peoria Ford</a>
+                        <a href="https://commercial-trucks.peoriaford.com" target="_blank" rel="noopener">Inventory</a>
+                        <a href="/about">About</a>
+                        <a href="/qa/">Q&amp;A</a>
+                    </div>
                 </div>
-                
-                <nav class="footer__col" aria-label="Truck models">
-                    <h4>Trucks</h4>
-                    <ul>
-                        <li><a href="/trucks/f-250">F-250 Super Duty</a></li>
-                        <li><a href="/trucks/f-350">F-350 Super Duty</a></li>
-                        <li><a href="/trucks/f-450">F-450 Super Duty</a></li>
-                        <li><a href="/trucks/f-550">F-550 Chassis Cab</a></li>
-                        <li><a href="/trucks/f-650-f-750">F-650 / F-750</a></li>
-                        <li><a href="/trucks/transit">Transit Cargo Van</a></li>
-                    </ul>
-                </nav>
-                
-                <nav class="footer__col" aria-label="Industry solutions">
-                    <h4>Industries</h4>
-                    <ul>
-                        <li><a href="/industries/construction">Construction</a></li>
-                        <li><a href="/industries/landscaping">Landscaping</a></li>
-                        <li><a href="/industries/plumbing">Plumbing</a></li>
-                        <li><a href="/industries/hvac">HVAC</a></li>
-                        <li><a href="/industries/electrical">Electrical</a></li>
-                        <li><a href="/industries/agriculture">Agriculture</a></li>
-                    </ul>
-                </nav>
-                
-                <nav class="footer__col" aria-label="Resources and tools">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#selector">Truck Selector</a></li>
-                        <li><a href="#fordpro">Ford Pro Telematics</a></li>
-                        <li><a href="#financing">Commercial Financing</a></li>
-                        <li><a href="/qa/">Q&A</a></li>
-                        <li><a href="#contact">Request Quote</a></li>
-                        <li><a href="https://commercial-trucks.peoriaford.com" target="_blank" rel="noopener">Peoria Ford Inventory</a></li>
-                    </ul>
-                </nav>
+
+                <div class="footer__cols">
+                    <div class="footer__col">
+                        <div class="footer__col-head">Trucks</div>
+                        <a href="/trucks/f-250">F-250 Super Duty</a>
+                        <a href="/trucks/f-350">F-350 Super Duty</a>
+                        <a href="/trucks/f-450">F-450 Super Duty</a>
+                        <a href="/trucks/f-550">F-550 Chassis Cab</a>
+                        <a href="/trucks/f-650-f-750">F-650 / F-750</a>
+                        <a href="/trucks/transit">Transit Cargo Van</a>
+                    </div>
+
+                    <div class="footer__col">
+                        <div class="footer__col-head">Compare</div>
+                        <a href="/compare/f250-vs-f350">F-250 vs F-350</a>
+                        <a href="/compare/f350-vs-f450">F-350 vs F-450</a>
+                        <a href="/compare/f550-vs-f650">F-550 vs F-650</a>
+                        <a href="/compare/diesel-vs-gas">Diesel vs Gas</a>
+                        <a href="/compare/super-duty-payload">Payload Guide</a>
+                        <a href="/compare/transit-vs-sprinter">Transit vs Sprinter</a>
+                    </div>
+
+                    <div class="footer__col">
+                        <div class="footer__col-head">Upfits</div>
+                        <a href="/upfits/service-body">Service Body Trucks</a>
+                        <a href="/upfits/dump-trucks">Dump Trucks</a>
+                        <a href="/upfits/flatbed">Flatbed Trucks</a>
+                        <a href="/upfits/contractor">Contractor Trucks</a>
+                        <a href="/upfits/utility-body">Utility Body Trucks</a>
+                        <a href="/upfits/crane-mechanics">Crane &amp; Mechanics</a>
+                        <a href="/upfits/knapheide">Knapheide Bodies</a>
+                        <a href="/upfits/enclosed-cargo">Enclosed Cargo Vans</a>
+                    </div>
+
+                    <div class="footer__col">
+                        <div class="footer__col-head">Industries</div>
+                        <a href="/industries/construction">Construction</a>
+                        <a href="/industries/hvac">HVAC</a>
+                        <a href="/industries/plumbing">Plumbing</a>
+                        <a href="/industries/electrical">Electrical</a>
+                        <a href="/industries/landscaping">Landscaping</a>
+                        <a href="/industries/agriculture">Agriculture</a>
+                        <a href="/industries/roofing">Roofing</a>
+                        <a href="/industries/towing-recovery">Towing &amp; Recovery</a>
+                        <a href="/industries/utilities">Utilities</a>
+                        <a href="/industries/concrete">Concrete &amp; Masonry</a>
+                    </div>
+
+                    <div class="footer__col">
+                        <div class="footer__col-head">Guides &amp; Tools</div>
+                        <a href="/guides/how-to-buy-commercial-truck">How to Buy</a>
+                        <a href="/guides/spec-commercial-truck">How to Spec</a>
+                        <a href="/guides/commercial-truck-financing">Financing Guide</a>
+                        <a href="/guides/fleet-management">Fleet Management</a>
+                        <a href="/guides/ford-pro-telematics">Ford Pro Intelligence</a>
+                        <a href="/tools/payload-calculator">Payload Calculator</a>
+                        <a href="/tools/payment-calculator">Payment Calculator</a>
+                        <a href="/tools/section-179-calculator">Section 179 Calculator</a>
+                        <a href="/tools/tco-calculator">TCO Calculator</a>
+                        <a href="/tools/upfit-cost-guide">Upfit Cost Guide</a>
+                    </div>
+
+                    <div class="footer__col">
+                        <div class="footer__col-head">States Served</div>
+                        <a href="/texas">Texas</a>
+                        <a href="/california">California</a>
+                        <a href="/florida">Florida</a>
+                        <a href="/colorado">Colorado</a>
+                        <a href="/nevada">Nevada</a>
+                        <a href="/georgia">Georgia</a>
+                        <a href="/north-carolina">North Carolina</a>
+                        <a href="/oklahoma">Oklahoma</a>
+                        <a href="/new-mexico">New Mexico</a>
+                        <a href="/washington">Washington</a>
+                        <a href="/national-delivery">Nationwide Delivery</a>
+                        <a href="/fleet-sales">Fleet Sales</a>
+                        <a href="/government-sales">Government Sales</a>
+                    </div>
+                </div>
             </div>
-            
             <div class="footer__bottom">
-                <p>© 2026 FordCommercial.AI. Powered by <a href="https://www.peoriaford.com" target="_blank" rel="noopener">Peoria Ford</a>. Not affiliated with Ford Motor Company.</p>
-                <p itemscope itemtype="https://schema.org/AutoDealer">
-                    <span itemprop="name" style="display:none;">Peoria Ford Commercial</span>
-                    <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                        <span itemprop="streetAddress">9130 W. Bell Rd.</span>, 
-                        <span itemprop="addressLocality">Peoria</span>, 
-                        <span itemprop="addressRegion">AZ</span> 
-                        <span itemprop="postalCode">85382</span>
-                    </span> · 
-                    <a href="tel:+18448779033" itemprop="telephone">(844) 877-9033</a>
-                </p>
+                <span>© 2026 FordCommercial.AI · Powered by Peoria Ford</span>
+                <span>Not affiliated with Ford Motor Company · All trademarks belong to their respective owners</span>
             </div>
-        </div>
-    </footer>
+        </footer>
 
     <script>
         // ============================================
@@ -4406,4 +4574,58 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
 
 </body>
 </html>
+
+        <!-- ══ RESOURCES HUB ══════════════════════════════════════════════ -->
+        <section id="resources" class="section resources-section" style="background: var(--charcoal);">
+            <div class="container">
+                <div class="section__header">
+                    <div class="section__eyebrow">Guides, tools &amp; comparisons</div>
+                    <h2 class="section__title" style="color: var(--white);">Everything You Need to Buy Right</h2>
+                    <p class="section__subtitle" style="color: rgba(255,255,255,0.65);">Research tools, truck comparisons, upfit guides, and state-specific pages — all free.</p>
+                </div>
+                <div class="resources-grid">
+                    <div class="resource-group">
+                        <div class="resource-group__head">Compare Trucks</div>
+                        <a href="/compare/f250-vs-f350" class="resource-link">F-250 vs F-350</a>
+                        <a href="/compare/f350-vs-f450" class="resource-link">F-350 vs F-450</a>
+                        <a href="/compare/f550-vs-f650" class="resource-link">F-550 vs F-650</a>
+                        <a href="/compare/diesel-vs-gas" class="resource-link">Diesel vs Gas Engine</a>
+                        <a href="/compare/super-duty-payload" class="resource-link">Payload Guide</a>
+                        <a href="/compare/transit-vs-sprinter" class="resource-link">Transit vs Sprinter</a>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-group__head">Body &amp; Upfit</div>
+                        <a href="/upfits/service-body" class="resource-link">Service Body Trucks</a>
+                        <a href="/upfits/dump-trucks" class="resource-link">Dump Trucks</a>
+                        <a href="/upfits/flatbed" class="resource-link">Flatbed Trucks</a>
+                        <a href="/upfits/contractor" class="resource-link">Contractor Trucks</a>
+                        <a href="/upfits/crane-mechanics" class="resource-link">Crane &amp; Mechanics</a>
+                        <a href="/upfits/knapheide" class="resource-link">Knapheide Bodies</a>
+                        <a href="/upfits/utility-body" class="resource-link">Utility Body Trucks</a>
+                        <a href="/upfits/enclosed-cargo" class="resource-link">Enclosed Cargo Vans</a>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-group__head">Guides</div>
+                        <a href="/guides/how-to-buy-commercial-truck" class="resource-link">How to Buy a Work Truck</a>
+                        <a href="/guides/spec-commercial-truck" class="resource-link">How to Spec a Truck</a>
+                        <a href="/guides/commercial-truck-financing" class="resource-link">Financing Guide</a>
+                        <a href="/guides/fleet-management" class="resource-link">Fleet Management</a>
+                        <a href="/guides/ford-pro-telematics" class="resource-link">Ford Pro Intelligence</a>
+                        <a href="/national-delivery" class="resource-link">Nationwide Delivery</a>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-group__head">Free Calculators</div>
+                        <a href="/tools/payload-calculator" class="resource-link">Payload Calculator</a>
+                        <a href="/tools/payment-calculator" class="resource-link">Payment Calculator</a>
+                        <a href="/tools/section-179-calculator" class="resource-link">Section 179 Tax Savings</a>
+                        <a href="/tools/tco-calculator" class="resource-link">5-Year TCO Calculator</a>
+                        <a href="/tools/upfit-cost-guide" class="resource-link">Upfit Cost Guide</a>
+                        <a href="/service-upfitting" class="resource-link">Service Upfitting</a>
+                        <a href="/fleet-sales" class="resource-link">Fleet Sales</a>
+                        <a href="/government-sales" class="resource-link">Government Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
