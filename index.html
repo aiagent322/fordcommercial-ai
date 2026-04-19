@@ -4165,295 +4165,255 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
         }
 
         
-        // ── Deterministic model pre-filter based on user inputs ────────────
-        function getApprovedModels(answers) {
-            const body    = answers.body    || '';
-            const towing  = answers.towing  || '';
-            const crew    = answers.crew    || '';
-            const budget  = answers.budget  || '';
-
-            // VAN selections — Transit only
-            if (body === 'van_shelving') {
-                return {
-                    models: ['Ford Transit 250 Cargo Van', 'Ford Transit 350 Cargo Van', 'Ford Transit 350 HD', 'Ford Transit 250 Medium Roof', 'Ford Transit 350 High Roof', 'Ford Transit 350 Extended'],
-                    constraint: 'User selected van with shelving. ALL 6 recommendations MUST be Ford Transit cargo van configurations — different roof heights, wheelbases, and upfit levels. Do NOT recommend any pickup trucks or chassis cabs.'
-                };
-            }
-
-            // Heavy upfits — chassis cabs
-            if (['dump_body','crane_mechanics','utility_body'].includes(body)) {
-                const heavyModels = towing === 'over_35k'
-                    ? ['F-450 Chassis Cab', 'F-550 Chassis Cab', 'F-650/F-750']
-                    : ['F-350 Chassis Cab', 'F-450 Chassis Cab', 'F-550 Chassis Cab'];
-                return {
-                    models: heavyModels,
-                    constraint: 'User selected ' + body.replace(/_/g,' ') + '. ALL recommendations MUST be chassis cab configurations capable of this upfit. No pickup beds, no Transit vans.'
-                };
-            }
-
-            // Service/flatbed — chassis cabs preferred
-            if (['service_body','flatbed'].includes(body)) {
-                return {
-                    models: ['F-250 Super Duty', 'F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Chassis Cab', 'F-550 Chassis Cab'],
-                    constraint: 'User selected ' + body.replace(/_/g,' ') + '. Prioritize chassis cab configurations. F-350 or F-450 chassis cab should be primary picks.'
-                };
-            }
-
-            // Towing-driven selections
-            if (towing === 'over_35k') {
-                return {
-                    models: ['F-450 Super Duty', 'F-450 Chassis Cab', 'F-550 Chassis Cab', 'F-650/F-750'],
-                    constraint: 'User needs over 35,000 lbs towing. ONLY recommend F-450, F-550, or F-650/F-750.'
-                };
-            }
-            if (towing === '26k_35k') {
-                return {
-                    models: ['F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Super Duty', 'F-450 Chassis Cab'],
-                    constraint: 'User needs 26,000-35,000 lbs towing. Only F-350 diesel or F-450 can meet this.'
-                };
-            }
-            if (towing === '18k_26k') {
-                return {
-                    models: ['F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Super Duty'],
-                    constraint: 'User needs 18,000-26,000 lbs towing. F-350 diesel or F-450 required.'
-                };
-            }
-
-            // Stock pickup / not sure / light use
-            if (['stock_pickup','not_sure'].includes(body)) {
-                return {
-                    models: ['F-250 Super Duty', 'F-350 Super Duty', 'F-450 Super Duty', 'Ford Transit', 'F-150'],
-                    constraint: 'User selected stock pickup or is unsure. Recommend based on their industry and towing/crew needs. Include lighter-duty options.'
-                };
-            }
-
-            // Default — all eligible
+        // ── Matchmaker: model pre-filter ─────────────────────────────
+        function getApprovedModels(a) {
+            var body   = a.body   || '';
+            var towing = a.towing || '';
+            if (body === 'van_shelving') return {
+                models: ['Ford Transit 250 Low Roof','Ford Transit 350 Medium Roof','Ford Transit 350 High Roof','Ford Transit 350 HD High Roof','Ford Transit 350 Extended High Roof'],
+                constraint: 'CRITICAL: User selected van with shelving. ALL 6 picks MUST be Ford Transit cargo van configurations only — vary by roof height and wheelbase. DO NOT recommend any pickup truck or chassis cab.'
+            };
+            if (['dump_body','crane_mechanics'].includes(body)) return {
+                models: ['F-350 Chassis Cab','F-450 Chassis Cab','F-550 Chassis Cab','F-650/F-750'],
+                constraint: 'User needs ' + body.replace(/_/g,' ') + '. ALL picks must be chassis cab models only.'
+            };
+            if (['service_body','flatbed','utility_body'].includes(body)) return {
+                models: ['F-250 Super Duty','F-350 Super Duty','F-350 Chassis Cab','F-450 Chassis Cab','F-550 Chassis Cab'],
+                constraint: 'User needs ' + body.replace(/_/g,' ') + '. Prefer chassis cab configurations. No vans.'
+            };
+            if (towing === 'over_35k') return {
+                models: ['F-450 Chassis Cab','F-450 Super Duty','F-550 Chassis Cab','F-650/F-750'],
+                constraint: 'User needs over 35,000 lbs towing. Only F-450, F-550, or F-650/F-750 qualify.'
+            };
+            if (towing === '26k_35k') return {
+                models: ['F-350 Super Duty','F-350 Chassis Cab','F-450 Super Duty','F-450 Chassis Cab'],
+                constraint: 'User needs 26,000-35,000 lbs towing. Only F-350 diesel or F-450.'
+            };
+            if (towing === '18k_26k') return {
+                models: ['F-350 Super Duty','F-350 Chassis Cab','F-450 Super Duty'],
+                constraint: 'User needs 18,000-26,000 lbs towing. F-350 diesel or F-450 required.'
+            };
             return {
-                models: ['F-250 Super Duty', 'F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Super Duty', 'F-550 Chassis Cab', 'Ford Transit'],
-                constraint: 'Recommend based on all stated inputs. Match body type to appropriate chassis.'
+                models: ['F-250 Super Duty','F-350 Super Duty','F-350 Chassis Cab','F-450 Super Duty','F-550 Chassis Cab','Ford Transit'],
+                constraint: 'Select the best models based on all stated inputs.'
             };
         }
 
+        // ── Fuel button init ───────────────────────────────────────────────
+        document.querySelectorAll('.mm-fuel-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.mm-fuel-btn').forEach(function(b) { b.classList.remove('selected'); });
+                this.classList.add('selected');
+            });
+        });
+
+        // ── mmRunFromForm ──────────────────────────────────────────────────
+        function mmRunFromForm() {
+            var industry = document.getElementById('mm-industry').value;
+            var job      = document.getElementById('mm-job').value;
+            var towing   = document.getElementById('mm-towing').value;
+            var crew     = document.getElementById('mm-crew').value;
+            var body     = document.getElementById('mm-body').value;
+            var budget   = document.getElementById('mm-budget').value;
+            var fuelBtn  = document.querySelector('.mm-fuel-btn.selected');
+            var fuel     = fuelBtn ? fuelBtn.dataset.value : '';
+
+            if (!industry || !job || !towing || !crew || !body || !budget || !fuel) {
+                alert('Please complete all 7 fields before finding your trucks.');
+                return;
+            }
+            mmState.answers = { industry:industry, primary_job:job, towing:towing, crew:crew, body:body, budget:budget, fuel:fuel };
+            document.getElementById('mm-form-card').style.display = 'none';
+            document.getElementById('mm-loading').style.display   = 'block';
+            mmRunAI();
+        }
+        window.mmRunFromForm = mmRunFromForm;
+
+        // ── mmRunAI: single API call, 6 trucks with full descriptions ──────
         async function mmRunAI() {
-            document.getElementById('mm-loading').style.display = 'block';
+            var a = mmState.answers;
+            var approved = getApprovedModels(a);
 
-            const msgs = ['Analyzing your requirements...','Scoring the Ford commercial lineup...','Checking live Peoria Ford inventory...','Building your 6-truck report...'];
-            let msgIdx = 0;
-            const msgEl  = document.getElementById('mm-loading__text');
-            const ticker = setInterval(() => { msgIdx=(msgIdx+1)%msgs.length; if(msgEl) msgEl.textContent=msgs[msgIdx]; }, 1800);
-
-            const a = mmState.answers;
-            const userProfile =
-                'Industry: '          + a.industry    + '\n' +
-                'Primary job: '       + a.primary_job + '\n' +
-                'Max towing need: '   + a.towing      + '\n' +
-                'Crew size: '         + a.crew        + '\n' +
-                'Body / upfit: '      + a.body        + '\n' +
-                'Budget per truck: '  + a.budget      + '\n' +
-                'Fuel preference: '   + a.fuel;
-
-            // ── STEP 1: Score + pick 6 trucks ─────────────────────────────
-            const SCORE_PROMPT = MM_SYSTEM_PROMPT;
-            const approved  = getApprovedModels(a);
-                const scoreUser = userProfile +
-                    '\n\n=== APPROVED MODELS FOR THIS BUYER ===' +
-                    '\n' + approved.models.join(', ') +
-                    '\n\n=== CONSTRAINT ===' +
-                    '\n' + approved.constraint +
-                    '\n\nReturn a JSON array of exactly 6 Ford commercial truck recommendations. First 3 are PRIMARY picks (tier: "primary", "value", "capable"). Next 3 are ALTERNATIVES (tier: "alt1", "alt2", "alt3"). Each object: {tier, model, config, score (0-100), price_range, upfit, explanation (1 sentence)}';
+            var userMsg =
+                'Buyer Profile:\n' +
+                'Industry: '         + a.industry    + '\n' +
+                'Primary job: '      + a.primary_job + '\n' +
+                'Max towing: '       + a.towing      + '\n' +
+                'Crew size: '        + a.crew        + '\n' +
+                'Body/upfit needed: '+ a.body        + '\n' +
+                'Budget per truck: ' + a.budget      + '\n' +
+                'Fuel preference: '  + a.fuel        + '\n\n' +
+                'APPROVED MODELS ONLY: ' + approved.models.join(', ') + '\n' +
+                'CONSTRAINT: ' + approved.constraint + '\n\n' +
+                'Return a JSON array of exactly 6 objects. ' +
+                'First 3: tier="primary","value","capable". Last 3: tier="alt1","alt2","alt3". ' +
+                'Each object must have: tier, model, config, upfit, price_range, score (0-100), ' +
+                'description (STRING: 120-160 words for primary tier, 80-100 words for alt tier — ' +
+                'explain specifically why THIS truck fits THIS buyer based on their exact inputs above. ' +
+                'Reference their industry, job, towing need, crew size, body choice, and budget. ' +
+                'Be direct and confident. No hedging.). ' +
+                'Return ONLY the JSON array. No markdown. No commentary.';
 
             try {
-                const [scoreResp, invResp] = await Promise.all([
-                    fetch('https://api.anthropic.com/v1/messages', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            model: 'claude-sonnet-4-20250514',
-                            max_tokens: 1400,
-                            system: SCORE_PROMPT,
-                            messages: [{ role: 'user', content: scoreUser }]
-                        })
-                    }),
-                    fetch('https://fordcommercial-inventory.bridleandbit.workers.dev/inventory')
-                ]);
-
-                const scoreData = await scoreResp.json();
-                const rawText   = scoreData.content.map(c => c.text || '').join('').trim();
-                const clean     = rawText.replace(/```json|```/g, '').trim();
-                const allTrucks = JSON.parse(clean);
-                const topPicks  = allTrucks.slice(0, 3);
-                const altPicks  = allTrucks.slice(3, 6);
-
-                const invMeta   = await invResp.json();
-                const stockCounts = invMeta.models || {};
-
-                // Fetch inventory for top 3
-                const inventoryByModel = {};
-                await Promise.all(topPicks.map(async truck => {
-                    const modelKey = Object.keys(MM_TRUCK_IMAGES).find(k => truck.model.includes(k)) || truck.model;
-                    const fuelParam = a.fuel === 'no_preference' ? '' : (a.fuel || '');
-                    const invUrl = 'https://fordcommercial-inventory.bridleandbit.workers.dev/inventory' +
-                        '?model=' + encodeURIComponent(modelKey) +
-                        (fuelParam ? '&fuel=' + encodeURIComponent(fuelParam) : '') +
-                        '&limit=1';
-                    try {
-                        const r   = await fetch(invUrl);
-                        const inv = await r.json();
-                        inventoryByModel[modelKey] = { vehicles: inv.vehicles || [], totalCount: inv.count || (stockCounts[modelKey] || 0) };
-                    } catch(e) {
-                        inventoryByModel[modelKey] = { vehicles: [], totalCount: stockCounts[modelKey] || 0 };
-                    }
-                }));
-
-                // ── STEP 2: Get long personalized explanations for all 6 ──
-                const EXPLAIN_SYSTEM = `You are a Ford commercial truck specialist at Peoria Ford. Write a personalized explanation for why each truck matches this buyer's SPECIFIC stated needs. Be direct, confident, commercial. No hedging. Reference their actual inputs. 120-160 words per explanation for primary picks, 80-100 words for alternatives. Return ONLY a JSON array of exactly 6 strings in order — one explanation per truck. No keys, no objects, just 6 strings. Example: ["Explanation 1...", "Explanation 2...", ...]`;
-
-                const explainUser = 'Buyer Profile:\n' + userProfile + '\n\nTruck Recommendations:\n' +
-                    allTrucks.map((t, i) => (i+1) + '. ' + t.model + ' (' + t.config + ') — Score: ' + t.score + '/100\n   Upfit: ' + t.upfit + '\n   Price: ' + t.price_range).join('\n\n') +
-                    '\n\nWrite personalized explanations (why this specific truck fits THIS buyer\'s stated inputs). Return ONLY a JSON array of 6 strings.';
-
-                const explainResp = await fetch('https://api.anthropic.com/v1/messages', {
+                var resp = await fetch('https://api.anthropic.com/v1/messages', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         model: 'claude-sonnet-4-20250514',
-                        max_tokens: 1800,
-                        system: EXPLAIN_SYSTEM,
-                        messages: [{ role: 'user', content: explainUser }]
+                        max_tokens: 3500,
+                        system: MM_SYSTEM_PROMPT,
+                        messages: [{ role: 'user', content: userMsg }]
                     })
                 });
 
-                const explainData = await explainResp.json();
-                const explainRaw  = explainData.content.map(c => c.text || '').join('').trim();
-                let explanations;
-                try {
-                    explanations = JSON.parse(explainRaw.replace(/```json|```/g, '').trim());
-                    if (!Array.isArray(explanations)) throw new Error('Not array');
-                } catch(e) {
-                    // Fallback: use the truck.explanation fields
-                    explanations = allTrucks.map(t => t.explanation || t.why || t.reason || 'Recommended based on your stated requirements.');
-                }
+                var data    = await resp.json();
+                var raw     = data.content.map(function(c){ return c.text || ''; }).join('').trim();
+                var clean   = raw.replace(/```json/g,'').replace(/```/g,'').trim();
+                var trucks  = JSON.parse(clean);
 
-                clearInterval(ticker);
-                mmDisplayResults(topPicks, altPicks, explanations, inventoryByModel);
+                if (!Array.isArray(trucks) || trucks.length < 3) throw new Error('Bad response: ' + clean.slice(0,100));
+
+                // Ensure we have 6
+                while (trucks.length < 6) trucks.push(trucks[trucks.length-1]);
+                var topPicks = trucks.slice(0,3);
+                var altPicks = trucks.slice(3,6);
+
+                // Fetch inventory counts
+                var invByModel = {};
+                try {
+                    var invResp = await fetch('https://fordcommercial-inventory.bridleandbit.workers.dev/inventory');
+                    var invData = await invResp.json();
+                    invByModel  = invData.models || {};
+                } catch(e) {}
+
+                document.getElementById('mm-loading').style.display = 'none';
+                mmDisplayResults(topPicks, altPicks, invByModel);
 
             } catch(err) {
-                clearInterval(ticker);
-                console.error('Matchmaker error:', err);
-                document.getElementById('mm-loading').style.display = 'none';
+                console.error('mmRunAI error:', err);
+                document.getElementById('mm-loading').style.display  = 'none';
                 document.getElementById('mm-form-card').style.display = 'block';
-                alert('Unable to connect. Please try again or call (844) 877-9033.');
+                alert('Something went wrong. Please try again or call (844) 877-9033.');
             }
         }
 
-        function mmDisplayResults(topPicks, altPicks, explanations, inventoryByModel) {
-            document.getElementById('mm-loading').style.display = 'none';
-            document.getElementById('mm-results').style.display = 'block';
+        // ── mmDisplayResults ───────────────────────────────────────────────
+        function mmDisplayResults(topPicks, altPicks, invByModel) {
+            var res = document.getElementById('mm-results');
+            res.style.display = 'block';
 
             var industry = mmState.answers.industry || 'your operation';
+            var label = industry.replace(/_/g,' ');
+            label = label.charAt(0).toUpperCase() + label.slice(1);
             document.getElementById('mm-results-summary').textContent =
-                'Based on your ' + industry.charAt(0).toUpperCase() + industry.slice(1).replace(/_/g,' ') +
-                ' operation — 3 primary matches and 3 strong alternatives.';
+                label + ' operation — 3 primary picks and 3 strong alternatives with live Peoria Ford inventory.';
 
             var area = document.getElementById('mm-results-grid');
             area.innerHTML = '';
 
-            var tierLabels = { primary: '&#9733; Primary Match', value: '&#10003; Best Value', capable: '&#9670; Max Capability' };
-            var tierTypes  = ['primary', 'value', 'capable'];
+            var TIER_LABELS = { primary: '&#9733; Primary Match', value: '&#10003; Best Value', capable: '&#9670; Max Capability' };
+            var TIER_TYPES  = ['primary','value','capable'];
 
-            // ── TOP 3 ──────────────────────────────────────────────────
+            // TOP 3
             var topGrid = document.createElement('div');
             topGrid.className = 'mm-three-cards';
 
-            (topPicks || []).forEach(function(truck, i) {
-                var type   = tierTypes[i] || 'primary';
-                var label  = tierLabels[type] || 'Top Match';
-                var expl   = (explanations && explanations[i]) ? explanations[i] : (truck.explanation || truck.why || '');
-                var score  = truck.score || 88;
-                var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return truck.model && truck.model.includes(k); }) || truck.model;
-                var inv    = (inventoryByModel && inventoryByModel[modelKey]) || {};
-                var cnt    = inv.totalCount || 0;
-                var veh    = (inv.vehicles || [])[0];
-                var listUrl = veh ? 'https://commercial-trucks.peoriaford.com/VehicleDetails/' + veh.stockNumber
-                                  : (MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com');
-                var searchUrl = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
-                var priceStr = (veh && veh.price) ? '$' + veh.price.toLocaleString() : (truck.price_range || truck.price_from || 'Call for pricing');
-                var confText = score >= 80 ? 'High Confidence' : score >= 65 ? 'Good Match' : 'Solid Option';
-                var confCls  = score >= 80 ? 'high' : score >= 65 ? 'med' : 'low';
+            topPicks.forEach(function(t, i) {
+                var type    = TIER_TYPES[i] || 'primary';
+                var lbl     = TIER_LABELS[type] || '&#9733; Top Pick';
+                var desc    = t.description || t.explanation || t.why || '';
+                var score   = parseInt(t.score) || 88;
+                var price   = t.price_range || t.price_from || 'Call for pricing';
+                var upfit   = t.upfit || '';
+                var conf    = score >= 80 ? 'High Confidence' : score >= 65 ? 'Good Match' : 'Solid Option';
+                var confCls = score >= 80 ? 'high' : score >= 65 ? 'med' : 'low';
+
+                var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return t.model && t.model.includes(k); }) || '';
+                var cnt      = invByModel[modelKey] || 0;
+                var invLink  = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
 
                 var card = document.createElement('div');
                 card.className = 'mm-card';
-
-                var tierBar  = '<div class="mm-card-tier-bar ' + type + '"><div class="mm-card-tier-dot"></div>' + label + '</div>';
-                var scoreRow = '<div class="mm-card-score-row">' +
-                               '<div class="mm-card-score ' + type + '">' + score + '</div>' +
-                               '<div class="mm-card-denom">/ 100</div>' +
-                               '<div class="mm-confidence ' + confCls + '">' + confText + '</div></div>';
-                var barWrap  = '<div class="mm-card-bar-wrap"><div class="mm-card-bar ' + type + '" style="width:' + score + '%"></div></div>';
-                var modelRow = '<div class="mm-card-model">' + (truck.model || '') + '</div>' +
-                               '<div class="mm-card-config">' + (truck.config || '') + '</div>' +
-                               (truck.upfit ? '<div class="mm-card-upfit">' + truck.upfit + '</div>' : '');
-                var explDiv  = '<div class="mm-card-explanation">' + expl + '</div>';
-                var stockBar = (cnt > 0)
-                    ? '<a href="' + listUrl + '" target="_blank" class="primary-link">' + cnt + ' In Stock &rarr;</a>'
-                    : '<a href="' + searchUrl + '" target="_blank" class="secondary-link">Check Availability &rarr;</a>';
-                var stockDiv = '<div class="mm-card-stock">' + stockBar + '<a href="#contact" class="secondary-link">Get Quote</a></div>';
-                var priceDiv = '<div class="mm-card-price"><span class="mm-card-price-label">Starting Price</span><span class="mm-card-price-val">' + priceStr + '</span></div>';
-
-                card.innerHTML = tierBar +
+                card.innerHTML =
+                    '<div class="mm-card-tier-bar ' + type + '">' +
+                        '<div class="mm-card-tier-dot"></div>' + lbl +
+                    '</div>' +
                     '<div class="mm-card-body">' +
-                        '<div>' + scoreRow + barWrap + '</div>' +
-                        '<div>' + modelRow + '</div>' +
-                        explDiv + stockDiv +
-                    '</div>' + priceDiv;
-
+                        '<div>' +
+                            '<div class="mm-card-score-row">' +
+                                '<span class="mm-card-score ' + type + '">' + score + '</span>' +
+                                '<span class="mm-card-denom">&nbsp;/ 100</span>' +
+                                '<span class="mm-confidence ' + confCls + '">' + conf + '</span>' +
+                            '</div>' +
+                            '<div class="mm-card-bar-wrap"><div class="mm-card-bar ' + type + '" style="width:' + score + '%"></div></div>' +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="mm-card-model">' + (t.model || '') + '</div>' +
+                            '<div class="mm-card-config">' + (t.config || '') + '</div>' +
+                            (upfit ? '<div class="mm-card-upfit">' + upfit + '</div>' : '') +
+                        '</div>' +
+                        '<div class="mm-card-explanation">' + desc + '</div>' +
+                        '<div class="mm-card-stock">' +
+                            (cnt > 0
+                                ? '<a href="' + invLink + '" target="_blank" class="primary-link">' + cnt + ' In Stock &rarr;</a>'
+                                : '<a href="' + invLink + '" target="_blank" class="secondary-link">Check Inventory &rarr;</a>') +
+                            '<a href="#contact" class="secondary-link">Get Quote</a>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="mm-card-price">' +
+                        '<span class="mm-card-price-label">Starting Price</span>' +
+                        '<span class="mm-card-price-val">' + price + '</span>' +
+                    '</div>';
                 topGrid.appendChild(card);
             });
             area.appendChild(topGrid);
 
-            // ── ALT 3 ──────────────────────────────────────────────────
+            // ALT 3
             if (altPicks && altPicks.length) {
-                var divider = document.createElement('div');
-                divider.className = 'mm-alt-label';
-                divider.innerHTML = '<span>Also Worth Considering</span>';
-                area.appendChild(divider);
+                var div = document.createElement('div');
+                div.className = 'mm-alt-label';
+                div.innerHTML = '<span>Also Worth Considering</span>';
+                area.appendChild(div);
 
                 var altGrid = document.createElement('div');
                 altGrid.className = 'mm-three-cards mm-alt-cards';
+                var ALT_LBLS = ['Strong Alternative','Next Best Value','Additional Option'];
 
-                var altLabels = ['Strong Alternative', 'Next Best Value', 'Additional Option'];
-
-                altPicks.forEach(function(truck, i) {
-                    var expl  = (explanations && explanations[3 + i]) ? explanations[3 + i] : (truck.explanation || truck.why || '');
-                    var score = truck.score || 75;
-                    var searchUrl = MM_INVENTORY_URLS[truck.model] || 'https://commercial-trucks.peoriaford.com';
+                altPicks.forEach(function(t, i) {
+                    var desc  = t.description || t.explanation || t.why || '';
+                    var score = parseInt(t.score) || 74;
+                    var price = t.price_range || t.price_from || 'Call for pricing';
+                    var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return t.model && t.model.includes(k); }) || '';
+                    var invLink  = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
 
                     var card = document.createElement('div');
                     card.className = 'mm-card mm-card-alt';
-
-                    var tierBar  = '<div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                                   '<div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.35);"></div>' + (altLabels[i] || 'Alternative') + '</div>';
-                    var scoreRow = '<div class="mm-card-score-row">' +
-                                   '<div class="mm-card-score" style="color:rgba(255,255,255,0.5);">' + score + '</div>' +
-                                   '<div class="mm-card-denom">/ 100</div></div>';
-                    var barWrap  = '<div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:' + score + '%;background:rgba(255,255,255,0.25);"></div></div>';
-                    var modelRow = '<div class="mm-card-model" style="font-size:.9rem;">' + (truck.model || '') + '</div>' +
-                                   '<div class="mm-card-config">' + (truck.config || '') + '</div>';
-                    var explDiv  = '<div class="mm-card-explanation">' + expl + '</div>';
-                    var stockDiv = '<div class="mm-card-stock">' +
-                                   '<a href="' + searchUrl + '" target="_blank" class="secondary-link">View Inventory &rarr;</a>' +
-                                   '<a href="#contact" class="secondary-link">Get Quote</a></div>';
-                    var priceStr = truck.price_range || truck.price_from || 'Call for pricing';
-                    var priceDiv = '<div class="mm-card-price"><span class="mm-card-price-label">Starting Price</span>' +
-                                   '<span class="mm-card-price-val" style="color:rgba(255,255,255,0.55);">' + priceStr + '</span></div>';
-
-                    card.innerHTML = tierBar +
+                    card.innerHTML =
+                        '<div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">' +
+                            '<div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.35);"></div>' + (ALT_LBLS[i] || 'Alternative') +
+                        '</div>' +
                         '<div class="mm-card-body">' +
-                            '<div>' + scoreRow + barWrap + '</div>' +
-                            '<div>' + modelRow + '</div>' +
-                            explDiv + stockDiv +
-                        '</div>' + priceDiv;
-
+                            '<div>' +
+                                '<div class="mm-card-score-row">' +
+                                    '<span class="mm-card-score" style="color:rgba(255,255,255,0.5);">' + score + '</span>' +
+                                    '<span class="mm-card-denom">&nbsp;/ 100</span>' +
+                                '</div>' +
+                                '<div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:' + score + '%;background:rgba(255,255,255,0.25);"></div></div>' +
+                            '</div>' +
+                            '<div>' +
+                                '<div class="mm-card-model" style="font-size:.9rem;">' + (t.model || '') + '</div>' +
+                                '<div class="mm-card-config">' + (t.config || '') + '</div>' +
+                            '</div>' +
+                            '<div class="mm-card-explanation">' + desc + '</div>' +
+                            '<div class="mm-card-stock">' +
+                                '<a href="' + invLink + '" target="_blank" class="secondary-link">View Inventory &rarr;</a>' +
+                                '<a href="#contact" class="secondary-link">Get Quote</a>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="mm-card-price">' +
+                            '<span class="mm-card-price-label">Starting Price</span>' +
+                            '<span class="mm-card-price-val" style="color:rgba(255,255,255,0.55);">' + price + '</span>' +
+                        '</div>';
                     altGrid.appendChild(card);
                 });
                 area.appendChild(altGrid);
@@ -4461,18 +4421,19 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
 
             setTimeout(function() {
                 document.getElementById('mm-lead-wrap').style.display = 'block';
-            }, 800);
+            }, 600);
         }
 
+        // ── mmRestart ──────────────────────────────────────────────────────
         function mmRestart() {
-            document.getElementById('mm-results').style.display   = 'none';
-            document.getElementById('mm-form-card').style.display = 'block';
-            document.getElementById('mm-results-grid').innerHTML  = '';
-            document.getElementById('mm-lead-wrap').style.display = 'none';
-            document.getElementById('mm-lead-success').style.display = 'none';
-            document.querySelectorAll('.mm-fuel-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('mm-results').style.display    = 'none';
+            document.getElementById('mm-form-card').style.display  = 'block';
+            document.getElementById('mm-results-grid').innerHTML   = '';
+            document.getElementById('mm-lead-wrap').style.display  = 'none';
+            document.querySelectorAll('.mm-fuel-btn').forEach(function(b){ b.classList.remove('selected'); });
             mmState.answers = {};
         }
+        window.mmRestart = mmRestart;
 
     </script>
 
