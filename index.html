@@ -4354,15 +4354,15 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 'explain specifically why THIS truck fits THIS buyer based on their exact inputs above. ' +
                 'Reference their industry, job, towing need, crew size, body choice, and budget. ' +
                 'Be direct and confident. No hedging.). ' +
-                'Return ONLY the JSON array. No markdown. No commentary.';
+                'Return ONLY valid JSON. No markdown, no commentary, no preamble.';
 
             try {
                 var resp = await fetch('https://stallion-matchmaker-proxy.bridleandbit.workers.dev', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 3500,
+                        model: 'claude-haiku-4-5-20251001',
+                        max_tokens: 1800,
                         system: MM_SYSTEM_PROMPT,
                         messages: [{ role: 'user', content: userMsg }]
                     })
