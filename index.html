@@ -4093,33 +4093,28 @@
             'Transit': 'https://commercial-trucks.peoriaford.com/Cargo_Van'
         };
 
-        const MM_SYSTEM_PROMPT = `You are an expert Ford commercial truck advisor for Peoria Ford, Arizona's #1 commercial fleet dealer. A business owner has answered 7 questions about their needs. Recommend exactly 6 Ford commercial truck configurations (3 primary + 3 alternatives). Return ONLY a valid JSON array — no preamble, no markdown fences, no text outside the JSON.
+        const MM_SYSTEM_PROMPT = `You are a Ford commercial truck configuration specialist at Peoria Ford. You will receive a buyer's profile AND a pre-approved list of compatible models based on their inputs. You MUST only recommend trucks from the approved model list. Do not suggest trucks outside that list.
 
 FORD COMMERCIAL LINEUP:
-F-250 Super Duty: GVWR 10,000 lbs, Max Tow 22,000 lbs, Max Payload 4,260 lbs, Engines: 6.7L Power Stroke Diesel (475hp/1,050 lb-ft) or 7.3L V8 Gas (430hp), Cab: Regular/SuperCab/Crew, Starting $46,495. Best for: light-medium commercial, landscaping, electricians, plumbers, light construction.
-F-350 Super Duty: GVWR 14,000 lbs, Max Tow 35,750 lbs, Max Payload 7,850 lbs, Engines: same as F-250, Cab: Regular/SuperCab/Crew or Chassis Cab, Starting $49,885. Best for: medium-heavy construction, agriculture, serious service bodies, flatbeds, contractor work.
-F-450 Super Duty: GVWR 16,500 lbs, Max Tow 40,000 lbs, Max Payload 8,000 lbs, Engine: 6.7L Power Stroke Diesel (up to 500hp/1,200 lb-ft HO), Crew Cab or Chassis Cab, Starting $58,355. Best for: maximum towing, heavy service bodies, dump beds, towing and recovery.
-F-550 Chassis Cab: GVWR 19,500 lbs, Max Tow 34,500 lbs, Max Payload 12,750 lbs, Engine: 6.7L Power Stroke Diesel, Always chassis cab — purpose-built for upfits, Starting $61,145. Best for: dump trucks, large service bodies, crane/mechanics trucks, contractor builds.
-F-650/F-750: GVWR 25,999-37,000 lbs (medium duty), Max Payload up to 29,000 lbs, Cummins 6.7L Diesel or 7.3L Gas, Starting $72,000+. Best for: large dump, refuse, heavy equipment hauling, large-scale operations.
-Ford Transit Cargo Van: GVWR 8,550-10,360 lbs, Max Cargo 487 cu ft, Max Payload 4,650 lbs, 3.5L EcoBoost V6, Three roof heights available, Starting $44,730. Best for: delivery, plumbing/electrical mobile workshops, HVAC, cargo delivery, last-mile logistics.
+F-250 Super Duty: GVWR 10,000 lbs, Max Tow 22,000 lbs, Max Payload 4,260 lbs, Engines: 6.7L Diesel or 7.3L Gas, Cab: Regular/SuperCab/Crew, From $46,495.
+F-350 Super Duty: GVWR 14,000 lbs, Max Tow 35,750 lbs, Max Payload 7,850 lbs, same engines, Cab: Regular/SuperCab/Crew or Chassis Cab, From $49,885.
+F-450 Super Duty: GVWR 16,500 lbs, Max Tow 40,000 lbs, Payload 8,000 lbs, Diesel only, Crew Cab or Chassis Cab, From $58,355.
+F-550 Chassis Cab: GVWR 19,500 lbs, Payload 12,750 lbs, Diesel, chassis cab purpose-built for heavy upfits, From $61,145.
+F-650/F-750: GVWR 25,999-37,000 lbs, medium duty, Cummins diesel, From $72,000+.
+Ford Transit Cargo Van: GVWR 8,550-10,360 lbs, 487 cu ft cargo, 4,650 lbs payload, three roof heights (Low/Medium/High), three wheelbases, From $44,730.
+Ford Transit 350 HD: Higher GVWR version of Transit for heavier payloads.
 
-UPFITTER CATALOG (Peoria Ford partners — Knapheide, Adrian Steel, Maxon, Reading):
-Service Body: $8,000-$18,000. Steel compartment body with side bins. Best on F-250/350/450/550. Industry standard for plumbing, HVAC, electrical, general contractors.
-Flatbed: $5,000-$12,000. Steel or aluminum deck. F-350/450/550. Best for lumber, pipe, steel, materials.
-Dump Body: $8,000-$20,000. Hydraulic steel dump. F-350/450/550/650. Landscaping, construction, asphalt.
-Ladder Rack/Shelving Package: $2,000-$6,000. Transit or F-250/350. Electricians, HVAC, plumbers, delivery.
-Crane/Mechanics Truck: $25,000-$60,000. F-550/650. Heavy service operations, utility companies.
-Liftgate: $3,000-$8,000. Transit or chassis cabs. Delivery, medical equipment, heavy retail.
-
-HARD RULES:
-1. Towing requirement is a hard constraint — never recommend a truck that cannot physically meet the stated towing need
-2. Crew size 4+ requires Crew Cab configuration
-3. Dump body, crane, or large service body requires chassis cab (F-350 chassis cab, F-450, F-550, or F-650)
-4. Total cost (truck + upfit) must fit within stated budget — if it does not, note it and recommend accordingly
-5. Rank 1 = best overall match for their stated needs; Rank 2 = capable alternative with different profile; Rank 3 = value option or specialized fit
+HARD RULES — enforce without exception:
+1. ONLY recommend trucks from the APPROVED MODELS list provided in the user message.
+2. Towing requirement is a hard constraint — never recommend a truck that cannot meet it.
+3. Crew size 4-5 requires Crew Cab configuration.
+4. Dump body/crane/large service body requires chassis cab (F-350CC, F-450, F-550, or F-650).
+5. Van/shelving selections require Transit — do NOT recommend pickup trucks for van applications.
+6. All 6 recommendations must be from the approved model list.
 
 OUTPUT FORMAT — return ONLY this JSON array, nothing else:
-[{"rank":1,"rank_label":"Best Match","model":"F-350","config":"Crew Cab, 6.7L Diesel","upfit":"Knapheide Service Body","price_from":"$72,000 equipped","why":"2 sentences max. Reference their specific industry and answers. Direct and confident. Name the upfitter.","key_specs":["35,750 lb max towing","7,850 lb payload","6.7L Power Stroke Diesel"],"badge_color":"copper"},{"rank":2,"rank_label":"Runner Up","model":"F-450","config":"Crew Cab Chassis, Diesel","upfit":"Flatbed","price_from":"$68,000 equipped","why":"...","key_specs":["..."],"badge_color":"blue"},{"rank":3,"rank_label":"Value Pick","model":"F-250","config":"SuperCab, Gas","upfit":"Ladder Rack & Shelving","price_from":"$52,000 equipped","why":"...","key_specs":["..."],"badge_color":"charcoal"}]`;
+[{"tier":"primary","model":"Ford Transit 350 High Roof","config":"148" WB, High Roof, 3.5L EcoBoost","upfit":"Adrian Steel full shelving system","price_range":"$50,000-$56,000 equipped","score":96,"explanation":"One sentence why this fits their exact inputs."},{"tier":"value","model":"...","config":"...","upfit":"...","price_range":"...","score":88,"explanation":"..."},{"tier":"capable","model":"...","config":"...","upfit":"...","price_range":"...","score":82,"explanation":"..."},{"tier":"alt1","model":"...","config":"...","upfit":"...","price_range":"...","score":79,"explanation":"..."},{"tier":"alt2","model":"...","config":"...","upfit":"...","price_range":"...","score":74,"explanation":"..."},{"tier":"alt3","model":"...","config":"...","upfit":"...","price_range":"...","score":70,"explanation":"..."}]
+Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down. First 3 are primary picks, last 3 are alternatives.`;
 
         function mmInit() {
             const dotsEl = document.getElementById('mm-dots');
@@ -4217,6 +4212,76 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
             document.getElementById('mm-next').textContent = mmState.currentStep === mmState.totalSteps ? 'Find My Trucks →' : 'Next →';
         }
 
+        
+        // ── Deterministic model pre-filter based on user inputs ────────────
+        function getApprovedModels(answers) {
+            const body    = answers.body    || '';
+            const towing  = answers.towing  || '';
+            const crew    = answers.crew    || '';
+            const budget  = answers.budget  || '';
+
+            // VAN selections — Transit only
+            if (body === 'van_shelving') {
+                return {
+                    models: ['Ford Transit 250 Cargo Van', 'Ford Transit 350 Cargo Van', 'Ford Transit 350 HD', 'Ford Transit 250 Medium Roof', 'Ford Transit 350 High Roof', 'Ford Transit 350 Extended'],
+                    constraint: 'User selected van with shelving. ALL 6 recommendations MUST be Ford Transit cargo van configurations — different roof heights, wheelbases, and upfit levels. Do NOT recommend any pickup trucks or chassis cabs.'
+                };
+            }
+
+            // Heavy upfits — chassis cabs
+            if (['dump_body','crane_mechanics','utility_body'].includes(body)) {
+                const heavyModels = towing === 'over_35k'
+                    ? ['F-450 Chassis Cab', 'F-550 Chassis Cab', 'F-650/F-750']
+                    : ['F-350 Chassis Cab', 'F-450 Chassis Cab', 'F-550 Chassis Cab'];
+                return {
+                    models: heavyModels,
+                    constraint: 'User selected ' + body.replace(/_/g,' ') + '. ALL recommendations MUST be chassis cab configurations capable of this upfit. No pickup beds, no Transit vans.'
+                };
+            }
+
+            // Service/flatbed — chassis cabs preferred
+            if (['service_body','flatbed'].includes(body)) {
+                return {
+                    models: ['F-250 Super Duty', 'F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Chassis Cab', 'F-550 Chassis Cab'],
+                    constraint: 'User selected ' + body.replace(/_/g,' ') + '. Prioritize chassis cab configurations. F-350 or F-450 chassis cab should be primary picks.'
+                };
+            }
+
+            // Towing-driven selections
+            if (towing === 'over_35k') {
+                return {
+                    models: ['F-450 Super Duty', 'F-450 Chassis Cab', 'F-550 Chassis Cab', 'F-650/F-750'],
+                    constraint: 'User needs over 35,000 lbs towing. ONLY recommend F-450, F-550, or F-650/F-750.'
+                };
+            }
+            if (towing === '26k_35k') {
+                return {
+                    models: ['F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Super Duty', 'F-450 Chassis Cab'],
+                    constraint: 'User needs 26,000-35,000 lbs towing. Only F-350 diesel or F-450 can meet this.'
+                };
+            }
+            if (towing === '18k_26k') {
+                return {
+                    models: ['F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Super Duty'],
+                    constraint: 'User needs 18,000-26,000 lbs towing. F-350 diesel or F-450 required.'
+                };
+            }
+
+            // Stock pickup / not sure / light use
+            if (['stock_pickup','not_sure'].includes(body)) {
+                return {
+                    models: ['F-250 Super Duty', 'F-350 Super Duty', 'F-450 Super Duty', 'Ford Transit', 'F-150'],
+                    constraint: 'User selected stock pickup or is unsure. Recommend based on their industry and towing/crew needs. Include lighter-duty options.'
+                };
+            }
+
+            // Default — all eligible
+            return {
+                models: ['F-250 Super Duty', 'F-350 Super Duty', 'F-350 Chassis Cab', 'F-450 Super Duty', 'F-550 Chassis Cab', 'Ford Transit'],
+                constraint: 'Recommend based on all stated inputs. Match body type to appropriate chassis.'
+            };
+        }
+
         async function mmRunAI() {
             document.getElementById('mm-loading').style.display = 'block';
 
@@ -4237,7 +4302,13 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
 
             // ── STEP 1: Score + pick 6 trucks ─────────────────────────────
             const SCORE_PROMPT = MM_SYSTEM_PROMPT;
-            const scoreUser = userProfile + '\n\nReturn a JSON array of exactly 6 Ford commercial truck recommendations. First 3 are PRIMARY picks (tier: "primary", "value", "capable"). Next 3 are ALTERNATIVES (tier: "alt1", "alt2", "alt3"). Each object: {tier, model, config, score (0-100), price_range, upfit, explanation (1 sentence)}';
+            const approved  = getApprovedModels(a);
+                const scoreUser = userProfile +
+                    '\n\n=== APPROVED MODELS FOR THIS BUYER ===' +
+                    '\n' + approved.models.join(', ') +
+                    '\n\n=== CONSTRAINT ===' +
+                    '\n' + approved.constraint +
+                    '\n\nReturn a JSON array of exactly 6 Ford commercial truck recommendations. First 3 are PRIMARY picks (tier: "primary", "value", "capable"). Next 3 are ALTERNATIVES (tier: "alt1", "alt2", "alt3"). Each object: {tier, model, config, score (0-100), price_range, upfit, explanation (1 sentence)}';
 
             try {
                 const [scoreResp, invResp] = await Promise.all([
