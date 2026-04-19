@@ -3017,6 +3017,97 @@
             .fin-card-link { display: block !important; }
         }
 
+        
+        /* ══════════════════════════════════════════════════════════
+           MOBILE TYPOGRAPHY PASS — 480px and below
+           Minimum readable: 0.8rem body, 0.75rem labels
+           Nothing below 0.7rem on phone screens
+           ══════════════════════════════════════════════════════════ */
+        @media (max-width: 480px) {
+
+            /* Hero — scale down but stay legible */
+            .hero__title { font-size: clamp(1.5rem, 7vw, 1.9rem) !important; line-height: 1.2 !important; }
+            .hero__h2 { font-size: 0.95rem !important; line-height: 1.45 !important; }
+            .section__eyebrow { font-size: 0.82rem !important; letter-spacing: 0.06em !important; }
+            .section__title { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; line-height: 1.15 !important; }
+
+            /* Matchmaker subhead */
+            .matchmaker__header p { font-size: 0.95rem !important; line-height: 1.55 !important; }
+            .mm-form-label { font-size: 0.78rem !important; letter-spacing: 0.04em !important; }
+            .mm-form-title { font-size: 0.78rem !important; }
+            .mm-fuel-btn { font-size: 0.82rem !important; line-height: 1.4 !important; min-height: 56px !important; }
+            .mm-run-btn { font-size: 1rem !important; letter-spacing: 0.06em !important; }
+            .mm-run-note { font-size: 0.82rem !important; }
+
+            /* Results cards — boost all sub-0.75rem to readable sizes */
+            .mm-card-tier-bar { font-size: 0.75rem !important; letter-spacing: 0.06em !important; padding: 0.5rem 0.875rem !important; }
+            .mm-card-score { font-size: 1.75rem !important; }
+            .mm-card-denom { font-size: 0.9rem !important; }
+            .mm-card-model { font-size: 1rem !important; }
+            .mm-card-config { font-size: 0.82rem !important; }
+            .mm-card-upfit { font-size: 0.78rem !important; }
+            .mm-card-explanation { font-size: 0.88rem !important; line-height: 1.6 !important; }
+            .mm-card-stock a { font-size: 0.75rem !important; padding: 0.4rem 0.75rem !important; }
+            .mm-card-price-label { font-size: 0.72rem !important; }
+            .mm-card-price-val { font-size: 0.95rem !important; }
+            .mm-confidence { font-size: 0.65rem !important; }
+            .mm-alt-label span { font-size: 0.75rem !important; }
+            .mm-results-eyebrow { font-size: 0.75rem !important; }
+            .mm-results-summary { font-size: 0.88rem !important; }
+            .mm-restart-btn { font-size: 0.75rem !important; }
+
+            /* Loading text */
+            .mm-loading__text { font-size: 0.95rem !important; }
+            .mm-loading__sub { font-size: 0.82rem !important; }
+
+            /* Truck cards */
+            .truck-card__model { font-size: 1.1rem !important; }
+            .truck-card__tagline { font-size: 0.88rem !important; }
+            .truck-card__image span { font-size: 1.75rem !important; }
+            .truck-card__image small { font-size: 0.8rem !important; }
+
+            /* Financing cards */
+            .fin-card__label { font-size: 0.95rem !important; }
+            .fin-card__row { font-size: 0.88rem !important; }
+            .fin-card__row span:first-child { font-size: 0.75rem !important; }
+            .fin-card__best { font-size: 0.82rem !important; }
+
+            /* Contact info cards */
+            .contact-info-card__label { font-size: 0.78rem !important; }
+            .contact-info-card__value { font-size: 0.95rem !important; }
+            .contact-info-card__link { font-size: 0.75rem !important; }
+
+            /* Q&A buttons */
+            .qa-cat-btn { font-size: 0.78rem !important; padding: 0.5rem 0.75rem !important; }
+
+            /* Footer */
+            .footer__brand p { font-size: 0.95rem !important; }
+            .footer__col a { font-size: 0.95rem !important; }
+            .footer__bottom p { font-size: 0.82rem !important; }
+            .footer__legal p { font-size: 0.88rem !important; }
+            .footer__disclaimer { font-size: 0.78rem !important; }
+
+            /* Nav */
+            .nav__link { font-size: 0.9rem !important; }
+            .nav__cta { font-size: 0.8rem !important; }
+
+            /* Buttons generally */
+            .btn { font-size: 0.88rem !important; padding: 0.75rem 1.25rem !important; }
+            .btn--primary, .btn--large { font-size: 0.9rem !important; }
+
+            /* Section bodies */
+            .card p, .truck-card__tagline { font-size: 0.88rem !important; line-height: 1.6 !important; }
+            .fin-card__sub { font-size: 0.82rem !important; }
+        }
+
+        /* ── 375px — very small phones ── */
+        @media (max-width: 375px) {
+            .hero__title { font-size: clamp(1.3rem, 7vw, 1.6rem) !important; }
+            .section__title { font-size: clamp(1.2rem, 6vw, 1.5rem) !important; }
+            .mm-run-btn { font-size: 0.9rem !important; }
+            .truck-card__image span { font-size: 1.5rem !important; }
+        }
+
         </style>
 </head>
 <body>
