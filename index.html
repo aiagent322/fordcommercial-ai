@@ -2770,10 +2770,12 @@
             background: var(--ford-blue);
             border: 1px solid rgba(255,255,255,0.12);
             border-top: 3px solid var(--arizona-copper);
-            padding: 1.5rem;
+            padding: 1.75rem 1.5rem;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            align-items: center;
+            text-align: center;
         }
         .contact-info-card__icon {
             color: var(--arizona-copper);
@@ -3135,39 +3137,29 @@
         <div class="container">
 
             <div style="text-align:center;margin-bottom:1.5rem;">
-                <div class="section__eyebrow">Peoria Ford Commercial</div>
-                <h2 class="section__title">Everything You Need to Buy Right</h2>
+                <div class="section__eyebrow" style="font-size:1.0625rem;color:#fff;font-weight:900;letter-spacing:.12em;">Peoria Ford Commercial</div>
             </div>
 
             <!-- 3 contact info cards -->
             <div class="contact-cards-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2.5rem;">
 
-                <div class="contact-info-card">
-                    <div class="contact-info-card__icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
-                    </div>
-                    <div class="contact-info-card__label">Address</div>
-                    <div class="contact-info-card__value">9130 W. Bell Rd.</div>
-                    <div class="contact-info-card__value">Peoria, AZ 85382</div>
+                <div class="contact-info-card" style="text-align:center;align-items:center;">
+                    <div class="contact-info-card__label" style="font-size:.85rem;">Address</div>
+                    <div class="contact-info-card__value" style="font-size:1.2rem;font-weight:700;">9130 W. Bell Rd.</div>
+                    <div class="contact-info-card__value" style="font-size:1.2rem;font-weight:700;">Peoria, AZ 85382</div>
                     <a href="https://maps.google.com/?q=9130+W+Bell+Rd+Peoria+AZ+85382" target="_blank" rel="noopener" class="contact-info-card__link">Get Directions →</a>
                 </div>
 
-                <div class="contact-info-card">
-                    <div class="contact-info-card__icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    </div>
-                    <div class="contact-info-card__label">Commercial Sales</div>
-                    <div class="contact-info-card__value" style="font-size:1.235rem;font-weight:700;"><a href="tel:+18448779033" style="color:inherit;text-decoration:none;">(844) 877-9033</a></div>
+                <div class="contact-info-card" style="text-align:center;align-items:center;">
+                    <div class="contact-info-card__label" style="font-size:.85rem;">Commercial Sales</div>
+                    <div class="contact-info-card__value" style="font-size:1.6rem;font-weight:800;"><a href="tel:+18448779033" style="color:inherit;text-decoration:none;">(844) 877-9033</a></div>
                     <a href="tel:+18448779033" class="contact-info-card__link">Call Now →</a>
                 </div>
 
-                <div class="contact-info-card">
-                    <div class="contact-info-card__icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-                    </div>
-                    <div class="contact-info-card__label">Hours</div>
-                    <div class="contact-info-card__value">Mon–Sat: 8AM – 9PM</div>
-                    <div class="contact-info-card__value">Sunday: 10AM – 6PM</div>
+                <div class="contact-info-card" style="text-align:center;align-items:center;">
+                    <div class="contact-info-card__label" style="font-size:.85rem;">Hours</div>
+                    <div class="contact-info-card__value" style="font-size:1.2rem;font-weight:700;">Mon–Sat: 8AM – 9PM</div>
+                    <div class="contact-info-card__value" style="font-size:1.2rem;font-weight:700;">Sunday: 10AM – 6PM</div>
                     <a href="https://www.peoriaford.com" target="_blank" rel="noopener" class="contact-info-card__link">Visit Peoria Ford →</a>
                 </div>
 
