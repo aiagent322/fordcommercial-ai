@@ -2549,8 +2549,8 @@
             gap: 0.5rem;
         }
         .mm-card-tier-bar.primary   { background: var(--arizona-copper); color: var(--white); }
-        .mm-card-tier-bar.secondary { background: rgba(0,52,120,0.8); color: var(--white); }
-        .mm-card-tier-bar.tertiary  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.12); }
+        .mm-card-tier-bar.value     { background: rgba(0,52,120,0.9); color: var(--white); }
+        .mm-card-tier-bar.capable   { background: rgba(0,40,100,0.9); color: var(--white); }
         .mm-card-tier-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.7; flex-shrink: 0; }
         .mm-card-body { padding: 1.125rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.875rem; }
         .mm-card-score-row { display: flex; align-items: baseline; gap: 0.25rem; }
@@ -2558,12 +2558,12 @@
         .mm-card-score.primary   { color: var(--arizona-copper); }
         .mm-card-score.secondary { color: #5b9bd5; }
         .mm-card-score.tertiary  { color: rgba(255,255,255,0.6); }
-        .mm-card-denom { font-family: var(--font-display); font-size: 0.85rem; color: rgba(255,255,255,0.35); }
+        .mm-card-denom { font-family: var(--font-display); font-size: 0.85rem; color: rgba(255,255,255,0.7); }
         .mm-card-bar-wrap { background: rgba(255,255,255,0.1); height: 4px; border-radius: 2px; margin-top: 0.5rem; }
         .mm-card-bar { height: 4px; border-radius: 2px; }
         .mm-card-bar.primary   { background: var(--arizona-copper); }
-        .mm-card-bar.secondary { background: #5b9bd5; }
-        .mm-card-bar.tertiary  { background: rgba(255,255,255,0.35); }
+        .mm-card-bar.value     { background: rgba(255,255,255,0.6); }
+        .mm-card-bar.capable   { background: rgba(255,255,255,0.6); }
         .mm-card-model {
             font-family: var(--font-display);
             font-size: 1.05rem;
@@ -2573,7 +2573,7 @@
             letter-spacing: 0.05em;
             line-height: 1.2;
         }
-        .mm-card-config { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; letter-spacing: 0.03em; }
+        .mm-card-config { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-top: 0.2rem; letter-spacing: 0.03em; }
         .mm-card-explanation { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.55; flex: 1; }
         .mm-card-stock { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: auto; }
         .mm-card-stock a {
@@ -2587,7 +2587,7 @@
             transition: all 0.1s;
         }
         .mm-card-stock a.primary-link   { background: var(--arizona-copper); color: var(--white); }
-        .mm-card-stock a.secondary-link { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+        .mm-card-stock a.secondary-link { border: 1px solid rgba(255,255,255,0.45); color: var(--white); }
         .mm-card-stock a:hover { opacity: 0.85; }
         .mm-card-price {
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -2596,7 +2596,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        .mm-card-price-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); font-family: var(--font-display); }
+        .mm-card-price-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); font-family: var(--font-display); }
         .mm-card-price-val { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--white); }
 
         /* Lead form */
@@ -2698,8 +2698,8 @@
             margin-bottom: 4px;
         }
         .mm-confidence.high { background: rgba(184,115,51,0.2); color: var(--arizona-copper); }
-        .mm-confidence.med  { background: rgba(91,155,213,0.2); color: #5b9bd5; }
-        .mm-confidence.low  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+        .mm-confidence.med  { background: rgba(255,255,255,0.12); color: var(--white); }
+        .mm-confidence.low  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
         @media(max-width:900px) { .mm-three-cards { grid-template-columns: 1fr 1fr; } }
         @media(max-width:600px) { .mm-three-cards { grid-template-columns: 1fr; } }
 
