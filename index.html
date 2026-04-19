@@ -1960,6 +1960,174 @@
             color: var(--arizona-copper);
             text-decoration: none;
         }
+    
+        /* ============================================
+           MOBILE-FIRST CORRECTIONS
+           Touch targets, iOS fixes, 480 / 375 / 320px
+        ============================================ */
+
+        /* Universal touch target — Apple/Google minimum 44px */
+        .btn,
+        .nav__cta,
+        .truck-card__cta,
+        .mobile-toggle,
+        .hero__badge,
+        .hero__nav-link {
+            min-height: 44px;
+        }
+
+        /* Prevent iOS Safari input zoom (triggers below 16px) */
+        .form-group select,
+        .form-group input,
+        .lead-form input,
+        .lead-form select,
+        .lead-form textarea {
+            font-size: 16px;
+        }
+
+        /* Fix iOS address bar cutting off 100vh hero */
+        .hero {
+            min-height: 100svh;
+        }
+
+        /* Mobile toggle — explicit touch target size */
+        .mobile-toggle {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+
+        /* ---- 480px: Small phones ---------------------------------------- */
+        @media (max-width: 480px) {
+
+            /* Hero: hide wall-of-text paragraphs 2 & 3 */
+            .hero__body p:not(:first-child) {
+                display: none;
+            }
+
+            /* Hero: stack CTAs full-width */
+            .hero__actions {
+                flex-direction: column;
+            }
+            .hero__actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Hero: tighten stats row */
+            .hero__stats {
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+                gap: 1rem;
+            }
+
+            /* Hero: shrink nav pills */
+            .hero__nav-link {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            /* Truck cards: single column */
+            .trucks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Industry cards: single column, shorter */
+            .industries-grid {
+                grid-template-columns: 1fr;
+            }
+            .industry-card {
+                height: 200px;
+            }
+
+            /* Results grid: single column */
+            .results__grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Ford Pro: collapse features grid */
+            .fordpro__features {
+                grid-template-columns: 1fr;
+            }
+
+            /* Ford Pro: collapse dashboard metrics */
+            .dashboard__metrics {
+                grid-template-columns: 1fr;
+            }
+
+            /* Selector form: tighter padding */
+            .selector__form {
+                padding: 1.25rem;
+            }
+
+            /* Lead form: tighter padding */
+            .results__lead-form {
+                padding: 1.5rem 1rem;
+            }
+
+            /* Logo: scale down */
+            .logo__text {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* ---- 375px: Standard iPhone ------------------------------------- */
+        @media (max-width: 375px) {
+
+            .hero__title {
+                font-size: 1.45rem;
+            }
+
+            .hero__badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            /* Stats: go vertical at 375 */
+            .hero__stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            /* Truck spec grid: single column */
+            .truck-card__specs {
+                grid-template-columns: 1fr;
+            }
+
+            /* Result spec grid: single column */
+            .result-card__specs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---- 320px: iPhone SE ------------------------------------------- */
+        @media (max-width: 320px) {
+
+            .hero__title {
+                font-size: 1.3rem;
+            }
+
+            .hero__h2 {
+                font-size: 0.9rem;
+            }
+
+            .logo__text {
+                font-size: 1.1rem;
+            }
+
+            .logo__icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
