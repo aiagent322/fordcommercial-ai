@@ -3099,7 +3099,7 @@
                 </div>
 
                 <div class="mm-run-wrap">
-                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()" aria-label="Find my truck matches">Find My Trucks →</button>
+                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()" aria-label="Find my truck matches">Find My Matches →</button>
                     <div class="mm-run-note" style="color:#fff;font-weight:700;">Live Peoria Ford inventory · Nationwide delivery · Fleet pricing on 2+</div>
                 </div>
             </div>
@@ -3114,7 +3114,7 @@
             <!-- RESULTS -->
             <div id="mm-results" style="display:none">
                 <div class="mm-results-header">
-                    <div class="mm-results-eyebrow">Your Matches</div>
+                    <div class="mm-results-eyebrow">Here Are Your Matches!</div>
                     <div class="mm-results-summary" id="mm-results-summary"></div>
                     <button class="mm-restart-btn" onclick="mmRestart()" aria-label="Start over">← Start Over</button>
                 </div>
@@ -4600,7 +4600,7 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 var lbl = industry.replace(/_/g,' ');
                 lbl = lbl.charAt(0).toUpperCase() + lbl.slice(1);
                 document.getElementById('mm-results-summary').textContent =
-                    lbl + ' operation — your top 3 matches loading now, 3 alternatives coming shortly...';
+                    'Here are your matches for a ' + lbl + ' operation — top 3 loading now, 3 alternatives coming shortly...';
 
                 var area = document.getElementById('mm-results-grid');
                 area.innerHTML = '';
