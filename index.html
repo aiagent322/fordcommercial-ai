@@ -2872,6 +2872,203 @@
     <!-- ============================================
          TRUCK LINEUP SECTION
     ============================================ -->
+    <section id="selector" class="matchmaker section">
+        <div class="container">
+
+            <div class="matchmaker__header">
+                <span class="section__eyebrow">AI Truck Matchmaker</span>
+                <h2 class="section__title" style="color:var(--white)">Find Your <span style="color:var(--arizona-copper)">Perfect Match</span></h2>
+                <p style="color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto">Answer 7 questions about your operation. Our AI scores the full Ford commercial lineup and returns your top 3 trucks with live Peoria Ford inventory.</p>
+            </div>
+
+            <!-- TRUCK PROFILE FORM CARD -->
+            <div class="mm-form-card" id="mm-form-card">
+                <div class="mm-form-title">Truck Profile</div>
+                <div class="mm-form-grid">
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Industry</label>
+                        <select id="mm-industry">
+                            <option value="">— Select —</option>
+                            <option value="construction">Construction</option>
+                            <option value="hvac">HVAC</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="electrical">Electrical</option>
+                            <option value="landscaping">Landscaping</option>
+                            <option value="agriculture">Agriculture / Ranch</option>
+                            <option value="roofing">Roofing</option>
+                            <option value="oilfield">Oil &amp; Gas / Oilfield</option>
+                            <option value="towing">Towing &amp; Recovery</option>
+                            <option value="government">Government / Municipal</option>
+                            <option value="delivery">Delivery / Logistics</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Primary Job</label>
+                        <select id="mm-job">
+                            <option value="">— Select —</option>
+                            <option value="towing_trailer">Towing trailers / equipment</option>
+                            <option value="hauling_materials">Hauling heavy materials</option>
+                            <option value="service_calls">Service calls / field work</option>
+                            <option value="crew_transport">Crew transport</option>
+                            <option value="delivery">Delivery / last mile</option>
+                            <option value="site_supervisor">Site supervisor / foreman</option>
+                            <option value="mixed">Mixed use</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Maximum Towing Need</label>
+                        <select id="mm-towing">
+                            <option value="">— Select —</option>
+                            <option value="none">No towing</option>
+                            <option value="under_10k">Under 10,000 lbs</option>
+                            <option value="10k_18k">10,000 – 18,000 lbs</option>
+                            <option value="18k_26k">18,000 – 26,000 lbs</option>
+                            <option value="26k_35k">26,000 – 35,000 lbs</option>
+                            <option value="over_35k">Over 35,000 lbs</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Daily Crew Size</label>
+                        <select id="mm-crew">
+                            <option value="">— Select —</option>
+                            <option value="1">1 person (driver only)</option>
+                            <option value="2">2 people</option>
+                            <option value="3">3 people</option>
+                            <option value="4-5">4 – 5 people (full crew cab)</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Body / Upfit</label>
+                        <select id="mm-body">
+                            <option value="">— Select —</option>
+                            <option value="stock_pickup">Stock pickup — no upfit</option>
+                            <option value="service_body">Service body (Knapheide / Reading)</option>
+                            <option value="flatbed">Flatbed deck</option>
+                            <option value="dump_body">Dump body</option>
+                            <option value="crane_mechanics">Crane / mechanics body</option>
+                            <option value="van_shelving">Van with shelving (Transit)</option>
+                            <option value="utility_body">Utility body</option>
+                            <option value="not_sure">Not sure yet</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label class="mm-form-label">Budget Per Truck</label>
+                        <select id="mm-budget">
+                            <option value="">— Select —</option>
+                            <option value="under_50k">Under $50,000</option>
+                            <option value="50k_65k">$50,000 – $65,000</option>
+                            <option value="65k_80k">$65,000 – $80,000</option>
+                            <option value="80k_100k">$80,000 – $100,000</option>
+                            <option value="over_100k">Over $100,000</option>
+                            <option value="flexible">Flexible — best truck for the job</option>
+                        </select>
+                    </div>
+
+                    <div class="mm-form-group mm-form-group--full">
+                        <label class="mm-form-label">Fuel Preference</label>
+                        <div class="mm-fuel-options">
+                            <button type="button" class="mm-fuel-btn" data-value="diesel">6.7L Power Stroke Diesel — Max tow &amp; torque</button>
+                            <button type="button" class="mm-fuel-btn" data-value="gas">7.3L V8 Gas — Lower cost, simpler maintenance</button>
+                            <button type="button" class="mm-fuel-btn" data-value="no_preference">No preference — recommend best fit</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mm-run-wrap">
+                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()">Find My Trucks →</button>
+                    <div class="mm-run-note">Live Peoria Ford inventory · Nationwide delivery · Fleet pricing on 2+</div>
+                </div>
+            </div>
+
+            <!-- LOADING STATE -->
+            <div class="mm-loading" id="mm-loading" style="display:none">
+                <div class="mm-loading__spinner"></div>
+                <div class="mm-loading__text">Matching your trucks<span class="mm-loading__dots"></span></div>
+                <div class="mm-loading__sub">Scoring full Ford lineup · Checking live inventory</div>
+            </div>
+
+            <!-- RESULTS -->
+            <div id="mm-results" style="display:none">
+                <div class="mm-results-header">
+                    <div class="mm-results-eyebrow">AI Recommendations</div>
+                    <div class="mm-results-summary" id="mm-results-summary"></div>
+                    <button class="mm-restart-btn" onclick="mmRestart()">← Start Over</button>
+                </div>
+                <div class="mm-results-grid" id="mm-results-grid"></div>
+
+                <!-- Quote form -->
+                <div class="mm-lead-wrap" id="mm-lead-wrap" style="display:none">
+                    <div class="mm-lead-title">Get Your Personalized Quote</div>
+                    <form id="mm-lead-form" class="mm-lead-form">
+                        <div class="mm-lead-grid">
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Name</label>
+                                <input type="text" id="mm-name" placeholder="John Smith" required>
+                                <span class="mm-error" id="mm-name-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Company</label>
+                                <input type="text" id="mm-company" placeholder="ABC Construction" required>
+                                <span class="mm-error" id="mm-company-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Email</label>
+                                <input type="email" id="mm-email" placeholder="john@company.com" required>
+                                <span class="mm-error" id="mm-email-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Phone</label>
+                                <input type="tel" id="mm-phone" placeholder="Your phone number" required>
+                                <span class="mm-error" id="mm-phone-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">State</label>
+                                <select id="mm-state" required>
+                                    <option value="">— State —</option>
+                                    <option>AZ</option><option>TX</option><option>CA</option><option>FL</option>
+                                    <option>CO</option><option>NV</option><option>NM</option><option>UT</option>
+                                    <option>OK</option><option>NC</option><option>GA</option><option>WA</option>
+                                    <option>OR</option><option>ID</option><option>MT</option><option>WY</option>
+                                    <option>Other</option>
+                                </select>
+                                <span class="mm-error" id="mm-state-error"></span>
+                            </div>
+                            <div class="mm-lead-group">
+                                <label class="mm-form-label">Timeline</label>
+                                <select id="mm-timeline" required>
+                                    <option value="">— Select —</option>
+                                    <option>Ready to buy now</option>
+                                    <option>Within 30 days</option>
+                                    <option>1 – 3 months</option>
+                                    <option>3 – 6 months</option>
+                                    <option>Just researching</option>
+                                </select>
+                                <span class="mm-error" id="mm-timeline-error"></span>
+                            </div>
+                        </div>
+                        <div class="mm-lead-group mm-lead-full">
+                            <label class="mm-form-label">Notes (optional)</label>
+                            <textarea id="mm-notes" rows="2" placeholder="Colors, special upfits, fleet quantity, or any other requirements"></textarea>
+                        </div>
+                        <button type="submit" class="mm-run-btn" style="margin-top:1rem">Submit Quote Request →</button>
+                        <div id="mm-lead-success" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
+                            Quote Submitted — A Peoria Ford Commercial Specialist Will Contact You Within 1 Business Day
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <section id="trucks" class="lineup section">
         <div class="container">
             <div class="section__header">
@@ -3072,203 +3269,6 @@
     <!-- ============================================
          TRUCK SELECTOR SECTION
     ============================================ -->
-    <section id="selector" class="matchmaker section">
-        <div class="container">
-
-            <div class="matchmaker__header">
-                <span class="section__eyebrow">AI Truck Matchmaker</span>
-                <h2 class="section__title" style="color:var(--white)">Find Your <span style="color:var(--arizona-copper)">Perfect Match</span></h2>
-                <p style="color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto">Answer 7 questions about your operation. Our AI scores the full Ford commercial lineup and returns your top 3 trucks with live Peoria Ford inventory.</p>
-            </div>
-
-            <!-- TRUCK PROFILE FORM CARD -->
-            <div class="mm-form-card" id="mm-form-card">
-                <div class="mm-form-title">Truck Profile</div>
-                <div class="mm-form-grid">
-
-                    <div class="mm-form-group">
-                        <label class="mm-form-label">Industry</label>
-                        <select id="mm-industry">
-                            <option value="">— Select —</option>
-                            <option value="construction">Construction</option>
-                            <option value="hvac">HVAC</option>
-                            <option value="plumbing">Plumbing</option>
-                            <option value="electrical">Electrical</option>
-                            <option value="landscaping">Landscaping</option>
-                            <option value="agriculture">Agriculture / Ranch</option>
-                            <option value="roofing">Roofing</option>
-                            <option value="oilfield">Oil &amp; Gas / Oilfield</option>
-                            <option value="towing">Towing &amp; Recovery</option>
-                            <option value="government">Government / Municipal</option>
-                            <option value="delivery">Delivery / Logistics</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="mm-form-group">
-                        <label class="mm-form-label">Primary Job</label>
-                        <select id="mm-job">
-                            <option value="">— Select —</option>
-                            <option value="towing_trailer">Towing trailers / equipment</option>
-                            <option value="hauling_materials">Hauling heavy materials</option>
-                            <option value="service_calls">Service calls / field work</option>
-                            <option value="crew_transport">Crew transport</option>
-                            <option value="delivery">Delivery / last mile</option>
-                            <option value="site_supervisor">Site supervisor / foreman</option>
-                            <option value="mixed">Mixed use</option>
-                        </select>
-                    </div>
-
-                    <div class="mm-form-group">
-                        <label class="mm-form-label">Maximum Towing Need</label>
-                        <select id="mm-towing">
-                            <option value="">— Select —</option>
-                            <option value="none">No towing</option>
-                            <option value="under_10k">Under 10,000 lbs</option>
-                            <option value="10k_18k">10,000 – 18,000 lbs</option>
-                            <option value="18k_26k">18,000 – 26,000 lbs</option>
-                            <option value="26k_35k">26,000 – 35,000 lbs</option>
-                            <option value="over_35k">Over 35,000 lbs</option>
-                        </select>
-                    </div>
-
-                    <div class="mm-form-group">
-                        <label class="mm-form-label">Daily Crew Size</label>
-                        <select id="mm-crew">
-                            <option value="">— Select —</option>
-                            <option value="1">1 person (driver only)</option>
-                            <option value="2">2 people</option>
-                            <option value="3">3 people</option>
-                            <option value="4-5">4 – 5 people (full crew cab)</option>
-                        </select>
-                    </div>
-
-                    <div class="mm-form-group">
-                        <label class="mm-form-label">Body / Upfit</label>
-                        <select id="mm-body">
-                            <option value="">— Select —</option>
-                            <option value="stock_pickup">Stock pickup — no upfit</option>
-                            <option value="service_body">Service body (Knapheide / Reading)</option>
-                            <option value="flatbed">Flatbed deck</option>
-                            <option value="dump_body">Dump body</option>
-                            <option value="crane_mechanics">Crane / mechanics body</option>
-                            <option value="van_shelving">Van with shelving (Transit)</option>
-                            <option value="utility_body">Utility body</option>
-                            <option value="not_sure">Not sure yet</option>
-                        </select>
-                    </div>
-
-                    <div class="mm-form-group">
-                        <label class="mm-form-label">Budget Per Truck</label>
-                        <select id="mm-budget">
-                            <option value="">— Select —</option>
-                            <option value="under_50k">Under $50,000</option>
-                            <option value="50k_65k">$50,000 – $65,000</option>
-                            <option value="65k_80k">$65,000 – $80,000</option>
-                            <option value="80k_100k">$80,000 – $100,000</option>
-                            <option value="over_100k">Over $100,000</option>
-                            <option value="flexible">Flexible — best truck for the job</option>
-                        </select>
-                    </div>
-
-                    <div class="mm-form-group mm-form-group--full">
-                        <label class="mm-form-label">Fuel Preference</label>
-                        <div class="mm-fuel-options">
-                            <button type="button" class="mm-fuel-btn" data-value="diesel">6.7L Power Stroke Diesel — Max tow &amp; torque</button>
-                            <button type="button" class="mm-fuel-btn" data-value="gas">7.3L V8 Gas — Lower cost, simpler maintenance</button>
-                            <button type="button" class="mm-fuel-btn" data-value="no_preference">No preference — recommend best fit</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="mm-run-wrap">
-                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()">Find My Trucks →</button>
-                    <div class="mm-run-note">Live Peoria Ford inventory · Nationwide delivery · Fleet pricing on 2+</div>
-                </div>
-            </div>
-
-            <!-- LOADING STATE -->
-            <div class="mm-loading" id="mm-loading" style="display:none">
-                <div class="mm-loading__spinner"></div>
-                <div class="mm-loading__text">Matching your trucks<span class="mm-loading__dots"></span></div>
-                <div class="mm-loading__sub">Scoring full Ford lineup · Checking live inventory</div>
-            </div>
-
-            <!-- RESULTS -->
-            <div id="mm-results" style="display:none">
-                <div class="mm-results-header">
-                    <div class="mm-results-eyebrow">AI Recommendations</div>
-                    <div class="mm-results-summary" id="mm-results-summary"></div>
-                    <button class="mm-restart-btn" onclick="mmRestart()">← Start Over</button>
-                </div>
-                <div class="mm-results-grid" id="mm-results-grid"></div>
-
-                <!-- Quote form -->
-                <div class="mm-lead-wrap" id="mm-lead-wrap" style="display:none">
-                    <div class="mm-lead-title">Get Your Personalized Quote</div>
-                    <form id="mm-lead-form" class="mm-lead-form">
-                        <div class="mm-lead-grid">
-                            <div class="mm-lead-group">
-                                <label class="mm-form-label">Name</label>
-                                <input type="text" id="mm-name" placeholder="John Smith" required>
-                                <span class="mm-error" id="mm-name-error"></span>
-                            </div>
-                            <div class="mm-lead-group">
-                                <label class="mm-form-label">Company</label>
-                                <input type="text" id="mm-company" placeholder="ABC Construction" required>
-                                <span class="mm-error" id="mm-company-error"></span>
-                            </div>
-                            <div class="mm-lead-group">
-                                <label class="mm-form-label">Email</label>
-                                <input type="email" id="mm-email" placeholder="john@company.com" required>
-                                <span class="mm-error" id="mm-email-error"></span>
-                            </div>
-                            <div class="mm-lead-group">
-                                <label class="mm-form-label">Phone</label>
-                                <input type="tel" id="mm-phone" placeholder="Your phone number" required>
-                                <span class="mm-error" id="mm-phone-error"></span>
-                            </div>
-                            <div class="mm-lead-group">
-                                <label class="mm-form-label">State</label>
-                                <select id="mm-state" required>
-                                    <option value="">— State —</option>
-                                    <option>AZ</option><option>TX</option><option>CA</option><option>FL</option>
-                                    <option>CO</option><option>NV</option><option>NM</option><option>UT</option>
-                                    <option>OK</option><option>NC</option><option>GA</option><option>WA</option>
-                                    <option>OR</option><option>ID</option><option>MT</option><option>WY</option>
-                                    <option>Other</option>
-                                </select>
-                                <span class="mm-error" id="mm-state-error"></span>
-                            </div>
-                            <div class="mm-lead-group">
-                                <label class="mm-form-label">Timeline</label>
-                                <select id="mm-timeline" required>
-                                    <option value="">— Select —</option>
-                                    <option>Ready to buy now</option>
-                                    <option>Within 30 days</option>
-                                    <option>1 – 3 months</option>
-                                    <option>3 – 6 months</option>
-                                    <option>Just researching</option>
-                                </select>
-                                <span class="mm-error" id="mm-timeline-error"></span>
-                            </div>
-                        </div>
-                        <div class="mm-lead-group mm-lead-full">
-                            <label class="mm-form-label">Notes (optional)</label>
-                            <textarea id="mm-notes" rows="2" placeholder="Colors, special upfits, fleet quantity, or any other requirements"></textarea>
-                        </div>
-                        <button type="submit" class="mm-run-btn" style="margin-top:1rem">Submit Quote Request →</button>
-                        <div id="mm-lead-success" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
-                            Quote Submitted — A Peoria Ford Commercial Specialist Will Contact You Within 1 Business Day
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
     <section id="industries" class="industries section">
         <div class="container">
             <div class="section__header">
