@@ -2701,6 +2701,75 @@
         @media(max-width:900px) { .mm-three-cards { grid-template-columns: 1fr 1fr; } }
         @media(max-width:600px) { .mm-three-cards { grid-template-columns: 1fr; } }
 
+        
+        /* ── FINANCING CARDS ── */
+        .fin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .fin-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-top: 3px solid var(--arizona-copper);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: .875rem;
+        }
+        .fin-card__label {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--arizona-copper);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+        .fin-card__sub {
+            font-size: .8rem;
+            color: rgba(255,255,255,.5);
+            letter-spacing: .03em;
+            margin-top: -.5rem;
+        }
+        .fin-card__rows {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border-top: 1px solid rgba(255,255,255,.1);
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+        .fin-card__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: .5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            font-size: .82rem;
+            gap: .75rem;
+        }
+        .fin-card__row:last-child { border-bottom: none; }
+        .fin-card__row span:first-child {
+            color: rgba(255,255,255,.45);
+            font-family: var(--font-display);
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            flex-shrink: 0;
+            min-width: 80px;
+        }
+        .fin-card__row span:last-child {
+            color: rgba(255,255,255,.85);
+            text-align: right;
+        }
+        .fin-card__best {
+            font-size: .78rem;
+            color: rgba(255,255,255,.4);
+            font-style: italic;
+            margin-top: auto;
+        }
+        @media(max-width:768px) { .fin-grid { grid-template-columns: 1fr; } }
+
         </style>
 </head>
 <body>
@@ -2971,110 +3040,62 @@
         </div>
     </section>
 
-    <section id="financing" class="section" style="background: var(--off-white);">
+    <section id="financing" class="section" style="background:var(--ford-blue-dark);">
         <div class="container">
-            <div class="section__header">
-                <div class="section__eyebrow">Ford Pro FinSimple</div>
-                <h2 class="section__title">Commercial Financing</h2>
-                <p style="color: var(--text-muted); max-width: 700px; margin: 1rem auto 0;">Finance the truck and the upfit together. One payment, immediate deployment, preserved cash flow.</p>
+            <div class="section__header" style="margin-bottom:2rem;">
+                <div class="section__eyebrow" style="color:var(--arizona-copper);">Commercial Financing</div>
+                <h2 class="section__title" style="color:var(--white);">Finance the Truck &amp; the Upfit Together</h2>
+                <p style="color:rgba(255,255,255,0.65);max-width:620px;margin:.75rem auto 0;font-size:.95rem;">One payment, immediate deployment, preserved cash flow. All Ford Super Duty models qualify for Section 179 — deduct 100% in year one.</p>
             </div>
-            
-            <div class="trucks-grid" style="margin-bottom: 3rem;">
-                <div class="truck-card">
-                    <div class="truck-card__content">
-                        <h3 class="truck-card__title" style="color: var(--arizona-copper);">Commercial Loan</h3>
-                        <p class="truck-card__subtitle">Traditional Purchase Financing</p>
-                        <ul class="truck-card__specs">
-                            <li><span>Terms</span><span>24–84 months</span></li>
-                            <li><span>Ownership</span><span>Build equity from day one</span></li>
-                            <li><span>Mileage</span><span>No restrictions</span></li>
-                            <li><span>Section 179</span><span>Eligible</span></li>
-                        </ul>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;"><strong>Best for:</strong> Long-term ownership, high-mileage operations</p>
+
+            <div class="fin-grid">
+
+                <div class="fin-card">
+                    <div class="fin-card__label">Commercial Loan</div>
+                    <div class="fin-card__sub">Traditional Purchase Financing</div>
+                    <div class="fin-card__rows">
+                        <div class="fin-card__row"><span>Terms</span><span>24 – 84 months</span></div>
+                        <div class="fin-card__row"><span>Ownership</span><span>Build equity from day one</span></div>
+                        <div class="fin-card__row"><span>Mileage</span><span>No restrictions</span></div>
+                        <div class="fin-card__row"><span>Section 179</span><span>Eligible — 100% year-one deduction</span></div>
                     </div>
+                    <div class="fin-card__best">Best for: Long-term ownership, high-mileage operations</div>
                 </div>
-                
-                <div class="truck-card">
-                    <div class="truck-card__content">
-                        <h3 class="truck-card__title" style="color: var(--arizona-copper);">TRAC Lease</h3>
-                        <p class="truck-card__subtitle">Terminal Rental Adjustment Clause</p>
-                        <ul class="truck-card__specs">
-                            <li><span>Payments</span><span>Lower than purchase</span></li>
-                            <li><span>End of Term</span><span>Purchase option</span></li>
-                            <li><span>Equity</span><span>Possible if value exceeds residual</span></li>
-                            <li><span>Flexibility</span><span>Commercial operators' choice</span></li>
-                        </ul>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;"><strong>Best for:</strong> Lower payments with flexibility at term end</p>
+
+                <div class="fin-card">
+                    <div class="fin-card__label">TRAC Lease</div>
+                    <div class="fin-card__sub">Terminal Rental Adjustment Clause</div>
+                    <div class="fin-card__rows">
+                        <div class="fin-card__row"><span>Payments</span><span>Lower than purchase</span></div>
+                        <div class="fin-card__row"><span>End of Term</span><span>Purchase option available</span></div>
+                        <div class="fin-card__row"><span>Equity</span><span>Possible if value exceeds residual</span></div>
+                        <div class="fin-card__row"><span>Flexibility</span><span>Commercial operators' choice</span></div>
                     </div>
+                    <div class="fin-card__best">Best for: Lower payments with flexibility at term end</div>
                 </div>
-                
-                <div class="truck-card">
-                    <div class="truck-card__content">
-                        <h3 class="truck-card__title" style="color: var(--arizona-copper);">Fleet Line of Credit</h3>
-                        <p class="truck-card__subtitle">Revolving Commercial Credit</p>
-                        <ul class="truck-card__specs">
-                            <li><span>Approval</span><span>Pre-approved credit limit</span></li>
-                            <li><span>Process</span><span>Single application</span></li>
-                            <li><span>Pricing</span><span>Volume discounts</span></li>
-                            <li><span>Support</span><span>Dedicated account manager</span></li>
-                        </ul>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;"><strong>Best for:</strong> Growing fleets adding multiple vehicles</p>
+
+                <div class="fin-card">
+                    <div class="fin-card__label">Fleet Line of Credit</div>
+                    <div class="fin-card__sub">Revolving Commercial Credit</div>
+                    <div class="fin-card__rows">
+                        <div class="fin-card__row"><span>Approval</span><span>Pre-approved credit limit</span></div>
+                        <div class="fin-card__row"><span>Process</span><span>Single application</span></div>
+                        <div class="fin-card__row"><span>Pricing</span><span>Volume discounts</span></div>
+                        <div class="fin-card__row"><span>Support</span><span>Dedicated account manager</span></div>
                     </div>
+                    <div class="fin-card__best">Best for: Growing fleets adding multiple vehicles</div>
                 </div>
+
             </div>
-            
-            <!-- Upfit Packages -->
-            <div style="background: var(--ford-blue); padding: 2.5rem; margin-bottom: 3rem;">
-                <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--white); text-transform: uppercase; text-align: center; margin-bottom: 2rem;">Upfit Packages — Finance Everything Together</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: center;">
-                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem;">
-                        <div style="font-family: var(--font-display); font-size: 0.9rem; color: var(--arizona-copper); text-transform: uppercase; margin-bottom: 0.5rem;">Starter</div>
-                        <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--white);">$5K–$10K</div>
-                        <div style="font-size: 0.85rem; color: var(--ford-silver-light); margin-top: 0.5rem;">Basic upfits, toolboxes, lighting</div>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem;">
-                        <div style="font-family: var(--font-display); font-size: 0.9rem; color: var(--arizona-copper); text-transform: uppercase; margin-bottom: 0.5rem;">Pro</div>
-                        <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--white);">$10K–$25K</div>
-                        <div style="font-size: 0.85rem; color: var(--ford-silver-light); margin-top: 0.5rem;">Full shelving, racks, power systems</div>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border: 2px solid var(--arizona-copper);">
-                        <div style="font-family: var(--font-display); font-size: 0.9rem; color: var(--arizona-copper); text-transform: uppercase; margin-bottom: 0.5rem;">Revenue Builder</div>
-                        <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--white);">$25K–$75K</div>
-                        <div style="font-size: 0.85rem; color: var(--ford-silver-light); margin-top: 0.5rem;">Service bodies, dump systems</div>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem;">
-                        <div style="font-family: var(--font-display); font-size: 0.9rem; color: var(--arizona-copper); text-transform: uppercase; margin-bottom: 0.5rem;">Enterprise</div>
-                        <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--white);">$75K–$250K+</div>
-                        <div style="font-size: 0.85rem; color: var(--ford-silver-light); margin-top: 0.5rem;">Crane, bucket, specialty builds</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Stats -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; text-align: center; padding: 2rem 0; border-top: 1px solid var(--ford-silver-light); border-bottom: 1px solid var(--ford-silver-light);">
-                <div>
-                    <div style="font-family: var(--font-display); font-size: 2.5rem; color: var(--arizona-copper);">24hr</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Credit Decisions</div>
-                </div>
-                <div>
-                    <div style="font-family: var(--font-display); font-size: 2.5rem; color: var(--arizona-copper);">$0</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Down Payment Options</div>
-                </div>
-                <div>
-                    <div style="font-family: var(--font-display); font-size: 2.5rem; color: var(--arizona-copper);">84mo</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Maximum Terms</div>
-                </div>
-                <div>
-                    <div style="font-family: var(--font-display); font-size: 2.5rem; color: var(--arizona-copper);">100%</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Upfit Financing</div>
-                </div>
+
+            <div style="text-align:center;margin-top:2rem;">
+                <a href="#contact" class="btn btn--primary" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--arizona-copper);color:var(--white);padding:.875rem 2rem;font-family:var(--font-display);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;">
+                    Apply for Commercial Financing &rarr;
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- ============================================
-         Q&A SECTION
-    ============================================ -->
     <section id="contact" class="lead-form section">
         <div class="container">
             <div class="lead-form__inner">
