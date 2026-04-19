@@ -874,10 +874,7 @@
         /* ============================================
            SELECTOR RESULTS
         ============================================ */
-        .results__header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+        
         
         .results__header h2 {
             font-family: var(--font-display);
@@ -906,88 +903,29 @@
             margin-bottom: 3rem;
         }
         
-        .result-card {
-            background: var(--white);
-            border: 2px solid var(--ford-silver-light);
-            overflow: hidden;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
         
-        .result-card:hover {
-            border-color: var(--ford-blue);
-            box-shadow: 0 8px 30px rgba(0,52,120,0.12);
-        }
         
-        .result-card.selected {
-            border-color: var(--arizona-copper);
-            box-shadow: 0 0 0 3px rgba(184,115,51,0.2);
-        }
         
-        .result-card__badge {
-            background: var(--arizona-copper);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
         
-        .result-card__image {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-            background-color: var(--ford-silver-light);
-        }
         
-        .result-card__body {
-            padding: 1.5rem;
-        }
         
-        .result-card__model {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--ford-blue);
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
         
-        .result-card__tagline {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
         
-        .result-card__specs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--ford-silver-light);
-        }
         
-        .result-card__why {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(0,52,120,0.04);
-            border-left: 3px solid var(--arizona-copper);
-        }
         
-        .result-card__why-title {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--arizona-copper);
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
         
-        .result-card__why-text {
-            font-size: 0.9rem;
-            color: var(--text-dark);
-        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         /* Lead Form in Results */
         .results__lead-form {
@@ -1091,10 +1029,7 @@
         }
         
         /* Success State */
-        .lead-success {
-            text-align: center;
-            padding: 3rem;
-        }
+        
         
         .lead-success .success-icon {
             width: 80px;
@@ -1113,11 +1048,7 @@
             fill: var(--white);
         }
         
-        .lead-success h3 {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-        }
+        
         
         .lead-success p {
             color: rgba(255,255,255,0.8);
@@ -1161,17 +1092,10 @@
             pointer-events: none;
         }
         
-        .selector__grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
+        
         
         @media (max-width: 900px) {
-            .selector__grid {
-                grid-template-columns: 1fr;
-            }
+            
         }
         
         .selector__content h2 {
@@ -1460,17 +1384,10 @@
             background: var(--off-white);
         }
         
-        .dealer__grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
+        
         
         @media (max-width: 900px) {
-            .dealer__grid {
-                grid-template-columns: 1fr;
-            }
+            
         }
         
         .dealer__content h2 {
@@ -1513,13 +1430,7 @@
             letter-spacing: 0.05em;
         }
         
-        .dealer__contact {
-            background: var(--white);
-            border: 2px solid var(--ford-blue);
-            padding: 2rem;
-            box-sizing: border-box;
-            width: 100%;
-        }
+        
         
         .dealer__contact h3 {
             font-family: var(--font-display);
@@ -1832,9 +1743,7 @@
         .hero__badge,
         .mm-btn,
         .mm-card__cta,
-        .mm-card__see-all {
-            min-height: 44px;
-        }
+        
 
         /* Prevent iOS Safari input zoom (triggers below 16px) */
         .form-group select,
@@ -1956,9 +1865,7 @@
             }
 
             /* Result spec grid: single column */
-            .result-card__specs {
-                grid-template-columns: 1fr;
-            }
+            
         }
 
         /* ---- 320px: iPhone SE ------------------------------------------- */
@@ -2096,10 +2003,7 @@
 
         /* Results */
         .mm-results { margin-top: 3rem; }
-        .mm-results__header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+        
         .mm-results__header h3 {
             font-family: var(--font-display);
             font-size: clamp(1.75rem, 3.5vw, 2.5rem);
@@ -2112,12 +2016,7 @@
             color: rgba(255,255,255,0.65);
             margin-top: 0.5rem;
         }
-        .mm-results__grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
+        
 
         /* Result Cards */
         .mm-card {
@@ -2133,15 +2032,7 @@
             border-color: var(--arizona-copper);
             box-shadow: 0 0 0 1px var(--arizona-copper);
         }
-        .mm-card__badge {
-            padding: 0.5rem 1rem;
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--white);
-        }
+        
         .mm-card__image {
             height: 180px;
             overflow: hidden;
@@ -2157,35 +2048,10 @@
             flex-direction: column;
             flex: 1;
         }
-        .mm-card__model {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--white);
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
-        .mm-card__config {
-            font-size: 0.9rem;
-            color: var(--arizona-copper);
-            margin-bottom: 0.25rem;
-        }
-        .mm-card__price {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-        .mm-card__specs {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        
+        
+        
+        
         .mm-card__specs li {
             font-size: 0.85rem;
             color: rgba(255,255,255,0.65);
@@ -2199,46 +2065,10 @@
             color: var(--arizona-copper);
             font-weight: 700;
         }
-        .mm-card__why {
-            background: rgba(184,115,51,0.08);
-            border-left: 3px solid var(--arizona-copper);
-            padding: 0.875rem;
-            margin-bottom: 1.25rem;
-            flex: 1;
-        }
-        .mm-card__why-label {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--arizona-copper);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.35rem;
-        }
-        .mm-card__why p {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.5;
-            margin: 0;
-        }
-        .mm-card__cta {
-            display: block;
-            width: 100%;
-            padding: 0.875rem;
-            background: var(--ford-blue);
-            color: var(--white);
-            text-align: center;
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            text-decoration: none;
-            min-height: 44px;
-            transition: background 0.2s;
-            margin-top: auto;
-        }
+        
+        
+        
+        
         .mm-card__cta:hover { background: var(--ford-blue-dark); }
 
         /* Matchmaker Lead Form */
@@ -2247,10 +2077,7 @@
             padding: 2.5rem;
             margin-top: 1rem;
         }
-        .mm-lead-form__header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+        
         .mm-lead-form__header h3 {
             font-family: var(--font-display);
             font-size: 1.75rem;
@@ -2293,7 +2120,7 @@
 
         /* Mobile overrides for matchmaker */
         @media (max-width: 900px) {
-            .mm-results__grid { grid-template-columns: 1fr; }
+            
         }
         @media (max-width: 600px) {
             
@@ -2306,17 +2133,7 @@
         }
     
         /* Matchmaker — live inventory enhancements */
-        .mm-card__stock-bar {
-            padding: 0.4rem 1rem;
-            background: rgba(74, 222, 128, 0.15);
-            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
-            font-family: var(--font-display);
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: #4ade80;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
+        
         .mm-card__stock-bar--order {
             background: rgba(184, 115, 51, 0.12);
             border-color: rgba(184, 115, 51, 0.3);
@@ -2328,21 +2145,7 @@
             font-weight: 400;
             color: rgba(255,255,255,0.45);
         }
-        .mm-card__see-all {
-            display: block;
-            text-align: center;
-            padding: 0.6rem 1rem;
-            margin-top: 0.5rem;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.15);
-            color: rgba(255,255,255,0.55);
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
+        
         .mm-card__see-all:hover {
             border-color: var(--arizona-copper);
             color: var(--arizona-copper);
@@ -4476,8 +4279,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             });
 
             // Back/Next buttons
-            document.getElementById('mm-back').addEventListener('click', mmBack);
-            document.getElementById('mm-next').addEventListener('click', mmNext);
 
             // Lead form submit
             document.getElementById('mm-lead-form').addEventListener('submit', function(e) {
@@ -4499,7 +4300,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 const payload = {
                     name, company, email, phone, state, timeline,
                     notes: document.getElementById('mm-notes').value.trim(),
-                    recommendedTrucks: document.getElementById('mm-hidden-trucks').value,
                     matchmakerAnswers: mmState.answers,
                     formType: 'matchmaker'
                 };
