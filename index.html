@@ -4331,413 +4331,118 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             document.getElementById('mm-loading').style.display = 'none';
             document.getElementById('mm-results').style.display = 'block';
 
-            const industry = mmState.answers.industry || 'your operation';
+            var industry = mmState.answers.industry || 'your operation';
             document.getElementById('mm-results-summary').textContent =
                 'Based on your ' + industry.charAt(0).toUpperCase() + industry.slice(1).replace(/_/g,' ') +
-                ' operation — 3 primary matches and 3 strong alternatives from Peoria Ford\'s live inventory.';
+                ' operation — 3 primary matches and 3 strong alternatives.';
 
-            const area = document.getElementById('mm-results-grid');
+            var area = document.getElementById('mm-results-grid');
             area.innerHTML = '';
 
-            // ── TOP 3 CARDS ─────────────────────────────────────────────
-            const topGrid = document.createElement('div');
+            var tierLabels = { primary: '&#9733; Primary Match', value: '&#10003; Best Value', capable: '&#9670; Max Capability' };
+            var tierTypes  = ['primary', 'value', 'capable'];
+
+            // ── TOP 3 ──────────────────────────────────────────────────
+            var topGrid = document.createElement('div');
             topGrid.className = 'mm-three-cards';
 
-            const tierLabels = { primary: '★ Primary Match', value: '✓ Best Value Match', capable: '◆ Maximum Capability' };
-            const tierTypes  = ['primary', 'value', 'capable'];
+            (topPicks || []).forEach(function(truck, i) {
+                var type   = tierTypes[i] || 'primary';
+                var label  = tierLabels[type] || 'Top Match';
+                var expl   = (explanations && explanations[i]) ? explanations[i] : (truck.explanation || truck.why || '');
+                var score  = truck.score || 88;
+                var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return truck.model && truck.model.includes(k); }) || truck.model;
+                var inv    = (inventoryByModel && inventoryByModel[modelKey]) || {};
+                var cnt    = inv.totalCount || 0;
+                var veh    = (inv.vehicles || [])[0];
+                var listUrl = veh ? 'https://commercial-trucks.peoriaford.com/VehicleDetails/' + veh.stockNumber
+                                  : (MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com');
+                var searchUrl = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
+                var priceStr = (veh && veh.price) ? '$' + veh.price.toLocaleString() : (truck.price_range || truck.price_from || 'Call for pricing');
+                var confText = score >= 80 ? 'High Confidence' : score >= 65 ? 'Good Match' : 'Solid Option';
+                var confCls  = score >= 80 ? 'high' : score >= 65 ? 'med' : 'low';
 
-            topPicks.forEach((truck, i) => {
-                const type  = tierTypes[i] || 'primary';
-                const label = tierLabels[type] || 'Top Match';
-                const expl  = explanations[i] || truck.explanation || '';
-                const score = truck.score || 88;
-                const modelKey = Object.keys(MM_TRUCK_IMAGES).find(k => truck.model.includes(k)) || truck.model;
-                const inv   = (inventoryByModel[modelKey] || {});
-                const inStockCount = inv.totalCount || 0;
-                const inStockVehicle = (inv.vehicles || [])[0];
-                const listingUrl = inStockVehicle
-                    ? 'https://commercial-trucks.peoriaford.com/VehicleDetails/' + inStockVehicle.stockNumber
-                    : (MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com');
-                const searchUrl = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
-                const priceDisplay = inStockVehicle && inStockVehicle.price
-                    ? '$' + inStockVehicle.price.toLocaleString()
-                    : (truck.price_range || 'Call for pricing');
-
-                const card = document.createElement('div');
+                var card = document.createElement('div');
                 card.className = 'mm-card';
-                card.innerHTML = \`
-                    <div class="mm-card-tier-bar \${type}">
-                        <div class="mm-card-tier-dot"></div>
-                        \${label}
-                    </div>
-                    <div class="mm-card-body">
-                        <div>
-                            <div class="mm-card-score-row">
-                                <div class="mm-card-score \${type}">\${score}</div>
-                                <div class="mm-card-denom">/ 100</div>
-                                <div class="mm-confidence \${score>=80?'high':score>=65?'med':'low'}">\${score>=80?'High Confidence':score>=65?'Good Match':'Solid Option'}</div>
-                            </div>
-                            <div class="mm-card-bar-wrap"><div class="mm-card-bar \${type}" style="width:\${score}%"></div></div>
-                        </div>
-                        <div>
-                            <div class="mm-card-model">\${truck.model}</div>
-                            <div class="mm-card-config">\${truck.config || ''}</div>
-                            \${truck.upfit ? '<div class="mm-card-upfit">' + truck.upfit + '</div>' : ''}
-                        </div>
-                        <div class="mm-card-explanation">\${expl}</div>
-                        <div class="mm-card-stock">
-                            \${inStockCount > 0
-                                ? '<a href="' + listingUrl + '" target="_blank" class="primary-link">' + inStockCount + ' In Stock →</a>'
-                                : '<a href="' + searchUrl + '" target="_blank" class="secondary-link">Check Availability →</a>'
-                            }
-                            <a href="#contact" class="secondary-link">Get Quote</a>
-                        </div>
-                    </div>
-                    <div class="mm-card-price">
-                        <span class="mm-card-price-label">Starting Price</span>
-                        <span class="mm-card-price-val">\${priceDisplay}</span>
-                    </div>
-                \`;
+
+                var tierBar  = '<div class="mm-card-tier-bar ' + type + '"><div class="mm-card-tier-dot"></div>' + label + '</div>';
+                var scoreRow = '<div class="mm-card-score-row">' +
+                               '<div class="mm-card-score ' + type + '">' + score + '</div>' +
+                               '<div class="mm-card-denom">/ 100</div>' +
+                               '<div class="mm-confidence ' + confCls + '">' + confText + '</div></div>';
+                var barWrap  = '<div class="mm-card-bar-wrap"><div class="mm-card-bar ' + type + '" style="width:' + score + '%"></div></div>';
+                var modelRow = '<div class="mm-card-model">' + (truck.model || '') + '</div>' +
+                               '<div class="mm-card-config">' + (truck.config || '') + '</div>' +
+                               (truck.upfit ? '<div class="mm-card-upfit">' + truck.upfit + '</div>' : '');
+                var explDiv  = '<div class="mm-card-explanation">' + expl + '</div>';
+                var stockBar = (cnt > 0)
+                    ? '<a href="' + listUrl + '" target="_blank" class="primary-link">' + cnt + ' In Stock &rarr;</a>'
+                    : '<a href="' + searchUrl + '" target="_blank" class="secondary-link">Check Availability &rarr;</a>';
+                var stockDiv = '<div class="mm-card-stock">' + stockBar + '<a href="#contact" class="secondary-link">Get Quote</a></div>';
+                var priceDiv = '<div class="mm-card-price"><span class="mm-card-price-label">Starting Price</span><span class="mm-card-price-val">' + priceStr + '</span></div>';
+
+                card.innerHTML = tierBar +
+                    '<div class="mm-card-body">' +
+                        '<div>' + scoreRow + barWrap + '</div>' +
+                        '<div>' + modelRow + '</div>' +
+                        explDiv + stockDiv +
+                    '</div>' + priceDiv;
+
                 topGrid.appendChild(card);
             });
             area.appendChild(topGrid);
 
-            // ── ALT 3 CARDS ─────────────────────────────────────────────
+            // ── ALT 3 ──────────────────────────────────────────────────
             if (altPicks && altPicks.length) {
-                const altLabel = document.createElement('div');
-                altLabel.className = 'mm-alt-label';
-                altLabel.innerHTML = '<span>Also Worth Considering</span>';
-                area.appendChild(altLabel);
+                var divider = document.createElement('div');
+                divider.className = 'mm-alt-label';
+                divider.innerHTML = '<span>Also Worth Considering</span>';
+                area.appendChild(divider);
 
-                const altGrid = document.createElement('div');
+                var altGrid = document.createElement('div');
                 altGrid.className = 'mm-three-cards mm-alt-cards';
 
-                altPicks.forEach((truck, i) => {
-                    const expl  = explanations[3 + i] || truck.explanation || '';
-                    const score = truck.score || 75;
+                var altLabels = ['Strong Alternative', 'Next Best Value', 'Additional Option'];
 
-                    const card = document.createElement('div');
+                altPicks.forEach(function(truck, i) {
+                    var expl  = (explanations && explanations[3 + i]) ? explanations[3 + i] : (truck.explanation || truck.why || '');
+                    var score = truck.score || 75;
+                    var searchUrl = MM_INVENTORY_URLS[truck.model] || 'https://commercial-trucks.peoriaford.com';
+
+                    var card = document.createElement('div');
                     card.className = 'mm-card mm-card-alt';
-                    card.innerHTML = \`
-                        <div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">
-                            <div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.4);"></div>
-                            \${i===0?'Strong Alternative':i===1?'Next Best Value':'Additional Option'}
-                        </div>
-                        <div class="mm-card-body">
-                            <div>
-                                <div class="mm-card-score-row">
-                                    <div class="mm-card-score" style="color:rgba(255,255,255,0.5);">\${score}</div>
-                                    <div class="mm-card-denom">/ 100</div>
-                                </div>
-                                <div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:\${score}%;background:rgba(255,255,255,0.25);"></div></div>
-                            </div>
-                            <div>
-                                <div class="mm-card-model" style="font-size:.95rem;">\${truck.model}</div>
-                                <div class="mm-card-config">\${truck.config || ''}</div>
-                            </div>
-                            <div class="mm-card-explanation">\${expl}</div>
-                            <div class="mm-card-stock">
-                                <a href="\${MM_INVENTORY_URLS[truck.model] || 'https://commercial-trucks.peoriaford.com'}" target="_blank" class="secondary-link">View Inventory →</a>
-                                <a href="#contact" class="secondary-link">Get Quote</a>
-                            </div>
-                        </div>
-                        <div class="mm-card-price">
-                            <span class="mm-card-price-label">Starting Price</span>
-                            <span class="mm-card-price-val" style="color:rgba(255,255,255,0.6);">\${truck.price_range || 'Call for pricing'}</span>
-                        </div>
-                    \`;
+
+                    var tierBar  = '<div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">' +
+                                   '<div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.35);"></div>' + (altLabels[i] || 'Alternative') + '</div>';
+                    var scoreRow = '<div class="mm-card-score-row">' +
+                                   '<div class="mm-card-score" style="color:rgba(255,255,255,0.5);">' + score + '</div>' +
+                                   '<div class="mm-card-denom">/ 100</div></div>';
+                    var barWrap  = '<div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:' + score + '%;background:rgba(255,255,255,0.25);"></div></div>';
+                    var modelRow = '<div class="mm-card-model" style="font-size:.9rem;">' + (truck.model || '') + '</div>' +
+                                   '<div class="mm-card-config">' + (truck.config || '') + '</div>';
+                    var explDiv  = '<div class="mm-card-explanation">' + expl + '</div>';
+                    var stockDiv = '<div class="mm-card-stock">' +
+                                   '<a href="' + searchUrl + '" target="_blank" class="secondary-link">View Inventory &rarr;</a>' +
+                                   '<a href="#contact" class="secondary-link">Get Quote</a></div>';
+                    var priceStr = truck.price_range || truck.price_from || 'Call for pricing';
+                    var priceDiv = '<div class="mm-card-price"><span class="mm-card-price-label">Starting Price</span>' +
+                                   '<span class="mm-card-price-val" style="color:rgba(255,255,255,0.55);">' + priceStr + '</span></div>';
+
+                    card.innerHTML = tierBar +
+                        '<div class="mm-card-body">' +
+                            '<div>' + scoreRow + barWrap + '</div>' +
+                            '<div>' + modelRow + '</div>' +
+                            explDiv + stockDiv +
+                        '</div>' + priceDiv;
+
                     altGrid.appendChild(card);
                 });
                 area.appendChild(altGrid);
             }
 
-            // Show lead form after short delay
-            setTimeout(() => {
+            setTimeout(function() {
                 document.getElementById('mm-lead-wrap').style.display = 'block';
             }, 800);
-        }
-
-        function mmReset() {
-            mmState.currentStep = 1;
-            mmState.answers     = {};
-            mmState.results     = [];
-            document.querySelectorAll('.mm-step').forEach(s => s.classList.remove('active','exit'));
-            document.querySelector('.mm-step[data-step="1"]').classList.add('active');
-            document.querySelectorAll('.mm-option').forEach(b => b.classList.remove('selected'));
-            document.getElementById('mm-steps').style.display   = 'block';
-            document.getElementById('mm-nav').style.display     = 'flex';
-            document.getElementById('mm-results').style.display = 'none';
-            document.getElementById('mm-loading').style.display = 'none';
-            const nextBtn = document.getElementById('mm-next');
-            nextBtn.disabled    = true;
-            nextBtn.textContent = 'Next →';
-            document.getElementById('mm-lead-form').style.display    = 'block';
-            document.getElementById('mm-lead-success').style.display = 'none';
-            mmUpdateProgress();
-            document.getElementById('selector').scrollIntoView({ behavior:'smooth', block:'start' });
-        }
-
-        // ============================================
-        // FORM HANDLERS
-        // ============================================
-        // ============================================
-        // FORM HANDLERS
-        // ============================================
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-        
-        // Selector form handled by AI Matchmaker (mmInit)
-
-        // Selector Lead Form (in results)
-        // Selector Lead Form (in results)
-        document.getElementById('selector-lead-form')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            clearAllErrors('lead');
-            
-            let isValid = true;
-            
-            // Validate required fields
-            const name = document.getElementById('lead-name').value.trim();
-            const company = document.getElementById('lead-company').value.trim();
-            const email = document.getElementById('lead-email').value.trim();
-            const phone = document.getElementById('lead-phone').value.trim();
-            const state = document.getElementById('lead-state').value;
-            const timeline = document.getElementById('lead-timeline').value;
-            
-            if (!name) { showError('lead-name', 'lead-name-error'); isValid = false; }
-            if (!company) { showError('lead-company', 'lead-company-error'); isValid = false; }
-            if (!email || !validateEmail(email)) { showError('lead-email', 'lead-email-error'); isValid = false; }
-            if (!phone || !validatePhone(phone)) { showError('lead-phone', 'lead-phone-error'); isValid = false; }
-            if (!state) { showError('lead-state', 'lead-state-error'); isValid = false; }
-            if (!timeline) { showError('lead-timeline', 'lead-timeline-error'); isValid = false; }
-            
-            if (!isValid) return;
-            
-            // Capture form state
-            appState.selectorLeadForm = {
-                name,
-                company,
-                email,
-                phone,
-                state,
-                timeline,
-                notes: document.getElementById('lead-notes').value.trim(),
-                recommendedTrucks: appState.recommendedTrucks.map(t => t.model),
-                requirements: appState.selectorForm
-            };
-            
-            // Submit lead
-            submitLead(appState.selectorLeadForm, 'selector');
-        });
-        
-        // Quote Form
-        document.getElementById('quote-form')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            clearAllErrors('quote');
-            
-            let isValid = true;
-            
-            // Validate required fields
-            const name = document.getElementById('quote-name').value.trim();
-            const company = document.getElementById('quote-company').value.trim();
-            const email = document.getElementById('quote-email').value.trim();
-            const phone = document.getElementById('quote-phone').value.trim();
-            const state = document.getElementById('quote-state').value;
-            const truck = document.getElementById('quote-truck').value;
-            const timeline = document.getElementById('quote-timeline').value;
-            
-            if (!name) { showError('quote-name', 'quote-name-error'); isValid = false; }
-            if (!company) { showError('quote-company', 'quote-company-error'); isValid = false; }
-            if (!email || !validateEmail(email)) { showError('quote-email', 'quote-email-error'); isValid = false; }
-            if (!phone || !validatePhone(phone)) { showError('quote-phone', 'quote-phone-error'); isValid = false; }
-            if (!state) { showError('quote-state', 'quote-state-error'); isValid = false; }
-            if (!truck) { showError('quote-truck', 'quote-truck-error'); isValid = false; }
-            if (!timeline) { showError('quote-timeline', 'quote-timeline-error'); isValid = false; }
-            
-            if (!isValid) return;
-            
-            // Capture form state
-            appState.quoteForm = {
-                name,
-                company,
-                email,
-                phone,
-                state,
-                truck,
-                timeline,
-                message: document.getElementById('quote-message').value.trim()
-            };
-            
-            // Submit lead
-            submitLead(appState.quoteForm, 'quote');
-        });
-        
-        // ============================================
-        // LEAD SUBMISSION
-        // ============================================
-        
-        function submitLead(data, formType) {
-            // Determine routing
-            const stateDealer = DEALER_ROUTING[data.state];
-            const sendToDealer = stateDealer && stateDealer.active;
-            
-            // Build lead payload
-            const payload = {
-                ...data,
-                formType,
-                submittedAt: new Date().toISOString(),
-                routedTo: sendToDealer ? stateDealer.dealer : 'Master List',
-                dealerEmail: sendToDealer ? stateDealer.email : MASTER_LIST_EMAIL
-            };
-            
-            // Submit to Cloudflare Worker endpoint
-            fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    showSuccess(formType);
-                } else {
-                    throw new Error(result.error || 'Submission failed');
-                }
-            })
-            .catch(error => {
-                console.error('Lead submission error:', error);
-                alert('There was an error submitting your request. Please try again or call (844) 877-9033.');
-            });
-        }
-        
-        function showSuccess(formType) {
-            if (formType === 'selector') {
-                document.getElementById('selector-lead-form').style.display = 'none';
-                document.getElementById('lead-success').style.display = 'block';
-            } else if (formType === 'quote') {
-                document.getElementById('quote-form').style.display = 'none';
-                document.getElementById('quote-success').style.display = 'block';
-            }
-        }
-        
-        // ============================================
-        // RESET FUNCTIONS
-        // ============================================
-        
-        function resetSelectorForm() { mmReset(); }
-
-        function resetQuoteForm() {
-            document.getElementById('quote-form').reset();
-            document.getElementById('quote-form').style.display = 'block';
-            document.getElementById('quote-success').style.display = 'none';
-            appState.quoteForm = {};
-        }
-        
-        // ============================================
-        // REAL-TIME VALIDATION
-        // ============================================
-        
-        // Add real-time validation for email and phone fields
-        ['lead-email', 'quote-email'].forEach(id => {
-            document.getElementById(id)?.addEventListener('blur', function() {
-                if (this.value && !validateEmail(this.value)) {
-                    showError(id, id + '-error');
-                } else {
-                    clearError(id, id + '-error');
-                }
-            });
-        });
-        
-        ['lead-phone', 'quote-phone'].forEach(id => {
-            document.getElementById(id)?.addEventListener('blur', function() {
-                if (this.value && !validatePhone(this.value)) {
-                    showError(id, id + '-error');
-                } else {
-                    clearError(id, id + '-error');
-                }
-            });
-        });
-        
-        // ============================================
-        // Q&A ACCORDION & FILTER
-        // ============================================
-        
-        // Q&A Accordion
-        document.querySelectorAll('.qa-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.parentElement;
-                const isActive = item.classList.contains('active');
-                
-                // Close all items
-                document.querySelectorAll('.qa-item').forEach(i => i.classList.remove('active'));
-                
-                // Open clicked item if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-        
-        // Q&A Category Filter
-        document.querySelectorAll('.qa-cat-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active button
-                document.querySelectorAll('.qa-cat-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const category = btn.dataset.category;
-                
-                // Filter items
-                document.querySelectorAll('.qa-item').forEach(item => {
-                    if (category === 'all' || item.dataset.category === category) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                    item.classList.remove('active');
-                });
-            });
-        });
-
-
-        // ── Fuel button toggle ─────────────────────────────────────────────
-        document.querySelectorAll('.mm-fuel-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.mm-fuel-btn').forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
-
-        // ── Run from form ──────────────────────────────────────────────────
-        function mmRunFromForm() {
-            const industry = document.getElementById('mm-industry').value;
-            const job      = document.getElementById('mm-job').value;
-            const towing   = document.getElementById('mm-towing').value;
-            const crew     = document.getElementById('mm-crew').value;
-            const body     = document.getElementById('mm-body').value;
-            const budget   = document.getElementById('mm-budget').value;
-            const fuelBtn  = document.querySelector('.mm-fuel-btn.selected');
-            const fuel     = fuelBtn ? fuelBtn.dataset.value : '';
-
-            if (!industry || !job || !towing || !crew || !body || !budget || !fuel) {
-                alert('Please complete all fields before finding your trucks.');
-                return;
-            }
-
-            mmState.answers = { industry, primary_job: job, towing, crew, body, budget, fuel };
-
-            document.getElementById('mm-form-card').style.display = 'none';
-            document.getElementById('mm-loading').style.display   = 'block';
-            mmRunAI();
         }
 
         function mmRestart() {
