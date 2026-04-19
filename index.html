@@ -385,6 +385,9 @@
         }
       ]
     }
+
+        // Initialize AI Matchmaker
+        mmInit();
     </script>
     
     <!-- Fonts -->
@@ -2128,6 +2131,416 @@
                 font-size: 0.9rem;
             }
         }
+    
+        /* ============================================
+           AI TRUCK MATCHMAKER
+        ============================================ */
+        .matchmaker {
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+        .matchmaker::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(184,115,51,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .matchmaker .container { position: relative; z-index: 1; }
+        .matchmaker__header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .matchmaker__header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0.75rem auto 0;
+        }
+
+        /* Progress Bar */
+        .mm-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .mm-progress__bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .mm-progress__fill {
+            height: 100%;
+            background: var(--arizona-copper);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+        .mm-progress__label {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Steps */
+        .mm-steps { min-height: 320px; }
+        .mm-step { display: none; animation: mmFadeIn 0.3s ease; }
+        .mm-step.active { display: block; }
+        .mm-step.exit { animation: mmFadeOut 0.2s ease forwards; }
+        @keyframes mmFadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes mmFadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-20px); }
+        }
+        .mm-step__question {
+            font-family: var(--font-display);
+            font-size: clamp(1.35rem, 3vw, 1.75rem);
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Option Buttons */
+        .mm-options {
+            display: grid;
+            gap: 0.75rem;
+        }
+        .mm-options--2col { grid-template-columns: repeat(2, 1fr); }
+        .mm-options--3col { grid-template-columns: repeat(3, 1fr); }
+        .mm-option {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            color: var(--white);
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 64px;
+        }
+        .mm-option:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .mm-option.selected {
+            background: rgba(184,115,51,0.2);
+            border-color: var(--arizona-copper);
+            box-shadow: 0 0 0 1px var(--arizona-copper);
+        }
+        .mm-option--full { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 1rem; }
+        .mm-option__icon { font-size: 1.5rem; line-height: 1; }
+        .mm-option__label {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .mm-option__sub {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.3;
+        }
+
+        /* Navigation */
+        .mm-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.75rem;
+            gap: 1rem;
+        }
+        .mm-btn {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.875rem 1.75rem;
+            min-height: 44px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mm-btn--back {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+        }
+        .mm-btn--back:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+        .mm-btn--next {
+            background: var(--arizona-sunset);
+            color: var(--white);
+            margin-left: auto;
+        }
+        .mm-btn--next:hover:not(:disabled) { background: #d14e00; transform: translateY(-2px); }
+        .mm-btn--next:disabled {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.3);
+            cursor: not-allowed;
+            transform: none;
+        }
+        .mm-nav__dots { display: flex; gap: 0.5rem; }
+        .mm-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.2s;
+        }
+        .mm-dot.active { background: var(--arizona-copper); transform: scale(1.4); }
+        .mm-dot.done { background: rgba(184,115,51,0.5); }
+
+        /* Loading */
+        .mm-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            gap: 1.5rem;
+        }
+        .mm-loading__spinner {
+            width: 56px; height: 56px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top-color: var(--arizona-copper);
+            border-radius: 50%;
+            animation: mmSpin 0.9s linear infinite;
+        }
+        @keyframes mmSpin { to { transform: rotate(360deg); } }
+        .mm-loading__text {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: opacity 0.3s;
+        }
+
+        /* Results */
+        .mm-results { margin-top: 3rem; }
+        .mm-results__header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .mm-results__header h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        .mm-results__header h3 span { color: var(--arizona-copper); }
+        .mm-results__header p {
+            color: rgba(255,255,255,0.65);
+            margin-top: 0.5rem;
+        }
+        .mm-results__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Result Cards */
+        .mm-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .mm-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .mm-card--featured {
+            border-color: var(--arizona-copper);
+            box-shadow: 0 0 0 1px var(--arizona-copper);
+        }
+        .mm-card__badge {
+            padding: 0.5rem 1rem;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--white);
+        }
+        .mm-card__image {
+            height: 180px;
+            overflow: hidden;
+        }
+        .mm-card__image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .mm-card__body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .mm-card__model {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        .mm-card__config {
+            font-size: 0.9rem;
+            color: var(--arizona-copper);
+            margin-bottom: 0.25rem;
+        }
+        .mm-card__price {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+        .mm-card__specs {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .mm-card__specs li {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.65);
+            padding-left: 1rem;
+            position: relative;
+        }
+        .mm-card__specs li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--arizona-copper);
+            font-weight: 700;
+        }
+        .mm-card__why {
+            background: rgba(184,115,51,0.08);
+            border-left: 3px solid var(--arizona-copper);
+            padding: 0.875rem;
+            margin-bottom: 1.25rem;
+            flex: 1;
+        }
+        .mm-card__why-label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--arizona-copper);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+        }
+        .mm-card__why p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+            margin: 0;
+        }
+        .mm-card__cta {
+            display: block;
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--ford-blue);
+            color: var(--white);
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            min-height: 44px;
+            transition: background 0.2s;
+            margin-top: auto;
+        }
+        .mm-card__cta:hover { background: var(--ford-blue-dark); }
+
+        /* Matchmaker Lead Form */
+        .mm-lead-form {
+            background: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+            padding: 2.5rem;
+            margin-top: 1rem;
+        }
+        .mm-lead-form__header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .mm-lead-form__header h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .mm-lead-form__header p {
+            color: rgba(255,255,255,0.75);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .mm-lead-form__fields { max-width: 800px; margin: 0 auto; }
+        .mm-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .mm-lead-form .form-group label { color: var(--white); }
+        .mm-lead-form input,
+        .mm-lead-form select,
+        .mm-lead-form textarea {
+            background: var(--white);
+            border: 2px solid transparent;
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 16px;
+            font-family: var(--font-body);
+            transition: border-color 0.2s;
+        }
+        .mm-lead-form input:focus,
+        .mm-lead-form select:focus,
+        .mm-lead-form textarea:focus {
+            outline: none;
+            border-color: var(--arizona-copper);
+        }
+        .mm-lead-form textarea { min-height: 100px; resize: vertical; }
+
+        /* Mobile overrides for matchmaker */
+        @media (max-width: 900px) {
+            .mm-results__grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .mm-options--3col { grid-template-columns: repeat(2, 1fr); }
+            .mm-options--2col { grid-template-columns: 1fr; }
+            .mm-form-row { grid-template-columns: 1fr; }
+            .mm-lead-form { padding: 1.5rem 1rem; }
+        }
+        @media (max-width: 375px) {
+            .mm-options--3col { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -2425,164 +2838,168 @@
     <!-- ============================================
          TRUCK SELECTOR SECTION
     ============================================ -->
-    <section id="selector" class="selector section">
+    <section id="selector" class="matchmaker section">
         <div class="container">
-            <div class="selector__grid">
-                <div class="selector__content">
-                    <h2>Find Your <span>Perfect Truck</span></h2>
-                    <p>Answer a few questions about your business needs and we'll match you with the ideal Ford commercial vehicle—plus get an instant quote from Peoria Ford.</p>
-                    
-                    <div class="selector__benefits">
-                        <div class="benefit">
-                            <div class="benefit__icon">
-                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                            </div>
-                            <div class="benefit__text">
-                                <h4>AI-Powered Matching</h4>
-                                <p>Smart recommendations based on your specific requirements</p>
-                            </div>
-                        </div>
-                        <div class="benefit">
-                            <div class="benefit__icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            </div>
-                            <div class="benefit__text">
-                                <h4>Upfit Recommendations</h4>
-                                <p>Service bodies, dump beds, ladder racks & more</p>
-                            </div>
-                        </div>
-                        <div class="benefit">
-                            <div class="benefit__icon">
-                                <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
-                            </div>
-                            <div class="benefit__text">
-                                <h4>Instant Pricing</h4>
-                                <p>Transparent quotes from America's leading Ford dealer</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="selector__form">
-                    <form id="truck-selector-form">
-                        <div class="form-group">
-                            <label for="industry">What industry are you in?</label>
-                            <select id="industry" name="industry" required>
-                                <option value="">Select your industry...</option>
-                                <option value="construction">Construction</option>
-                                <option value="landscaping">Landscaping / Lawn Care</option>
-                                <option value="plumbing">Plumbing / HVAC</option>
-                                <option value="electrical">Electrical</option>
-                                <option value="agriculture">Agriculture / Ranching</option>
-                                <option value="government">Government / Municipal</option>
-                                <option value="delivery">Delivery / Logistics</option>
-                                <option value="towing">Towing / Recovery</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="towing">Maximum towing requirement?</label>
-                            <select id="towing" name="towing" required>
-                                <option value="">Select towing needs...</option>
-                                <option value="light">Light (under 10,000 lbs)</option>
-                                <option value="medium">Medium (10,000–20,000 lbs)</option>
-                                <option value="heavy">Heavy (20,000–35,000 lbs)</option>
-                                <option value="max">Maximum (35,000+ lbs)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="payload">Payload requirements?</label>
-                            <select id="payload" name="payload" required>
-                                <option value="">Select payload needs...</option>
-                                <option value="light">Light (under 2,000 lbs)</option>
-                                <option value="medium">Medium (2,000–4,000 lbs)</option>
-                                <option value="heavy">Heavy (4,000–6,000 lbs)</option>
-                                <option value="max">Maximum (6,000+ lbs)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="crew">Crew size?</label>
-                            <select id="crew" name="crew" required>
-                                <option value="">Select crew size...</option>
-                                <option value="solo">Solo operator (2-3 seats)</option>
-                                <option value="small">Small crew (4-5 seats)</option>
-                                <option value="full">Full crew (6+ seats)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="fleet-size">Fleet size?</label>
-                            <select id="fleet-size" name="fleet-size" required>
-                                <option value="">Select fleet size...</option>
-                                <option value="single">Single vehicle</option>
-                                <option value="small">Small fleet (2-5)</option>
-                                <option value="medium">Medium fleet (6-20)</option>
-                                <option value="large">Large fleet (20+)</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; margin-top:1rem;">
-                            Get My Truck Recommendation →
-                        </button>
-                    </form>
-                </div>
+
+            <div class="matchmaker__header">
+                <span class="section__eyebrow">AI Truck Matchmaker</span>
+                <h2 class="section__title" style="color:var(--white)">Find Your <span style="color:var(--arizona-copper)">Perfect Match</span></h2>
+                <p>Answer 7 quick questions. Our AI reviews the full Ford commercial lineup and upfitter catalog to recommend your top 3 trucks.</p>
             </div>
-        </div>
-        
-        <!-- SELECTOR RESULTS (hidden until form submit) -->
-        <div id="selector-results" class="selector-results" style="display:none;">
-            <div class="container">
-                <div class="results__header">
-                    <h2>Your <span>Recommended Trucks</span></h2>
-                    <p id="results-summary">Based on your requirements, here are the best Ford commercial vehicles for your business:</p>
-                </div>
-                
-                <div id="recommended-trucks" class="results__grid">
-                    <!-- Trucks injected by JS -->
-                </div>
-                
-                <!-- Lead Capture Form in Results -->
-                <div class="results__lead-form">
-                    <div class="lead-form__header">
-                        <h3>Get Your Personalized Quote</h3>
-                        <p>A Peoria Ford commercial specialist will contact you within 24 hours with pricing, availability, and upfit options for your selected truck(s).</p>
+
+            <!-- Progress -->
+            <div class="mm-progress">
+                <div class="mm-progress__bar"><div class="mm-progress__fill" id="mm-progress-fill"></div></div>
+                <div class="mm-progress__label" id="mm-progress-label">Step 1 of 7</div>
+            </div>
+
+            <!-- Steps -->
+            <div class="mm-steps" id="mm-steps">
+
+                <!-- Step 1: Industry -->
+                <div class="mm-step active" data-step="1">
+                    <h3 class="mm-step__question">What industry are you in?</h3>
+                    <div class="mm-options mm-options--3col">
+                        <button class="mm-option" data-value="construction"><span class="mm-option__icon">🏗️</span><span class="mm-option__label">Construction</span></button>
+                        <button class="mm-option" data-value="hvac"><span class="mm-option__icon">❄️</span><span class="mm-option__label">HVAC</span></button>
+                        <button class="mm-option" data-value="plumbing"><span class="mm-option__icon">🔧</span><span class="mm-option__label">Plumbing</span></button>
+                        <button class="mm-option" data-value="electrical"><span class="mm-option__icon">⚡</span><span class="mm-option__label">Electrical</span></button>
+                        <button class="mm-option" data-value="landscaping"><span class="mm-option__icon">🌿</span><span class="mm-option__label">Landscaping</span></button>
+                        <button class="mm-option" data-value="agriculture"><span class="mm-option__icon">🌾</span><span class="mm-option__label">Agriculture</span></button>
+                        <button class="mm-option" data-value="towing"><span class="mm-option__icon">🚛</span><span class="mm-option__label">Towing / Recovery</span></button>
+                        <button class="mm-option" data-value="delivery"><span class="mm-option__icon">📦</span><span class="mm-option__label">Delivery / Logistics</span></button>
+                        <button class="mm-option" data-value="government"><span class="mm-option__icon">🏛️</span><span class="mm-option__label">Government / Municipal</span></button>
                     </div>
-                    
-                    <form id="selector-lead-form" class="lead-form__grid">
-                        <div class="form-row">
+                </div>
+
+                <!-- Step 2: Primary Job -->
+                <div class="mm-step" data-step="2">
+                    <h3 class="mm-step__question">What's the truck's primary job?</h3>
+                    <div class="mm-options mm-options--2col">
+                        <button class="mm-option" data-value="hauling"><span class="mm-option__icon">⚖️</span><span class="mm-option__label">Hauling & Towing</span><span class="mm-option__sub">Trailers, equipment, heavy loads</span></button>
+                        <button class="mm-option" data-value="service"><span class="mm-option__icon">🔩</span><span class="mm-option__label">Service & Tools</span><span class="mm-option__sub">Mobile workshop, service body</span></button>
+                        <button class="mm-option" data-value="crew"><span class="mm-option__icon">👷</span><span class="mm-option__label">Crew Transport</span><span class="mm-option__sub">Move people + tools daily</span></button>
+                        <button class="mm-option" data-value="cargo"><span class="mm-option__icon">🚐</span><span class="mm-option__label">Cargo & Delivery</span><span class="mm-option__sub">Maximize interior cargo space</span></button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Towing -->
+                <div class="mm-step" data-step="3">
+                    <h3 class="mm-step__question">Maximum towing requirement?</h3>
+                    <div class="mm-options mm-options--2col">
+                        <button class="mm-option" data-value="under10k"><span class="mm-option__label">Under 10,000 lbs</span><span class="mm-option__sub">Light trailers, landscaping equipment</span></button>
+                        <button class="mm-option" data-value="10k-20k"><span class="mm-option__label">10,000 – 20,000 lbs</span><span class="mm-option__sub">Heavy equipment, large trailers</span></button>
+                        <button class="mm-option" data-value="20k-35k"><span class="mm-option__label">20,000 – 35,000 lbs</span><span class="mm-option__sub">Gooseneck, construction rigs</span></button>
+                        <button class="mm-option" data-value="35k+"><span class="mm-option__label">35,000+ lbs</span><span class="mm-option__sub">Maximum duty — F-450 and above</span></button>
+                        <button class="mm-option mm-option--full" data-value="notowing"><span class="mm-option__label">No significant towing</span><span class="mm-option__sub">Payload and cargo are the priority</span></button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Crew -->
+                <div class="mm-step" data-step="4">
+                    <h3 class="mm-step__question">How many people ride in the truck daily?</h3>
+                    <div class="mm-options mm-options--2col">
+                        <button class="mm-option" data-value="solo"><span class="mm-option__icon">👤</span><span class="mm-option__label">Solo Operator</span><span class="mm-option__sub">Regular or extended cab works fine</span></button>
+                        <button class="mm-option" data-value="small"><span class="mm-option__icon">👥</span><span class="mm-option__label">2–3 People</span><span class="mm-option__sub">Extended or crew cab</span></button>
+                        <button class="mm-option" data-value="crew"><span class="mm-option__icon">👨‍👩‍👧‍👦</span><span class="mm-option__label">4–5 People</span><span class="mm-option__sub">Full crew cab required</span></button>
+                        <button class="mm-option" data-value="large"><span class="mm-option__icon">🚌</span><span class="mm-option__label">6+ People</span><span class="mm-option__sub">Transit passenger or medium-duty</span></button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Body/Upfit -->
+                <div class="mm-step" data-step="5">
+                    <h3 class="mm-step__question">What body or upfit do you need?</h3>
+                    <div class="mm-options mm-options--3col">
+                        <button class="mm-option" data-value="service-body"><span class="mm-option__icon">🗄️</span><span class="mm-option__label">Service Body</span></button>
+                        <button class="mm-option" data-value="flatbed"><span class="mm-option__icon">📐</span><span class="mm-option__label">Flatbed</span></button>
+                        <button class="mm-option" data-value="dump"><span class="mm-option__icon">🪣</span><span class="mm-option__label">Dump Body</span></button>
+                        <button class="mm-option" data-value="enclosed-cargo"><span class="mm-option__icon">📦</span><span class="mm-option__label">Enclosed Cargo</span></button>
+                        <button class="mm-option" data-value="crane-liftgate"><span class="mm-option__icon">🏗️</span><span class="mm-option__label">Crane / Liftgate</span></button>
+                        <button class="mm-option" data-value="bare-stock"><span class="mm-option__icon">🚗</span><span class="mm-option__label">Stock / No Upfit</span></button>
+                    </div>
+                </div>
+
+                <!-- Step 6: Budget -->
+                <div class="mm-step" data-step="6">
+                    <h3 class="mm-step__question">Budget per vehicle?</h3>
+                    <div class="mm-options mm-options--2col">
+                        <button class="mm-option" data-value="under50k"><span class="mm-option__label">Under $50,000</span><span class="mm-option__sub">Entry-level commercial</span></button>
+                        <button class="mm-option" data-value="50k-80k"><span class="mm-option__label">$50,000 – $80,000</span><span class="mm-option__sub">Mid-range with upfit</span></button>
+                        <button class="mm-option" data-value="80k-120k"><span class="mm-option__label">$80,000 – $120,000</span><span class="mm-option__sub">Heavy duty, full upfit</span></button>
+                        <button class="mm-option" data-value="120k+"><span class="mm-option__label">$120,000+</span><span class="mm-option__sub">Medium duty / fully spec'd</span></button>
+                        <button class="mm-option mm-option--full" data-value="fleet"><span class="mm-option__label">Fleet Pricing</span><span class="mm-option__sub">Buying 3+ units — fleet discount applies</span></button>
+                    </div>
+                </div>
+
+                <!-- Step 7: Fuel -->
+                <div class="mm-step" data-step="7">
+                    <h3 class="mm-step__question">Fuel preference?</h3>
+                    <div class="mm-options mm-options--3col">
+                        <button class="mm-option" data-value="diesel"><span class="mm-option__icon">💪</span><span class="mm-option__label">Diesel</span><span class="mm-option__sub">6.7L Power Stroke — max torque &amp; longevity</span></button>
+                        <button class="mm-option" data-value="gas"><span class="mm-option__icon">⛽</span><span class="mm-option__label">Gas</span><span class="mm-option__sub">7.3L V8 — lower upfront cost</span></button>
+                        <button class="mm-option" data-value="no-preference"><span class="mm-option__icon">🤷</span><span class="mm-option__label">No Preference</span><span class="mm-option__sub">Recommend what fits best</span></button>
+                    </div>
+                </div>
+
+            </div><!-- end mm-steps -->
+
+            <!-- Navigation -->
+            <div class="mm-nav" id="mm-nav">
+                <button class="mm-btn mm-btn--back" id="mm-back" style="display:none">← Back</button>
+                <div class="mm-nav__dots" id="mm-dots"></div>
+                <button class="mm-btn mm-btn--next" id="mm-next" disabled>Next →</button>
+            </div>
+
+            <!-- Loading -->
+            <div class="mm-loading" id="mm-loading" style="display:none">
+                <div class="mm-loading__spinner"></div>
+                <p class="mm-loading__text" id="mm-loading-text">Analyzing your requirements...</p>
+            </div>
+
+            <!-- Results -->
+            <div class="mm-results" id="mm-results" style="display:none">
+                <div class="mm-results__header">
+                    <h3>Your Top <span>3 Matches</span></h3>
+                    <p id="mm-results-summary"></p>
+                </div>
+                <div class="mm-results__grid" id="mm-results-grid"></div>
+
+                <!-- Lead Form -->
+                <div class="mm-lead-form">
+                    <div class="mm-lead-form__header">
+                        <h3>Get Your Personalized Quote</h3>
+                        <p>A Peoria Ford commercial specialist will contact you within 24 hours with pricing, availability, and upfit options for your matched trucks.</p>
+                    </div>
+                    <form id="mm-lead-form" class="mm-lead-form__fields">
+                        <div class="mm-form-row">
                             <div class="form-group">
-                                <label for="lead-name">Full Name <span class="required">*</span></label>
-                                <input type="text" id="lead-name" name="name" required>
-                                <span class="error-msg" id="lead-name-error">Please enter your name</span>
+                                <label for="mm-name">Full Name <span class="required">*</span></label>
+                                <input type="text" id="mm-name" name="name" required>
+                                <span class="error-msg" id="mm-name-error">Please enter your name</span>
                             </div>
                             <div class="form-group">
-                                <label for="lead-company">Company Name <span class="required">*</span></label>
-                                <input type="text" id="lead-company" name="company" required>
-                                <span class="error-msg" id="lead-company-error">Please enter your company name</span>
+                                <label for="mm-company">Company Name <span class="required">*</span></label>
+                                <input type="text" id="mm-company" name="company" required>
+                                <span class="error-msg" id="mm-company-error">Please enter your company name</span>
                             </div>
                         </div>
-                        
-                        <div class="form-row">
+                        <div class="mm-form-row">
                             <div class="form-group">
-                                <label for="lead-email">Email Address <span class="required">*</span></label>
-                                <input type="email" id="lead-email" name="email" required>
-                                <span class="error-msg" id="lead-email-error">Please enter a valid email</span>
+                                <label for="mm-email">Email <span class="required">*</span></label>
+                                <input type="email" id="mm-email" name="email" required>
+                                <span class="error-msg" id="mm-email-error">Please enter a valid email</span>
                             </div>
                             <div class="form-group">
-                                <label for="lead-phone">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="lead-phone" name="phone" required>
-                                <span class="error-msg" id="lead-phone-error">Please enter your phone number</span>
+                                <label for="mm-phone">Phone <span class="required">*</span></label>
+                                <input type="tel" id="mm-phone" name="phone" required>
+                                <span class="error-msg" id="mm-phone-error">Please enter your phone number</span>
                             </div>
                         </div>
-                        
-                        <div class="form-row">
+                        <div class="mm-form-row">
                             <div class="form-group">
-                                <label for="lead-state">State <span class="required">*</span></label>
-                                <select id="lead-state" name="state" required>
-                                    <option value="">Select your state...</option>
+                                <label for="mm-state">State <span class="required">*</span></label>
+                                <select id="mm-state" name="state" required>
+                                    <option value="">Select state...</option>
                                     <option value="AZ">Arizona</option>
                                     <option value="CA">California</option>
                                     <option value="CO">Colorado</option>
@@ -2592,48 +3009,42 @@
                                     <option value="UT">Utah</option>
                                     <option value="other">Other State</option>
                                 </select>
-                                <span class="error-msg" id="lead-state-error">Please select your state</span>
+                                <span class="error-msg" id="mm-state-error">Please select your state</span>
                             </div>
                             <div class="form-group">
-                                <label for="lead-timeline">Purchase Timeline <span class="required">*</span></label>
-                                <select id="lead-timeline" name="timeline" required>
-                                    <option value="">When are you looking to buy?</option>
-                                    <option value="immediate">Immediate (0-30 days)</option>
-                                    <option value="soon">Soon (1-3 months)</option>
-                                    <option value="planning">Planning (3-6 months)</option>
+                                <label for="mm-timeline">Timeline <span class="required">*</span></label>
+                                <select id="mm-timeline" name="timeline" required>
+                                    <option value="">When are you buying?</option>
+                                    <option value="immediate">Immediate (0–30 days)</option>
+                                    <option value="soon">Soon (1–3 months)</option>
+                                    <option value="planning">Planning (3–6 months)</option>
                                     <option value="researching">Just Researching</option>
                                 </select>
-                                <span class="error-msg" id="lead-timeline-error">Please select a timeline</span>
+                                <span class="error-msg" id="mm-timeline-error">Please select a timeline</span>
                             </div>
                         </div>
-                        
-                        <div class="form-group form-group--full">
-                            <label for="lead-notes">Additional Notes</label>
-                            <textarea id="lead-notes" name="notes" rows="3" placeholder="Tell us about any specific upfits, colors, or features you need..."></textarea>
+                        <div class="form-group">
+                            <label for="mm-notes">Additional Notes</label>
+                            <textarea id="mm-notes" name="notes" rows="3" placeholder="Colors, special upfits, fleet quantity, or any other requirements..."></textarea>
                         </div>
-                        
-                        <input type="hidden" id="lead-trucks" name="recommended_trucks">
-                        <input type="hidden" id="lead-requirements" name="requirements">
-                        
+                        <input type="hidden" id="mm-hidden-trucks" name="recommended_trucks">
+                        <input type="hidden" id="mm-hidden-answers" name="matchmaker_answers">
                         <div class="form-actions">
-                            <button type="submit" class="btn btn--primary btn--large">
-                                Submit Quote Request →
-                            </button>
-                            <p class="form-disclaimer">Your information is secure and will only be used to provide your quote.</p>
+                            <button type="submit" class="btn btn--primary btn--large">Submit Quote Request →</button>
+                            <p class="form-disclaimer">Your information is secure and only used to provide your quote.</p>
                         </div>
                     </form>
-                    
-                    <!-- Success Message (hidden until submit) -->
-                    <div id="lead-success" class="lead-success" style="display:none;">
+                    <div id="mm-lead-success" class="lead-success" style="display:none">
                         <div class="success-icon">
                             <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                         </div>
                         <h3>Quote Request Submitted!</h3>
-                        <p>A Peoria Ford commercial specialist will contact you within 24 hours. Check your email for a confirmation.</p>
-                        <button type="button" class="btn btn--secondary" onclick="resetSelectorForm()">Start New Search</button>
+                        <p>A Peoria Ford commercial specialist will contact you within 24 hours. Check your email for confirmation.</p>
+                        <button type="button" class="btn btn--secondary" onclick="mmReset()">Start New Search</button>
                     </div>
                 </div>
-            </div>
+            </div><!-- end mm-results -->
+
         </div>
     </section>
 
@@ -3467,132 +3878,266 @@
         }
         
         // ============================================
-        // TRUCK RECOMMENDATION ENGINE
+        // AI TRUCK MATCHMAKER ENGINE
         // ============================================
-        
-        function calculateRecommendations(formData) {
-            const scores = {};
-            
-            // Score based on towing needs
-            Object.keys(TRUCKS).forEach(key => {
-                scores[key] = TRUCKS[key].score[formData.towing] || 0;
+
+        const mmState = {
+            currentStep: 1,
+            totalSteps: 7,
+            answers: {},
+            results: []
+        };
+
+        const MM_QUESTION_IDS = ['industry','primary_job','towing','crew','body','budget','fuel'];
+
+        const MM_TRUCK_IMAGES = {
+            'F-250':   'https://images.worktrucksolutions.com/img/00564/inventory/TED95644/medium/2026-ford-f-250-crew-pickup-1.jpg',
+            'F-350':   'https://images.worktrucksolutions.com/img/00564/inventory/TED14530/medium/2026-ford-f-250-crew-pickup-1.jpg',
+            'F-450':   'https://images.worktrucksolutions.com/img/00564/inventory/TED80079/medium/2026-ford-f-450-crew-cab-chassis-1.jpg',
+            'F-550':   'https://images.worktrucksolutions.com/img/00564/inventory/TDA11571/medium/2026-ford-f-450-regular-cab-chassis-25.jpg',
+            'F-650':   'https://images.worktrucksolutions.com/img/00564/inventory/TEC85244/medium/2026-ford-f-450-crew-steel-force-truck-bodies-contractor-truck-57.jpg',
+            'Transit': 'https://images.worktrucksolutions.com/img/00564/inventory/TKA41069/medium/2026-ford-transit-350-hd-empty-cargo-van-30.jpg'
+        };
+
+        const MM_INVENTORY_URLS = {
+            'F-250':   'https://commercial-trucks.peoriaford.com/Pickup/F-250',
+            'F-350':   'https://commercial-trucks.peoriaford.com/Pickup/F-350',
+            'F-450':   'https://commercial-trucks.peoriaford.com/f-450',
+            'F-550':   'https://commercial-trucks.peoriaford.com/f-550',
+            'F-650':   'https://commercial-trucks.peoriaford.com/f-650',
+            'Transit': 'https://commercial-trucks.peoriaford.com/Cargo_Van'
+        };
+
+        const MM_SYSTEM_PROMPT = `You are an expert Ford commercial truck advisor for Peoria Ford, Arizona's #1 commercial fleet dealer. A business owner has answered 7 questions about their needs. Recommend exactly 3 Ford commercial truck configurations. Return ONLY a valid JSON array — no preamble, no markdown fences, no text outside the JSON.
+
+FORD COMMERCIAL LINEUP:
+F-250 Super Duty: GVWR 10,000 lbs, Max Tow 22,000 lbs, Max Payload 4,260 lbs, Engines: 6.7L Power Stroke Diesel (475hp/1,050 lb-ft) or 7.3L V8 Gas (430hp), Cab: Regular/SuperCab/Crew, Starting $46,495. Best for: light-medium commercial, landscaping, electricians, plumbers, light construction.
+F-350 Super Duty: GVWR 14,000 lbs, Max Tow 35,750 lbs, Max Payload 7,850 lbs, Engines: same as F-250, Cab: Regular/SuperCab/Crew or Chassis Cab, Starting $49,885. Best for: medium-heavy construction, agriculture, serious service bodies, flatbeds, contractor work.
+F-450 Super Duty: GVWR 16,500 lbs, Max Tow 40,000 lbs, Max Payload 8,000 lbs, Engine: 6.7L Power Stroke Diesel (up to 500hp/1,200 lb-ft HO), Crew Cab or Chassis Cab, Starting $58,355. Best for: maximum towing, heavy service bodies, dump beds, towing and recovery.
+F-550 Chassis Cab: GVWR 19,500 lbs, Max Tow 34,500 lbs, Max Payload 12,750 lbs, Engine: 6.7L Power Stroke Diesel, Always chassis cab — purpose-built for upfits, Starting $61,145. Best for: dump trucks, large service bodies, crane/mechanics trucks, contractor builds.
+F-650/F-750: GVWR 25,999-37,000 lbs (medium duty), Max Payload up to 29,000 lbs, Cummins 6.7L Diesel or 7.3L Gas, Starting $72,000+. Best for: large dump, refuse, heavy equipment hauling, large-scale operations.
+Ford Transit Cargo Van: GVWR 8,550-10,360 lbs, Max Cargo 487 cu ft, Max Payload 4,650 lbs, 3.5L EcoBoost V6, Three roof heights available, Starting $44,730. Best for: delivery, plumbing/electrical mobile workshops, HVAC, cargo delivery, last-mile logistics.
+
+UPFITTER CATALOG (Peoria Ford partners — Knapheide, Adrian Steel, Maxon, Reading):
+Service Body: $8,000-$18,000. Steel compartment body with side bins. Best on F-250/350/450/550. Industry standard for plumbing, HVAC, electrical, general contractors.
+Flatbed: $5,000-$12,000. Steel or aluminum deck. F-350/450/550. Best for lumber, pipe, steel, materials.
+Dump Body: $8,000-$20,000. Hydraulic steel dump. F-350/450/550/650. Landscaping, construction, asphalt.
+Ladder Rack/Shelving Package: $2,000-$6,000. Transit or F-250/350. Electricians, HVAC, plumbers, delivery.
+Crane/Mechanics Truck: $25,000-$60,000. F-550/650. Heavy service operations, utility companies.
+Liftgate: $3,000-$8,000. Transit or chassis cabs. Delivery, medical equipment, heavy retail.
+
+HARD RULES:
+1. Towing requirement is a hard constraint — never recommend a truck that cannot physically meet the stated towing need
+2. Crew size 4+ requires Crew Cab configuration
+3. Dump body, crane, or large service body requires chassis cab (F-350 chassis cab, F-450, F-550, or F-650)
+4. Total cost (truck + upfit) must fit within stated budget — if it does not, note it and recommend accordingly
+5. Rank 1 = best overall match for their stated needs; Rank 2 = capable alternative with different profile; Rank 3 = value option or specialized fit
+
+OUTPUT FORMAT — return ONLY this JSON array, nothing else:
+[{"rank":1,"rank_label":"Best Match","model":"F-350","config":"Crew Cab, 6.7L Diesel","upfit":"Knapheide Service Body","price_from":"$72,000 equipped","why":"2 sentences max. Reference their specific industry and answers. Direct and confident. Name the upfitter.","key_specs":["35,750 lb max towing","7,850 lb payload","6.7L Power Stroke Diesel"],"badge_color":"copper"},{"rank":2,"rank_label":"Runner Up","model":"F-450","config":"Crew Cab Chassis, Diesel","upfit":"Flatbed","price_from":"$68,000 equipped","why":"...","key_specs":["..."],"badge_color":"blue"},{"rank":3,"rank_label":"Value Pick","model":"F-250","config":"SuperCab, Gas","upfit":"Ladder Rack & Shelving","price_from":"$52,000 equipped","why":"...","key_specs":["..."],"badge_color":"charcoal"}]`;
+
+        function mmInit() {
+            const dotsEl = document.getElementById('mm-dots');
+            if (dotsEl) {
+                dotsEl.innerHTML = Array.from({length: mmState.totalSteps}, (_, i) =>
+                    `<span class="mm-dot ${i === 0 ? 'active' : ''}" data-step="${i+1}"></span>`
+                ).join('');
+            }
+            mmUpdateProgress();
+
+            // Option click delegation
+            document.getElementById('mm-steps').addEventListener('click', function(e) {
+                const btn = e.target.closest('.mm-option');
+                if (btn) mmSelectOption(btn);
             });
-            
-            // Add payload scoring
-            Object.keys(TRUCKS).forEach(key => {
-                scores[key] += TRUCKS[key].score[formData.payload] || 0;
+
+            // Back/Next buttons
+            document.getElementById('mm-back').addEventListener('click', mmBack);
+            document.getElementById('mm-next').addEventListener('click', mmNext);
+
+            // Lead form submit
+            document.getElementById('mm-lead-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                let valid = true;
+                const name     = document.getElementById('mm-name').value.trim();
+                const company  = document.getElementById('mm-company').value.trim();
+                const email    = document.getElementById('mm-email').value.trim();
+                const phone    = document.getElementById('mm-phone').value.trim();
+                const state    = document.getElementById('mm-state').value;
+                const timeline = document.getElementById('mm-timeline').value;
+                if (!name)                        { showError('mm-name','mm-name-error'); valid=false; }
+                if (!company)                     { showError('mm-company','mm-company-error'); valid=false; }
+                if (!email || !validateEmail(email)) { showError('mm-email','mm-email-error'); valid=false; }
+                if (!phone || !validatePhone(phone)) { showError('mm-phone','mm-phone-error'); valid=false; }
+                if (!state)                       { showError('mm-state','mm-state-error'); valid=false; }
+                if (!timeline)                    { showError('mm-timeline','mm-timeline-error'); valid=false; }
+                if (!valid) return;
+                const payload = {
+                    name, company, email, phone, state, timeline,
+                    notes: document.getElementById('mm-notes').value.trim(),
+                    recommendedTrucks: document.getElementById('mm-hidden-trucks').value,
+                    matchmakerAnswers: mmState.answers,
+                    formType: 'matchmaker'
+                };
+                submitLead(payload, 'matchmaker');
             });
-            
-            // Add industry bonuses
-            const industryBonuses = INDUSTRY_BONUSES[formData.industry] || {};
-            Object.keys(industryBonuses).forEach(key => {
-                scores[key] = (scores[key] || 0) + industryBonuses[key];
+        }
+
+        function mmUpdateProgress() {
+            const pct  = ((mmState.currentStep - 1) / mmState.totalSteps) * 100;
+            const fill = document.getElementById('mm-progress-fill');
+            const lbl  = document.getElementById('mm-progress-label');
+            const back = document.getElementById('mm-back');
+            if (fill) fill.style.width = pct + '%';
+            if (lbl)  lbl.textContent  = 'Step ' + mmState.currentStep + ' of ' + mmState.totalSteps;
+            if (back) back.style.display = mmState.currentStep > 1 ? 'block' : 'none';
+            document.querySelectorAll('.mm-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === mmState.currentStep - 1);
+                dot.classList.toggle('done',   i <  mmState.currentStep - 1);
             });
-            
-            // Sort by score and get top 3
-            const sorted = Object.entries(scores)
-                .sort((a, b) => b[1] - a[1])
-                .filter(([key, score]) => score > 0)
-                .slice(0, 3);
-            
-            return sorted.map(([key, score], index) => ({
-                key,
-                ...TRUCKS[key],
-                score,
-                rank: index + 1,
-                whyText: generateWhyText(key, formData)
-            }));
         }
-        
-        function generateWhyText(truckKey, formData) {
-            const reasons = {
-                f250: {
-                    light: 'Perfect balance of capability and efficiency for your lighter-duty needs.',
-                    medium: 'Handles medium loads with ease while staying maneuverable.',
-                    construction: 'Popular with contractors for job site versatility.'
-                },
-                f350: {
-                    medium: 'Sweet spot for medium-heavy work without stepping up to chassis cab.',
-                    heavy: 'Serious towing capability with pickup truck convenience.',
-                    construction: 'The contractor\'s favorite for hauling equipment and materials.',
-                    agriculture: 'Built for farm and ranch demands.'
-                },
-                f450: {
-                    heavy: 'Maximum pickup towing capacity for your heavy loads.',
-                    max: 'When you need the absolute most capability in a pickup form.',
-                    construction: 'Handles the heaviest equipment trailers with confidence.',
-                    towing: 'Built specifically for serious towing applications.'
-                },
-                f550: {
-                    max: 'Ready for any commercial body upfit you need.',
-                    construction: 'The go-to chassis for service bodies and dump beds.'
-                },
-                f650: {
-                    max: 'Medium-duty power when pickups aren\'t enough.',
-                    construction: 'Perfect for large-scale construction operations.'
-                },
-                transit: {
-                    light: 'Maximize cargo space for tools and materials.',
-                    plumbing: 'Organized workspace that protects your equipment.',
-                    electrical: 'Perfect mobile workshop for service calls.',
-                    delivery: 'Built for efficient delivery operations.'
-                }
-            };
-            
-            // Try to find a relevant reason
-            const truckReasons = reasons[truckKey] || {};
-            return truckReasons[formData.industry] || 
-                   truckReasons[formData.towing] || 
-                   'Recommended based on your business requirements.';
+
+        function mmSelectOption(btn) {
+            btn.closest('.mm-step').querySelectorAll('.mm-option').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]] = btn.dataset.value;
+            document.getElementById('mm-next').disabled = false;
+            if (window.innerWidth <= 768) { setTimeout(mmNext, 380); }
         }
-        
-        function displayRecommendations(trucks) {
-            const container = document.getElementById('recommended-trucks');
-            const resultsSection = document.getElementById('selector-results');
-            
-            if (!container || !resultsSection) return;
-            
-            // Store in state
-            appState.recommendedTrucks = trucks;
-            appState.selectorLeadForm.recommendedTrucks = trucks.map(t => t.model);
-            
-            // Build HTML
-            container.innerHTML = trucks.map((truck, index) => `
-                <article class="result-card" data-truck="${truck.key}">
-                    ${index === 0 ? '<div class="result-card__badge">Top Recommendation</div>' : ''}
-                    <div class="result-card__image" style="background-image: url('${truck.image}')"></div>
-                    <div class="result-card__body">
-                        <h3 class="result-card__model">${truck.model}</h3>
-                        <p class="result-card__tagline">${truck.tagline}</p>
-                        <div class="result-card__specs">
-                            ${Object.entries(truck.specs).map(([key, value]) => `
-                                <div class="spec">
-                                    <span class="spec__label">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
-                                    <span class="spec__value">${value}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="result-card__why">
-                            <div class="result-card__why-title">Why This Truck?</div>
-                            <p class="result-card__why-text">${truck.whyText}</p>
-                        </div>
-                    </div>
-                </article>
-            `).join('');
-            
-            // Show results section
-            resultsSection.style.display = 'block';
-            
-            // Scroll to results
-            setTimeout(() => {
-                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-            
-            // Update hidden form field
-            document.getElementById('lead-trucks').value = trucks.map(t => t.model).join(', ');
-            document.getElementById('lead-requirements').value = JSON.stringify(appState.selectorForm);
+
+        function mmNext() {
+            if (!mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]]) return;
+            if (mmState.currentStep === mmState.totalSteps) { mmRunAI(); return; }
+            const cur  = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
+            mmState.currentStep++;
+            const next = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
+            cur.classList.remove('active'); cur.classList.add('exit');
+            setTimeout(() => cur.classList.remove('exit'), 300);
+            next.classList.add('active');
+            mmUpdateProgress();
+            const nextQId = MM_QUESTION_IDS[mmState.currentStep - 1];
+            document.getElementById('mm-next').disabled = !mmState.answers[nextQId];
+            document.getElementById('mm-next').textContent = mmState.currentStep === mmState.totalSteps ? 'Find My Trucks →' : 'Next →';
         }
-        
+
+        function mmBack() {
+            if (mmState.currentStep <= 1) return;
+            const cur  = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
+            mmState.currentStep--;
+            const prev = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
+            cur.classList.remove('active');
+            prev.classList.add('active');
+            mmUpdateProgress();
+            document.getElementById('mm-next').disabled = false;
+            document.getElementById('mm-next').textContent = mmState.currentStep === mmState.totalSteps ? 'Find My Trucks →' : 'Next →';
+        }
+
+        async function mmRunAI() {
+            document.getElementById('mm-steps').style.display  = 'none';
+            document.getElementById('mm-nav').style.display    = 'none';
+            document.getElementById('mm-loading').style.display = 'flex';
+            document.getElementById('mm-progress-fill').style.width = '100%';
+            document.getElementById('mm-progress-label').textContent = 'Matching your trucks...';
+
+            const msgs   = ['Analyzing your requirements...','Reviewing Ford Super Duty lineup...','Matching upfit options...','Preparing your 3 recommendations...'];
+            let   msgIdx = 0;
+            const msgEl  = document.getElementById('mm-loading-text');
+            const ticker = setInterval(() => { msgIdx=(msgIdx+1)%msgs.length; if(msgEl) msgEl.textContent=msgs[msgIdx]; }, 1800);
+
+            const userMsg = 'Customer answers:\n' +
+                'Industry: '          + mmState.answers.industry    + '\n' +
+                'Primary job: '       + mmState.answers.primary_job + '\n' +
+                'Towing requirement: '+ mmState.answers.towing      + '\n' +
+                'Crew size: '         + mmState.answers.crew        + '\n' +
+                'Body/upfit: '        + mmState.answers.body        + '\n' +
+                'Budget: '            + mmState.answers.budget      + '\n' +
+                'Fuel preference: '   + mmState.answers.fuel        + '\n\n' +
+                'Recommend 3 Ford commercial trucks with upfits that best match these needs.';
+
+            try {
+                const resp = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model:      'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        system:     MM_SYSTEM_PROMPT,
+                        messages:   [{ role: 'user', content: userMsg }]
+                    })
+                });
+                const data    = await resp.json();
+                const rawText = data.content.map(c => c.text || '').join('').trim();
+                const clean   = rawText.replace(/```json|```/g,'').trim();
+                const results = JSON.parse(clean);
+                clearInterval(ticker);
+                mmDisplayResults(results);
+            } catch(err) {
+                clearInterval(ticker);
+                console.error('Matchmaker error:', err);
+                document.getElementById('mm-loading').style.display = 'none';
+                document.getElementById('mm-steps').style.display   = 'block';
+                document.getElementById('mm-nav').style.display     = 'flex';
+                alert('Unable to connect. Please try again or call (844) 877-9033.');
+            }
+        }
+
+        function mmDisplayResults(results) {
+            document.getElementById('mm-loading').style.display = 'none';
+            const grid    = document.getElementById('mm-results-grid');
+            const summary = document.getElementById('mm-results-summary');
+            const industry = mmState.answers.industry || 'your operation';
+            summary.textContent = 'Based on your ' + industry.charAt(0).toUpperCase() + industry.slice(1).replace(/-/g,' ') + ' operation — here are your top 3 Ford commercial truck matches.';
+            mmState.results = results;
+            const badgeColors = { copper: 'var(--arizona-copper)', blue: 'var(--ford-blue)', charcoal: '#555' };
+            grid.innerHTML = results.map(function(truck, idx) {
+                const modelKey = Object.keys(MM_TRUCK_IMAGES).find(k => truck.model.includes(k)) || 'F-350';
+                const imgUrl   = MM_TRUCK_IMAGES[modelKey];
+                const invEntry = Object.entries(MM_INVENTORY_URLS).find(([k]) => truck.model.includes(k));
+                const invUrl   = invEntry ? invEntry[1] : 'https://commercial-trucks.peoriaford.com';
+                const badgeClr = badgeColors[truck.badge_color] || 'var(--arizona-copper)';
+                const specsHtml = (truck.key_specs || []).map(s => '<li>' + s + '</li>').join('');
+                const upfitStr  = truck.upfit && truck.upfit !== 'None' ? ' + ' + truck.upfit : '';
+                return '<article class="mm-card ' + (idx===0?'mm-card--featured':'') + '">' +
+                    '<div class="mm-card__badge" style="background:' + badgeClr + '">' + truck.rank_label + '</div>' +
+                    '<div class="mm-card__image"><img src="' + imgUrl + '" alt="2026 Ford ' + truck.model + '" loading="lazy"></div>' +
+                    '<div class="mm-card__body">' +
+                        '<h4 class="mm-card__model">2026 Ford ' + truck.model + '</h4>' +
+                        '<p class="mm-card__config">' + truck.config + upfitStr + '</p>' +
+                        '<p class="mm-card__price">' + truck.price_from + '</p>' +
+                        '<ul class="mm-card__specs">' + specsHtml + '</ul>' +
+                        '<div class="mm-card__why"><span class="mm-card__why-label">Why This Truck</span><p>' + truck.why + '</p></div>' +
+                        '<a href="' + invUrl + '" target="_blank" rel="noopener" class="mm-card__cta">View Inventory at Peoria Ford →</a>' +
+                    '</div></article>';
+            }).join('');
+            document.getElementById('mm-hidden-trucks').value  = results.map(r => r.model + ' (' + r.config + ')').join(', ');
+            document.getElementById('mm-hidden-answers').value = JSON.stringify(mmState.answers);
+            document.getElementById('mm-results').style.display = 'block';
+            setTimeout(() => document.getElementById('mm-results').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+        }
+
+        function mmReset() {
+            mmState.currentStep = 1;
+            mmState.answers     = {};
+            mmState.results     = [];
+            document.querySelectorAll('.mm-step').forEach(s => s.classList.remove('active','exit'));
+            document.querySelector('.mm-step[data-step="1"]').classList.add('active');
+            document.querySelectorAll('.mm-option').forEach(b => b.classList.remove('selected'));
+            document.getElementById('mm-steps').style.display   = 'block';
+            document.getElementById('mm-nav').style.display     = 'flex';
+            document.getElementById('mm-results').style.display = 'none';
+            document.getElementById('mm-loading').style.display = 'none';
+            const nextBtn = document.getElementById('mm-next');
+            nextBtn.disabled    = true;
+            nextBtn.textContent = 'Next →';
+            document.getElementById('mm-lead-form').style.display    = 'block';
+            document.getElementById('mm-lead-success').style.display = 'none';
+            mmUpdateProgress();
+            document.getElementById('selector').scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+
+        // ============================================
+        // FORM HANDLERS
+        // ============================================
         // ============================================
         // FORM HANDLERS
         // ============================================
@@ -3608,24 +4153,9 @@
             });
         });
         
-        // Truck Selector Form
-        document.getElementById('truck-selector-form')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Capture form state
-            appState.selectorForm = {
-                industry: document.getElementById('industry').value,
-                towing: document.getElementById('towing').value,
-                payload: document.getElementById('payload').value,
-                crew: document.getElementById('crew').value,
-                fleetSize: document.getElementById('fleet-size').value
-            };
-            
-            // Calculate and display recommendations
-            const recommendations = calculateRecommendations(appState.selectorForm);
-            displayRecommendations(recommendations);
-        });
-        
+        // Selector form handled by AI Matchmaker (mmInit)
+
+        // Selector Lead Form (in results)
         // Selector Lead Form (in results)
         document.getElementById('selector-lead-form')?.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -3763,27 +4293,9 @@
         // RESET FUNCTIONS
         // ============================================
         
-        function resetSelectorForm() {
-            // Reset selector form
-            document.getElementById('truck-selector-form').reset();
-            
-            // Reset lead form
-            document.getElementById('selector-lead-form').reset();
-            document.getElementById('selector-lead-form').style.display = 'block';
-            document.getElementById('lead-success').style.display = 'none';
-            
-            // Hide results
-            document.getElementById('selector-results').style.display = 'none';
-            
-            // Clear state
-            appState.selectorForm = {};
-            appState.selectorLeadForm = {};
-            appState.recommendedTrucks = [];
-            
-            // Scroll back to selector
-            document.getElementById('selector').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        
+        function resetSelectorForm() { mmReset(); }
+
+        function resetQuoteForm() {
         function resetQuoteForm() {
             document.getElementById('quote-form').reset();
             document.getElementById('quote-form').style.display = 'block';
