@@ -4255,7 +4255,7 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 'Return ONLY the JSON array. No markdown. No commentary.';
 
             try {
-                var resp = await fetch('https://api.anthropic.com/v1/messages', {
+                var resp = await fetch('https://stallion-matchmaker-proxy.bridleandbit.workers.dev', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -4290,10 +4290,17 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 mmDisplayResults(topPicks, altPicks, invByModel);
 
             } catch(err) {
-                console.error('mmRunAI error:', err);
+                console.error('mmRunAI error:', err.message || err);
                 document.getElementById('mm-loading').style.display  = 'none';
                 document.getElementById('mm-form-card').style.display = 'block';
-                alert('Something went wrong. Please try again or call (844) 877-9033.');
+                var errEl = document.getElementById('mm-error-msg');
+                if (!errEl) {
+                    errEl = document.createElement('div');
+                    errEl.id = 'mm-error-msg';
+                    errEl.style.cssText = 'color:#f87171;font-size:.85rem;text-align:center;padding:.75rem;margin-top:.5rem;';
+                    document.getElementById('mm-run-wrap') && document.getElementById('mm-run-wrap').appendChild(errEl);
+                }
+                errEl.textContent = 'Error: ' + (err.message || 'Unknown error') + ' — Try again or call (844) 877-9033.';
             }
         }
 
