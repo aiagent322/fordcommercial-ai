@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#003478" media="(prefers-color-scheme: light)">
@@ -12,7 +13,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
     <title>Ford Commercial Trucks for Sale | Work Trucks, Fleet Vehicles & Upfits | Peoria Ford Arizona</title>
-    <meta name="description" content="Search Ford commercial trucks for sale near Phoenix. F-250, F-350, F-450, F-550 chassis cabs, Transit vans. Upfitted work trucks, fleet pricing, commercial financing. Peoria Ford - Arizona's #1 commercial truck dealer.">
+    <meta name="description" content="AI matchmaker for Ford commercial trucks — F-250 through F-750, Transit vans, upfitting &amp; fleet pricing. Live inventory. Quote in minutes. Delivered to any US dealer.">
     <meta name="keywords" content="Ford commercial trucks Phoenix, F-250 Arizona, F-350 dealer Peoria, Super Duty trucks, commercial fleet Arizona, work trucks Phoenix">
     
     <!-- Canonical URL -->
@@ -114,14 +115,7 @@
           "priceRange": "$45,000 - $150,000",
           "currenciesAccepted": "USD",
           "paymentAccepted": "Cash, Credit Card, Financing, Lease",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.7",
-            "bestRating": "5",
-            "worstRating": "1",
-            "ratingCount": "2847",
-            "reviewCount": "1523"
-          }
+          "hasMap": "https://www.google.com/maps/place/Peoria+Ford/@33.6442,-112.2538,17z"
         },
         {
           "@type": "FAQPage",
@@ -393,7 +387,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://images.worktrucksolutions.com">
+    <link rel="preconnect" href="https://images.worktrucksolutions.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -984,12 +978,6 @@
         /* ============================================
            SELECTOR RESULTS
         ============================================ */
-        .selector-results {
-            background: var(--off-white);
-            padding: var(--section-padding) 0;
-            border-top: 4px solid var(--arizona-copper);
-        }
-        
         .results__header {
             text-align: center;
             margin-bottom: 3rem;
@@ -2638,9 +2626,28 @@
             border-color: var(--arizona-copper);
             color: var(--arizona-copper);
         }
+    
+        /* Skip navigation — accessibility */
+        .skip-nav {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--ford-blue);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-decoration: none;
+            z-index: 9999;
+            transition: top 0.2s;
+        }
+        .skip-nav:focus {
+            top: 1rem;
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
 
     <!-- ============================================
          HEADER
@@ -2675,7 +2682,7 @@
     <!-- ============================================
          HERO SECTION
     ============================================ -->
-    <section class="hero">
+    <section id="main-content" class="hero">
         <div class="container">
             <div class="hero__content">
                 <a href="/qa/" class="hero__badge">
@@ -3361,7 +3368,7 @@
                         </div>
                         <div class="form-group">
                             <label for="quote-phone">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="quote-phone" name="phone" placeholder="(602) 555-1234" required>
+                            <input type="tel" id="quote-phone" name="phone" placeholder="Your phone number" required>
                             <span class="error-msg" id="quote-phone-error">Please enter your phone number</span>
                         </div>
                         <div class="form-group">
@@ -4435,8 +4442,6 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
                 routedTo: sendToDealer ? stateDealer.dealer : 'Master List',
                 dealerEmail: sendToDealer ? stateDealer.email : MASTER_LIST_EMAIL
             };
-            
-            console.log('Lead Submission:', payload);
             
             // Submit to Cloudflare Worker endpoint
             fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
