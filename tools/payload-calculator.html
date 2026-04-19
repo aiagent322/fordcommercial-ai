@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Truck Payload Calculator | Ford Super Duty | Peoria Ford</title>
+<meta name="description" content="Calculate your payload needs and find the right Ford commercial truck. Enter cargo, crew, and body weight — get a model recommendation instantly. Free tool.">
+<link rel="canonical" href="https://fordcommercial.ai/tools/payload-calculator">
+<meta property="og:title" content="Truck Payload Calculator">
+<meta property="og:description" content="Calculate your payload needs and find the right Ford commercial truck. Enter cargo, crew, and body weight — get a model recommendation instantly. Free tool.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://fordcommercial.ai/tools/payload-calculator">
+<meta property="og:image" content="https://fordcommercial.ai/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.worktrucksolutions.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;500&display=swap" as="style">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Commercial Truck Payload Calculator", "url": "https://fordcommercial.ai/tools/payload-calculator", "description": "Calculate your payload needs and find the right Ford commercial truck. Enter cargo, crew, and body weight \u2014 get a model recommendation instantly. Free tool.", "isPartOf": {"@type": "WebSite", "url": "https://fordcommercial.ai"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate payload for a commercial truck?", "acceptedAnswer": {"@type": "Answer", "text": "Payload = GVWR minus curb weight. To find your required payload: add the weight of your cargo, passengers (est. 200 lbs each), tools, and any upfit body weight. Add a 15\u201320% safety margin. Choose a truck whose rated payload exceeds this number."}}, {"@type": "Question", "name": "What happens if I exceed my truck's payload rating?", "acceptedAnswer": {"@type": "Answer", "text": "Exceeding payload voids your Ford factory warranty, fails DOT roadside inspection (resulting in fines and out-of-service orders), accelerates brake and suspension wear, increases stopping distance, and creates liability in an accident. Always operate within the door jamb sticker payload rating."}}, {"@type": "Question", "name": "Does body weight count against payload?", "acceptedAnswer": {"@type": "Answer", "text": "Yes \u2014 the upfit body weight must be subtracted from rated payload to find your usable cargo capacity. A Knapheide steel service body weighs 1,200\u20131,800 lbs. A hydraulic dump body adds 2,000\u20133,000 lbs. Get the actual body weight from your upfitter before speccing the chassis."}}]}</script>
+<style>
+:root{--fb:#003478;--fbd:#00254d;--fbl:#1a5dab;--cop:#b87333;--sun:#e85d04;--wh:#fff;--ow:#f8f9fa;--ch:#1a1a1a;--td:#2d2d2d;--tm:#6c757d;--sl:#d1d3d4;--fd:'Oswald',sans-serif;--fb2:'Source Sans 3',sans-serif;--pad:clamp(1rem,4vw,2rem);--sec:clamp(2.5rem,6vw,4.5rem)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--fb2);color:var(--td);line-height:1.6;background:var(--wh)}
+a{color:inherit;text-decoration:none}.container{max-width:1200px;margin:0 auto;padding:0 var(--pad)}
+.section{padding:var(--sec) 0}
+.header{background:var(--fb);padding:.875rem var(--pad);display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:.75rem;color:var(--wh)}
+.logo-mark{width:40px;height:40px;background:var(--wh);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:26px;height:26px;fill:var(--fb)}
+.logo-text{font-family:var(--fd);font-size:1.3rem;font-weight:700}
+.logo-text em{color:var(--cop);font-style:normal}
+.hcta{background:var(--sun);color:var(--wh);padding:.625rem 1.25rem;font-family:var(--fd);font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;min-height:44px;display:flex;align-items:center}
+.bc{background:var(--ch);padding:.625rem var(--pad);font-size:.8rem;color:rgba(255,255,255,.55)}
+.bc a{color:var(--cop)}
+.bc span{margin:0 .4rem}
+.hero{background:linear-gradient(135deg,var(--fbd) 0%,var(--fb) 60%,var(--fbl) 100%);padding:3rem 0 2.5rem;border-bottom:4px solid var(--cop)}
+.hero h1{font-family:var(--fd);font-size:clamp(1.6rem,4vw,2.75rem);font-weight:700;color:var(--wh);text-transform:uppercase;line-height:1.15;margin-bottom:.875rem}
+.hero h1 em{color:var(--cop);font-style:normal}
+.hero p{font-size:1.05rem;color:rgba(255,255,255,.82);max-width:650px;margin-bottom:1.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.75rem}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--wh);padding:.35rem .875rem;font-size:.78rem;font-family:var(--fd);text-transform:uppercase;letter-spacing:.05em}
+.ey{font-family:var(--fd);font-size:.78rem;font-weight:600;color:var(--cop);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.5rem}
+.st{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--fb);text-transform:uppercase;margin-bottom:1.5rem}
+.st.wh{color:var(--wh)}
+.tbl{width:100%;border-collapse:collapse;background:var(--wh);box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden}
+.tbl th{background:var(--fb);color:var(--wh);font-family:var(--fd);font-weight:600;font-size:.95rem;padding:.875rem 1.25rem;text-align:center;text-transform:uppercase}
+.tbl th.lc{background:var(--fbd);text-align:left}
+.tbl td{padding:.8rem 1.25rem;border-bottom:1px solid var(--sl);font-size:.9rem;text-align:center;vertical-align:middle}
+.tbl td.lc{text-align:left;font-weight:500;color:var(--fb);background:rgba(0,52,120,.03)}
+.tbl tr:last-child td{border-bottom:none}
+.win{color:var(--sun);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.card{border:1px solid var(--sl);padding:1.5rem;background:var(--wh)}
+.card h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--fb);text-transform:uppercase;margin-bottom:.75rem}
+.card p{font-size:.9rem;color:var(--tm);line-height:1.6}
+.card.dk{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
+.card.dk h3{color:var(--wh)}
+.card.dk p{color:rgba(255,255,255,.65)}
+.dk-sec{background:var(--ch)}
+.dk-sec .ey{color:var(--cop)}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1.5rem}
+.spec-card{background:rgba(0,52,120,.05);border-left:4px solid var(--cop);padding:1rem 1.25rem}
+.spec-card .val{font-family:var(--fd);font-size:1.5rem;font-weight:700;color:var(--fb)}
+.spec-card .lbl{font-size:.8rem;color:var(--tm);text-transform:uppercase;letter-spacing:.05em;margin-top:.2rem}
+.cta-sec{background:linear-gradient(135deg,var(--fb) 0%,var(--fbd) 100%);text-align:center}
+.cta-sec h2{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--wh);text-transform:uppercase;margin-bottom:.75rem}
+.cta-sec p{color:rgba(255,255,255,.8);font-size:1rem;margin-bottom:1.75rem;max-width:520px;margin-left:auto;margin-right:auto}
+.btn-g{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.btn-p{background:var(--sun);color:var(--wh);padding:.875rem 1.75rem;font-family:var(--fd);font-size:.95rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;min-height:44px;display:inline-flex;align-items:center}
+.btn-o{background:transparent;color:var(--wh);border:2px solid rgba(255,255,255,.4);padding:.875rem 1.75rem;font-family:var(--fd);font-size:.95rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;min-height:44px;display:inline-flex;align-items:center}
+.faq-item{background:var(--wh);border:1px solid var(--sl);margin-bottom:.6rem}
+.faq-q{font-family:var(--fd);font-size:.95rem;font-weight:600;color:var(--fb);padding:.875rem 1.25rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;letter-spacing:.02em;min-height:44px}
+.faq-a{padding:0 1.25rem .875rem;font-size:.9rem;color:var(--td);line-height:1.65;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-q{color:var(--sun)}
+.fi{color:var(--cop);margin-left:1rem;flex-shrink:0}
+.footer{background:var(--ch);color:rgba(255,255,255,.6);padding:1.25rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.82rem}
+.footer a{color:var(--cop)}
+.skip-nav{position:absolute;top:-100px;left:1rem;background:var(--fb);color:var(--wh);padding:.75rem 1.5rem;font-family:var(--fd);z-index:9999;transition:top .2s}
+.skip-nav:focus{top:1rem}
+@media(max-width:768px){.grid2{grid-template-columns:1fr}.hcta{display:none}}
+@media(max-width:480px){.tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.btn-g{flex-direction:column;align-items:center}.btn-p,.btn-o{width:100%;max-width:320px;justify-content:center}}
+</style>
+<style>
+.cw{background:var(--ow);border:1px solid var(--sl);padding:2rem;margin:1.5rem 0}
+.cr{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1rem}
+.cf label{display:block;font-family:var(--fd);font-size:.78rem;font-weight:600;color:var(--fb);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+.cf input,.cf select{width:100%;padding:.75rem 1rem;font-size:16px;border:2px solid var(--sl);background:var(--wh);font-family:var(--fb2)}
+.cf input:focus,.cf select:focus{outline:none;border-color:var(--cop)}
+.cf .hint{font-size:.75rem;color:var(--tm);margin-top:.3rem}
+.rb{background:var(--fb);color:var(--wh);padding:1.5rem 2rem;margin-top:1rem}
+.rb h3{font-family:var(--fd);font-size:1rem;font-weight:600;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.rec-truck{font-family:var(--fd);font-size:2rem;font-weight:700}
+.rec-why{font-size:.9rem;color:rgba(255,255,255,.8);margin-top:.5rem;line-height:1.5}
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.rc{background:rgba(255,255,255,.1);padding:.75rem;text-align:center}
+.rc .v{font-family:var(--fd);font-size:1.1rem;font-weight:700}
+.rc .l{font-size:.7rem;color:rgba(255,255,255,.65);text-transform:uppercase;margin-top:.15rem}
+.warn{background:#7c1d1d;color:#fca5a5;padding:.75rem 1rem;font-size:.875rem;margin-top:.75rem;display:none}
+.calc-btn{background:var(--sun);color:var(--wh);padding:.875rem 2rem;font-family:var(--fd);font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border:none;cursor:pointer;margin-top:1rem;min-height:44px;width:100%}
+@media(max-width:600px){.cr{grid-template-columns:1fr}.rg{grid-template-columns:1fr}}
+</style>
+</head><body><a href="#main-content" class="skip-nav" onfocus="this.style.top='1rem'" onblur="this.style.top='-100px'">Skip to main content</a>
+<header class="header">
+  <a href="/" class="logo"><div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="logo-text">Ford<em>Commercial</em>.AI</div></a>
+  <a href="/#selector" class="hcta">Find My Truck →</a>
+</header><nav class="bc" aria-label="Breadcrumb"><a href="/">FordCommercial.AI</a><span>›</span><a href="/#contact">Tools</a><span>›</span><span>Payload Calculator</span></nav>
+<section id="main-content" class="hero">
+  <div class="container">
+    <h1>Commercial Truck <em>Payload Calculator</em></h1>
+    <p>Enter your cargo weight, crew size, body weight, and tools — get your minimum payload requirement and the right Ford truck model recommended instantly. Don't guess on payload.</p>
+    <div class="chips"><span class="chip">Cargo weight</span><span class="chip">Crew weight</span><span class="chip">Body weight</span><span class="chip">Safety margin</span><span class="chip">Model recommendation</span></div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--ow)">
+  <div class="container">
+    <div class="ey">Calculate your payload</div>
+    <div class="st">Find Your Minimum Payload Requirement</div>
+    <div class="cw">
+      <div class="cr">
+        <div class="cf"><label>Cargo weight (lbs)</label><input type="number" id="cargo" value="2000" min="0" max="30000" step="100" oninput="calc()"><div class="hint">Materials, parts, equipment in bed or body</div></div>
+        <div class="cf"><label>Passengers</label><input type="number" id="crew" value="2" min="1" max="6" step="1" oninput="calc()"><div class="hint">Estimated 200 lbs per person including gear</div></div>
+      </div>
+      <div class="cr">
+        <div class="cf"><label>Upfit body</label>
+          <select id="body" onchange="calc()">
+            <option value="0">No upfit — standard pickup bed</option>
+            <option value="400">Ladder rack + tool boxes (~400 lbs)</option>
+            <option value="1400">Service body — steel, small (~1,400 lbs)</option>
+            <option value="1600" selected>Service body — steel, full-size (~1,600 lbs)</option>
+            <option value="1200">Service body — aluminum (~1,200 lbs)</option>
+            <option value="2500">Dump body — 5 cu yd steel (~2,500 lbs)</option>
+            <option value="3000">Dump body — 7 cu yd steel (~3,000 lbs)</option>
+            <option value="1800">Flatbed — steel (~1,800 lbs)</option>
+            <option value="1200">Flatbed — aluminum (~1,200 lbs)</option>
+            <option value="4500">Crane / mechanics body (~4,500 lbs)</option>
+          </select>
+          <div class="hint">Body weight reduces usable cargo capacity</div>
+        </div>
+        <div class="cf"><label>Tools &amp; fuel (lbs)</label><input type="number" id="tools" value="300" min="0" max="3000" step="50" oninput="calc()"><div class="hint">Hand tools, power tools, fuel cans, tie-downs</div></div>
+      </div>
+      <div class="cr">
+        <div class="cf"><label>Safety margin</label>
+          <select id="margin" onchange="calc()">
+            <option value="1.10">10% — light commercial use</option>
+            <option value="1.15" selected>15% — standard commercial (recommended)</option>
+            <option value="1.20">20% — heavy daily use</option>
+          </select>
+          <div class="hint">Buffer above calculated minimum</div>
+        </div>
+        <div class="cf"><label>Custom body weight (lbs)</label><input type="number" id="custombody" value="0" min="0" max="15000" step="50" oninput="calc()" placeholder="Override dropdown if known"><div class="hint">Enter exact weight from your upfitter</div></div>
+      </div>
+      <button class="calc-btn" onclick="calc()">Calculate My Payload Requirement</button>
+      <div class="rb" id="result" style="display:none">
+        <h3>Recommended truck</h3>
+        <div class="rec-truck" id="rec-model">—</div>
+        <div class="rec-why" id="rec-why">—</div>
+        <div class="rg">
+          <div class="rc"><div class="v" id="r-need">—</div><div class="l">Min payload needed</div></div>
+          <div class="rc"><div class="v" id="r-rated">—</div><div class="l">Rated payload (diesel)</div></div>
+          <div class="rc"><div class="v" id="r-buf">—</div><div class="l">Safety buffer</div></div>
+        </div>
+      </div>
+      <div class="warn" id="warn">⚠️ Your payload may exceed standard pickup capacity. Consider an F-550 or F-650 chassis cab — call (844) 877-9033 for heavy-duty options.</div>
+    </div>
+    <p style="font-size:.8rem;color:var(--tm)">Estimate only. Always verify against the door jamb payload sticker on your specific vehicle. Payload varies by configuration, options, and equipment.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="ey">2026 payload reference</div>
+    <div class="st">Ford Super Duty Payload Ratings</div>
+    <div style="overflow-x:auto">
+    <table class="tbl" aria-label="Ford Super Duty payload ratings 2026">
+      <thead><tr><th class="lc">Model</th><th>GVWR</th><th>Max Payload (Diesel)</th><th>After Full Service Body</th></tr></thead>
+      <tbody>
+        <tr><td class="lc">F-250 Super Duty</td><td>10,000 lbs</td><td>4,260 lbs</td><td>~2,500–2,800 lbs usable</td></tr>
+        <tr><td class="lc">F-350 SRW Chassis</td><td>14,000 lbs</td><td>7,850 lbs</td><td class="win">~6,000–6,500 lbs usable</td></tr>
+        <tr><td class="lc">F-350 DRW Chassis</td><td>14,000 lbs</td><td>7,850 lbs</td><td class="win">~6,000–6,500 lbs usable</td></tr>
+        <tr><td class="lc">F-450 Chassis Cab</td><td>16,500 lbs</td><td>8,000 lbs</td><td class="win">~6,000–7,000 lbs usable</td></tr>
+        <tr><td class="lc">F-550 Chassis Cab</td><td>19,500 lbs</td><td>12,750 lbs</td><td class="win">~9,500–10,500 lbs usable</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--ow)">
+  <div class="container">
+    <div class="ey">Common mistakes</div>
+    <div class="st">What Buyers Get Wrong on Payload</div>
+    <div class="grid3">
+      <div class="card" style="border-left:4px solid var(--sun);border-radius:0"><h3>Forgetting body weight</h3><p>A full-size steel service body weighs 1,400–1,800 lbs before a single tool goes in. Subtract body weight first, then calculate usable cargo capacity.</p></div>
+      <div class="card" style="border-left:4px solid var(--sun);border-radius:0"><h3>Confusing GVWR with payload</h3><p>GVWR is the total vehicle weight limit. Payload is GVWR minus curb weight — much smaller. A 14,000 lb GVWR F-350 weighs ~6,500 lbs empty, leaving only ~7,500 lbs of actual payload.</p></div>
+      <div class="card" style="border-left:4px solid var(--sun);border-radius:0"><h3>No safety margin</h3><p>Running at 100% rated payload daily accelerates wear on brakes, suspension, and frame. Build in 15–20% — or step up to the next model if you regularly approach the limit.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="ey">Frequently asked</div>
+    <div class="st">Payload FAQ</div>
+    <div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)" role="button" aria-expanded="false">How do I calculate my payload requirement?<span class="fi">+</span></div><div class="faq-a">Add every pound the truck will carry: cargo + passengers (200 lbs each) + tools + body/upfit weight. Multiply by 1.15 for a 15% safety margin. The result is your minimum payload requirement — choose a truck whose rated payload exceeds this number. The calculator above does this automatically.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)" role="button" aria-expanded="false">Is the window sticker payload the same as the door jamb sticker?<span class="fi">+</span></div><div class="faq-a">No. The window sticker shows maximum payload for the highest-payload configuration of that model. Your door jamb sticker shows the actual rated payload for your specific truck as built — accounting for cab, options, and installed equipment. It may be lower than the advertised maximum. Always use the door jamb number for compliance purposes.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)" role="button" aria-expanded="false">What if I need more payload than any pickup provides?<span class="fi">+</span></div><div class="faq-a">If your requirement exceeds 12,000 lbs, you've moved into F-550, F-650, or Class 6/7 medium-duty territory. Call Peoria Ford at (844) 877-9033 to discuss heavy payload applications. The commercial fleet team can spec the right chassis for your load requirements and upfit plans.</div></div>
+    </div>
+  </div>
+</section>
+<section class="cta-sec section">
+  <div class="container">
+    <h2>Let AI Match You to the Right Truck</h2>
+    <p>Answer 7 quick questions. Get 3 specific Ford commercial truck recommendations with live Peoria Ford inventory and real pricing.</p>
+    <div class="btn-g">
+      <a href="/#selector" class="btn-p">Run the Truck Matchmaker →</a>
+      <a href="tel:+18448779033" class="btn-o">Call (844) 877-9033</a>
+    </div>
+  </div>
+</section><footer class="footer">
+  <div>© 2026 FordCommercial.AI · <a href="/">Home</a> · <a href="/qa/">Q&amp;A</a> · <a href="/#contact">Get a Quote</a></div>
+  <div>Peoria Ford · <a href="tel:+18448779033">(844) 877-9033</a></div>
+</footer>
+<script>function toggleFAQ(el){const it=el.parentElement;const ic=el.querySelector('.fi');const op=it.classList.toggle('open');ic.textContent=op?'−':'+';el.setAttribute('aria-expanded',op);}</script>
+<script>
+const TRUCKS=[
+  {name:'F-250 Super Duty',  payload:4260,  note:'Best for lighter commercial work, single service body, or pickup-only applications.'},
+  {name:'F-350 Chassis Cab', payload:7850,  note:'Standard platform for full-size service bodies, flatbeds, and most commercial upfits.'},
+  {name:'F-450 Chassis Cab', payload:8000,  note:'Step up when F-350 payload is not enough — larger dump bodies and heavy upfits.'},
+  {name:'F-550 Chassis Cab', payload:12750, note:'Heavy commercial chassis — large crane trucks, heavy dump bodies, volumetric mixers.'},
+];
+function fmt(n){return n.toLocaleString()+' lbs'}
+function calc(){
+  const cargo  =parseFloat(document.getElementById('cargo').value)||0;
+  const crew   =parseFloat(document.getElementById('crew').value)||1;
+  const bodyDrop=parseFloat(document.getElementById('body').value)||0;
+  const bodyCust=parseFloat(document.getElementById('custombody').value)||0;
+  const tools  =parseFloat(document.getElementById('tools').value)||0;
+  const margin =parseFloat(document.getElementById('margin').value)||1.15;
+  const bodyWt =bodyCust>0?bodyCust:bodyDrop;
+  const needed =Math.round((cargo+(crew*200)+bodyWt+tools)*margin);
+  const rec=TRUCKS.find(t=>t.payload>=needed)||TRUCKS[TRUCKS.length-1];
+  const over=needed>TRUCKS[TRUCKS.length-1].payload;
+  document.getElementById('result').style.display='block';
+  document.getElementById('rec-model').textContent=over?'Contact Fleet Team':rec.name;
+  document.getElementById('rec-why').textContent=over?'Your requirement may exceed standard pickup capacity. Call (844) 877-9033 for heavy-duty options.':rec.note;
+  document.getElementById('r-need').textContent=fmt(needed);
+  document.getElementById('r-rated').textContent=over?'> F-550 limit':fmt(rec.payload);
+  document.getElementById('r-buf').textContent=over?'—':fmt(Math.max(0,rec.payload-needed));
+  document.getElementById('warn').style.display=over?'block':'none';
+}
+calc();
+</script>
+</body></html>
