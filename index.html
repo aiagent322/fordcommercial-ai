@@ -4355,15 +4355,11 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 body += 'Fuel: '       + (a.fuel || '') + '\n';
             }
 
-            // Send via stallion proxy — ask Claude to confirm receipt (lightweight)
-            fetch('https://stallion-matchmaker-proxy.bridleandbit.workers.dev', {
+            // Send to lead capture worker (stores in KV + emails commercial@peoriaford.com)
+            fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: 'claude-haiku-4-5-20251001',
-                    max_tokens: 50,
-                    messages: [{ role: 'user', content: 'LEAD RECEIVED: ' + body + '\n\nReply only: {"received":true}' }]
-                })
+                body: JSON.stringify(payload)
             }).catch(function() {});  // fire-and-forget — success shown regardless
 
             // Show success immediately (don't wait for API)
