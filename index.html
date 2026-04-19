@@ -4264,7 +4264,6 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
 Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down. First 3 are primary picks, last 3 are alternatives.`;
 
         function mmInit() {
-            const dotsEl = document.getElementById('mm-dots');
             if (dotsEl) {
                 dotsEl.innerHTML = Array.from({length: mmState.totalSteps}, (_, i) =>
                     `<span class="mm-dot ${i === 0 ? 'active' : ''}" data-step="${i+1}"></span>`
@@ -4273,7 +4272,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             mmUpdateProgress();
 
             // Option click delegation
-            document.getElementById('mm-steps').addEventListener('click', function(e) {
                 const btn = e.target.closest('.mm-option');
                 if (btn) mmSelectOption(btn);
             });
@@ -4309,9 +4307,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
 
         function mmUpdateProgress() {
             const pct  = ((mmState.currentStep - 1) / mmState.totalSteps) * 100;
-            const fill = document.getElementById('mm-progress-fill');
-            const lbl  = document.getElementById('mm-progress-label');
-            const back = document.getElementById('mm-back');
             if (fill) fill.style.width = pct + '%';
             if (lbl)  lbl.textContent  = 'Step ' + mmState.currentStep + ' of ' + mmState.totalSteps;
             if (back) back.style.display = mmState.currentStep > 1 ? 'block' : 'none';
@@ -4325,7 +4320,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             btn.closest('.mm-step').querySelectorAll('.mm-option').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]] = btn.dataset.value;
-            document.getElementById('mm-next').disabled = false;
             if (window.innerWidth <= 768) { setTimeout(mmNext, 380); }
         }
 
@@ -4340,8 +4334,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             next.classList.add('active');
             mmUpdateProgress();
             const nextQId = MM_QUESTION_IDS[mmState.currentStep - 1];
-            document.getElementById('mm-next').disabled = !mmState.answers[nextQId];
-            document.getElementById('mm-next').textContent = mmState.currentStep === mmState.totalSteps ? 'Find My Trucks →' : 'Next →';
         }
 
         function mmBack() {
@@ -4352,8 +4344,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             cur.classList.remove('active');
             prev.classList.add('active');
             mmUpdateProgress();
-            document.getElementById('mm-next').disabled = false;
-            document.getElementById('mm-next').textContent = mmState.currentStep === mmState.totalSteps ? 'Find My Trucks →' : 'Next →';
         }
 
         
@@ -4539,7 +4529,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                     if (!Array.isArray(altPicks)) return;
 
                     // Replace placeholder with real alt cards
-                    var ph = document.getElementById('mm-alt-placeholder');
                     if (ph) ph.remove();
 
                     var divider = document.createElement('div');
@@ -4601,7 +4590,6 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
 
                 }).catch(function(e) {
                     // Batch 2 failed — just remove placeholder and show lead form
-                    var ph = document.getElementById('mm-alt-placeholder');
                     if (ph) ph.remove();
                     document.getElementById('mm-results-summary').textContent =
                         lbl + ' operation — your top 3 Ford commercial truck matches.';
@@ -4618,12 +4606,11 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 console.error('mmRunAI error:', err.message || err);
                 document.getElementById('mm-loading').style.display  = 'none';
                 document.getElementById('mm-form-card').style.display = 'block';
-                var errEl = document.getElementById('mm-error-msg');
+                var errEl = null;
                 if (!errEl) {
                     errEl = document.createElement('div');
                     errEl.id = 'mm-error-msg';
                     errEl.style.cssText = 'color:#f87171;font-size:.85rem;text-align:center;padding:.75rem;margin-top:.5rem;';
-                    var runWrap = document.getElementById('mm-run-wrap');
                     if (runWrap) runWrap.appendChild(errEl);
                 }
                 errEl.textContent = 'Something went wrong — try again or call (844) 877-9033.';
