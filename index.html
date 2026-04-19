@@ -579,7 +579,8 @@
            HERO SECTION
         ============================================ */
         .hero {
-            min-height: 100svh;
+            min-height: auto;
+            padding: clamp(2rem, 4vw, 3rem) 0 clamp(1.5rem, 3vw, 2.5rem);
             background: linear-gradient(135deg, var(--ford-blue-dark) 0%, var(--ford-blue) 50%, var(--ford-blue-light) 100%);
             position: relative;
             display: flex;
@@ -647,7 +648,7 @@
             font-size: clamp(0.95rem, 1.5vw, 1.1rem);
             color: rgba(255,255,255,0.9);
             line-height: 1.7;
-            margin-bottom: 2rem;
+            margin-bottom: 0.75rem;
             max-width: 650px;
         }
         
@@ -657,38 +658,6 @@
         
         .hero__body p:last-child {
             margin-bottom: 0;
-        }
-        
-        .hero__nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .hero__nav-link {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background 0.2s, border-color 0.2s;
-        }
-        
-        .hero__nav-link:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: var(--arizona-copper);
-        }
-
-        
-        .hero__actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
         }
         
         .btn {
@@ -733,8 +702,8 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            margin-top: 4rem;
-            padding-top: 3rem;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
             border-top: 1px solid rgba(255,255,255,0.15);
         }
         
@@ -1934,7 +1903,7 @@
 
         /* Fix iOS address bar cutting off 100vh hero */
         .hero {
-            min-height: 100svh;
+            min-height: auto;
         }
 
         /* Mobile toggle — touch target size (display set in 900px MQ) */
@@ -1953,9 +1922,6 @@
             }
 
             /* Hero: stack CTAs full-width */
-            .hero__actions {
-                flex-direction: column;
-            }
             .hero__actions .btn {
                 width: 100%;
                 justify-content: center;
@@ -1969,10 +1935,6 @@
             }
 
             /* Hero: shrink nav pills */
-            .hero__nav-link {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.75rem;
-            }
 
             /* Matchmaker lead form — collapse to single column */
             .mm-form-row {
@@ -2834,23 +2796,8 @@
                     <p>F-250 through F-750, Transit vans, and full upfitting — spec, finance, and deploy through Peoria Ford, Arizona's #1 commercial fleet dealer.</p>
                 </div>
                 
-                <nav class="hero__nav" aria-label="Quick links">
-                    <a href="#selector" class="hero__nav-link">Find My Truck</a>
-                    <a href="#trucks" class="hero__nav-link">Upfitted Trucks</a>
-                    <a href="#industries" class="hero__nav-link">By Industry</a>
-                    <a href="#contact" class="hero__nav-link">Get a Quote</a>
-                </nav>
-                
-                <div class="hero__actions">
-                    <a href="#selector" class="btn btn--primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                        </svg>
-                        Find Your Truck
-                    </a>
-                    <a href="#contact" class="btn btn--secondary">Request a Quote</a>
-                </div>
-                
+
+
                 <div class="hero__stats">
                     <div class="stat">
                         <div class="stat__number">49</div>
