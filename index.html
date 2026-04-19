@@ -377,7 +377,17 @@
             {"@type": "ListItem", "position": 6, "name": "Ford Transit Cargo Van", "url": "https://fordcommercial.ai/trucks/transit"}
           ]
         }
-      ]
+      ,
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://fordcommercial.ai/#matchmaker",
+        "name": "Ford Commercial Truck AI Matchmaker",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "description": "AI-powered matchmaker that scores the full Ford commercial truck lineup against buyer requirements and returns ranked recommendations with live inventory.",
+        "provider": {"@type": "AutoDealer", "name": "Peoria Ford"}
+      }]
     }
 
     </script>
@@ -386,6 +396,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.worktrucksolutions.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -3080,7 +3092,7 @@
                 </div>
 
                 <div class="mm-run-wrap">
-                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()">Find My Trucks →</button>
+                    <button class="mm-run-btn" id="mm-run-btn" onclick="mmRunFromForm()" aria-label="Find my truck matches">Find My Trucks →</button>
                     <div class="mm-run-note" style="color:#fff;font-weight:700;">Live Peoria Ford inventory · Nationwide delivery · Fleet pricing on 2+</div>
                 </div>
             </div>
@@ -3097,7 +3109,7 @@
                 <div class="mm-results-header">
                     <div class="mm-results-eyebrow">Your Matches</div>
                     <div class="mm-results-summary" id="mm-results-summary"></div>
-                    <button class="mm-restart-btn" onclick="mmRestart()">← Start Over</button>
+                    <button class="mm-restart-btn" onclick="mmRestart()" aria-label="Start over">← Start Over</button>
                 </div>
                 <div class="mm-results-grid" id="mm-results-grid"></div>
 
@@ -3107,22 +3119,22 @@
                     <form id="mm-lead-form" class="mm-lead-form">
                         <div class="mm-lead-grid">
                             <div class="mm-lead-group">
-                                <label class="mm-form-label">Name</label>
+                                <label class="mm-form-label" for="mm-name">Name</label>
                                 <input type="text" id="mm-name" placeholder="John Smith" required>
                                 <span class="mm-error" id="mm-name-error"></span>
                             </div>
                             <div class="mm-lead-group">
-                                <label class="mm-form-label">Company</label>
+                                <label class="mm-form-label" for="mm-company">Company</label>
                                 <input type="text" id="mm-company" placeholder="ABC Construction" required>
                                 <span class="mm-error" id="mm-company-error"></span>
                             </div>
                             <div class="mm-lead-group">
-                                <label class="mm-form-label">Email</label>
+                                <label class="mm-form-label" for="mm-email">Email</label>
                                 <input type="email" id="mm-email" placeholder="john@company.com" required>
                                 <span class="mm-error" id="mm-email-error"></span>
                             </div>
                             <div class="mm-lead-group">
-                                <label class="mm-form-label">Phone</label>
+                                <label class="mm-form-label" for="mm-phone">Phone</label>
                                 <input type="tel" id="mm-phone" placeholder="Your phone number" required>
                                 <span class="mm-error" id="mm-phone-error"></span>
                             </div>
@@ -3155,7 +3167,7 @@
                             <label class="mm-form-label">Notes (optional)</label>
                             <textarea id="mm-notes" rows="2" placeholder="Colors, special upfits, fleet quantity, or any other requirements"></textarea>
                         </div>
-                        <button type="submit" class="mm-run-btn" style="margin-top:1rem">Submit Quote Request →</button>
+                        <button type="submit" class="mm-run-btn" style="margin-top:1rem" aria-label="Submit quote request">Submit Quote Request →</button>
                         <div id="mm-lead-success" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
                             Quote Submitted — A Peoria Ford Commercial Specialist Will Contact You Within 1 Business Day
                         </div>
