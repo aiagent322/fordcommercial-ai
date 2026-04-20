@@ -4607,7 +4607,8 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 if (msgEl) msgEl.textContent = 'Loading alternatives...';
 
                 // Show alt placeholder while batch 2 loads
-                var altPlaceholder = document.createElement('div');
+                var ph = document.createElement('div');
+                var altPlaceholder = ph;
                 altPlaceholder.id  = 'mm-alt-placeholder';
                 altPlaceholder.innerHTML =
                     '<div class="mm-alt-label"><span>Also Worth Considering</span></div>' +
