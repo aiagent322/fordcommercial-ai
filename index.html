@@ -559,7 +559,29 @@
             background: #d14e00;
             transform: translateY(-2px);
         }
-        
+
+        .nav__es {
+            background: transparent;
+            color: rgba(255,255,255,0.75);
+            padding: 0.45rem 0.9rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .nav__es:hover {
+            background: rgba(255,255,255,0.12);
+            color: var(--white);
+            border-color: rgba(255,255,255,0.6);
+            text-decoration: none;
+        }
+
         .mobile-toggle {
             display: none;
             background: none;
@@ -2954,6 +2976,7 @@
                 <a href="#resources" class="nav__link">Resources</a>
                 <a href="#qa" class="nav__link">Q&amp;A</a>
                 <a href="#contact" class="nav__cta">Get a Quote</a>
+                <a href="https://camionetasford.com" class="nav__es" aria-label="Sitio en Español">🇲🇽 En Español</a>
             </nav>
             
             <button class="mobile-toggle" aria-label="Menu">
