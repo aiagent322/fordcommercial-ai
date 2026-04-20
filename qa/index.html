@@ -660,16 +660,22 @@
     <main class="main">
         <div class="container">
             
-            <!-- Category Filter -->
-            <div class="qa-categories">
-                <button class="qa-cat-btn active" data-category="all">All Questions</button>
-                <button class="qa-cat-btn" data-category="build">Build & Price</button>
-                <button class="qa-cat-btn" data-category="upfit">Upfitted Trucks</button>
-                <button class="qa-cat-btn" data-category="body">Body Types</button>
-                <button class="qa-cat-btn" data-category="transit">Ford Transit</button>
-                <button class="qa-cat-btn" data-category="finance">Financing</button>
-                <button class="qa-cat-btn" data-category="warranty">Upfitters & Warranty</button>
-                <button class="qa-cat-btn" data-category="fleet">Fleet Management</button>
+            <!-- Language Toggle + Category Filter -->
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:.5rem;">
+                <div class="qa-categories" style="margin-bottom:0;">
+                    <button class="qa-cat-btn active" data-category="all" data-en="All Questions" data-es="Todas las Preguntas">All Questions</button>
+                    <button class="qa-cat-btn" data-category="build" data-en="Build &amp; Price" data-es="Configurar y Precio">Build &amp; Price</button>
+                    <button class="qa-cat-btn" data-category="upfit" data-en="Upfitted Trucks" data-es="Camionetas Adaptadas">Upfitted Trucks</button>
+                    <button class="qa-cat-btn" data-category="body" data-en="Body Types" data-es="Tipos de Carrocería">Body Types</button>
+                    <button class="qa-cat-btn" data-category="transit" data-en="Ford Transit" data-es="Ford Transit">Ford Transit</button>
+                    <button class="qa-cat-btn" data-category="finance" data-en="Financing" data-es="Financiamiento">Financing</button>
+                    <button class="qa-cat-btn" data-category="warranty" data-en="Upfitters &amp; Warranty" data-es="Carroceros y Garantía">Upfitters &amp; Warranty</button>
+                    <button class="qa-cat-btn" data-category="fleet" data-en="Fleet Management" data-es="Gestión de Flota">Fleet Management</button>
+                </div>
+                <div id="lang-toggle" style="display:flex;align-items:center;gap:0;border:2px solid var(--ford-blue);border-radius:6px;overflow:hidden;flex-shrink:0;">
+                    <button id="btn-en" onclick="setLang('en')" style="padding:.45rem 1rem;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;background:var(--ford-blue);color:#fff;border:none;cursor:pointer;">EN</button>
+                    <button id="btn-es" onclick="setLang('es')" style="padding:.45rem 1rem;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;background:#fff;color:var(--ford-blue);border:none;cursor:pointer;">ES</button>
+                </div>
             </div>
             
             <!-- BUILD & PRICE SECTION -->
@@ -1200,45 +1206,160 @@
     
     <!-- JavaScript -->
     <script>
+        // ── SPANISH Q&A DATA ──────────────────────────────────────────────
+        const esQA = [
+          // BUILD & PRICE
+          { q: '¿Cómo configuro y obtengo el precio de una camioneta comercial Ford?', a: '<p>Visite <strong>commercial.ford.com</strong> o hable directamente con el equipo comercial de Peoria Ford. Pasos: <strong>1) Elija el modelo</strong> — F-250 a F-750 o Transit. <strong>2) Seleccione la cabina</strong> — Regular, SuperCab o Crew Cab. <strong>3) Elija el motor</strong> — Gas o Diésel. <strong>4) Agregue paquetes de remolque, flota o carrocería. 5) Configure la adaptación</strong> si necesita carrocería de servicio, plataforma o volteo.</p><p>Los precios de flota están disponibles para pedidos de 3+ unidades con ahorros adicionales a través de Ford Pro.</p>', cat: 'build' },
+          { q: '¿Cuál es la diferencia entre la F-250, F-350, F-450 y F-550?', a: '<p><strong><a href="/trucks/f-250">F-250</a> (Clase 2, PBRV hasta 10,000 lb):</strong> Mejor equilibrio entre capacidad de trabajo y manejabilidad diaria. Capacidad máx. de remolque 22,000 lb.</p><p><strong><a href="/trucks/f-350">F-350</a> (Clase 3, PBRV hasta 14,000 lb):</strong> Opción SRW o DRW (doble llanta trasera). Mayor carga y remolque que la F-250. Remolque máx. 35,000 lb.</p><p><strong><a href="/trucks/f-450">F-450</a> (Clase 4, PBRV hasta 16,500 lb):</strong> Llantas comerciales de 19.5". La mejor para carrocerías de servicio pesadas, plataformas y grúas. Remolque máx. 40,000 lb.</p><p><strong><a href="/trucks/f-550">F-550</a> (Clase 5, PBRV hasta 19,500 lb):</strong> Chasis-cabina de servicio pesado. Máxima compatibilidad de carrocería, cuerpos de volteo y plataformas largas.</p>', cat: 'build' },
+          { q: '¿Debería elegir gasolina o diésel para mi camioneta comercial?', a: '<p><strong>Motor V8 7.3L de Gasolina:</strong></p><ul><li>Menor costo inicial ($8,000–$12,000 menos que el diésel)</li><li>Mantenimiento más simple y económico</li><li>Ideal para menos de 20,000 millas/año</li><li>Excelente confiabilidad en clima frío</li><li>430 HP / 485 lb-pie de torque</li></ul><p><strong>Power Stroke Diésel 6.7L:</strong></p><ul><li>Mejor economía de combustible (15–25% superior)</li><li>Ideal para 25,000+ millas/año</li><li>Máxima capacidad de remolque y torque</li><li>Vida útil del motor 200,000+ millas</li><li>500 HP / 1,200 lb-pie de torque</li></ul><p><strong>Punto de equilibrio:</strong> 75,000–100,000 millas dependiendo del precio del combustible. Si remolca cargas pesadas diariamente, el diésel se paga solo más rápido.</p>', cat: 'build' },
+          { q: '¿Qué configuraciones de cabina están disponibles?', a: '<p><strong>Cabina Regular:</strong> 2 puertas, 3 pasajeros. Máxima longitud de caja/carrocería. Ideal para operadores en solitario que priorizan el espacio de carga.</p><p><strong>SuperCab (Cabina Extendida):</strong> 4 puertas, 6 pasajeros. Puertas traseras de apertura inversa. Buen equilibrio entre espacio de cabina y longitud de carrocería.</p><p><strong>Crew Cab:</strong> 4 puertas, 5-6 pasajeros. Puertas traseras de tamaño completo. Ideal para cuadrillas que viajan juntas. La configuración más popular.</p>', cat: 'build' },
+          { q: '¿Qué significa PBRV y por qué es importante?', a: '<p><strong>PBRV (Peso Bruto Vehicular Rating)</strong> es el peso total máximo que su camioneta puede transportar de forma segura, incluyendo:</p><ul><li>Peso en vacío del vehículo</li><li>Pasajeros</li><li>Carga y materiales</li><li>Peso de la carrocería adaptada</li><li>Combustible</li></ul><p>Exceder el PBRV es ilegal, anula garantías y es extremadamente peligroso. Afecta la distancia de frenado, el desgaste de llantas y la vida útil de la suspensión.</p><p><strong>Requisito de CDL:</strong> Los vehículos con más de 26,000 lb de PBRV requieren una Licencia de Conducir Comercial (CDL).</p>', cat: 'build' },
+          // UPFIT
+          { q: '¿Qué es una camioneta "adaptada"?', a: '<p>Una camioneta adaptada es un vehículo comercial modificado con carrocerías, equipos o accesorios para servir a un oficio o industria específica. Las adaptaciones comunes incluyen:</p><ul><li>Carrocerías de servicio con compartimentos con llave</li><li>Estantes y particiones para van</li><li>Cuerpos de volteo y sistemas de elevación hidráulica</li><li>Plataformas planas y camas con estacas</li><li>Grúas y equipos de elevación</li><li>Unidades de refrigeración</li></ul><p>La adaptación transforma vehículos estándar en máquinas de trabajo de propósito específico listas para generar ingresos desde el primer día.</p>', cat: 'upfit' },
+          { q: '¿Puedo comprar una camioneta Ford ya adaptada?', a: '<p><strong>Adaptaciones en Stock:</strong> Unidades preconstruidas disponibles para entrega inmediata. Configuraciones limitadas pero la opción más rápida.</p><p><strong>Programa Ship-Thru:</strong> Fábrica → Carrocero aprobado por Ford → Distribuidor. Vehículo entregado completo con un solo punto de garantía. La opción más popular para compradores de flota.</p><p><strong>Coordinado por el Distribuidor:</strong> Compre el chasis y el distribuidor coordina con carroceros locales. Más opciones de personalización pero tiempos de entrega más largos.</p><p><strong>Gestionado por el Cliente:</strong> Compre el chasis y gestione la adaptación de forma independiente. Máxima flexibilidad pero usted coordina todo.</p>', cat: 'upfit' },
+          { q: '¿Cuánto cuesta adaptar una camioneta?', a: '<ul><li><strong>Básico ($5,000–$10,000):</strong> Revestimiento de caja, caja de herramientas, rack de escalera, iluminación de trabajo, cámara de retroceso</li><li><strong>Específico por Oficio ($10,000–$25,000):</strong> Estantes completos de van, particiones, racks de escalera, inversor de energía, almacenamiento personalizado</li><li><strong>Carrocerías de Servicio ($25,000–$75,000):</strong> Carrocería utilitaria completa, almacenamiento compartimentado, energía integrada, listo para grúa</li><li><strong>Especializado ($75,000–$250,000+):</strong> Camión de canasta, camión grúa, carrocería refrigerada, taller móvil</li></ul><p><strong>Cálculo de ROI:</strong> Una camioneta correctamente adaptada puede agregar 1–2 trabajos adicionales por día = potencial de ingresos anuales de $50,000–$150,000+. La mayoría de las adaptaciones se pagan solas en 12–24 meses.</p>', cat: 'upfit' },
+          { q: '¿Con qué marcas de carroceros trabaja Peoria Ford?', a: '<p>Peoria Ford trabaja con fabricantes premium de adaptaciones que incluyen:</p><ul><li><strong>Knapheide:</strong> Carrocerías de servicio, plataformas, carrocerías utilitarias</li><li><strong>Reading:</strong> Carrocerías de servicio, carrocerías cerradas</li><li><strong>Adrian Steel:</strong> Estantes de van, particiones, racks de escalera</li><li><strong>Kargo Master:</strong> Racks de escalera, gestión de carga</li><li><strong>Maxon:</strong> Plataformas elevadoras</li><li><strong>Curt:</strong> Enganches, accesorios de remolque</li><li><strong>RKI:</strong> Carrocerías de servicio, cajas de herramientas</li></ul><p>Todos los carroceros están certificados QVM de Ford para mantener la cobertura de garantía.</p>', cat: 'upfit' },
+          // BODY
+          { q: '¿Qué es una camioneta con carrocería de servicio?', a: '<p>Una carrocería de servicio reemplaza la caja estándar de la camioneta con una carrocería utilitaria cerrada con múltiples compartimentos con llave en ambos lados y en la parte trasera. Las características incluyen:</p><ul><li>Construcción de acero o aluminio</li><li>Sistemas de estantes ajustables</li><li>Superficies de trabajo abatibles</li><li>Iluminación LED integrada</li><li>Opciones de inversor de energía</li><li>Puntos de montaje para grúa/compresor</li></ul><p><strong>Ideal para:</strong> Plomeros, electricistas, técnicos de HVAC, cuadrillas de servicios públicos, servicios de reparación móvil, cerrajeros.</p>', cat: 'body' },
+          { q: '¿Qué tamaño de camión de volteo necesito?', a: '<p><strong><a href="/trucks/f-350">F-350</a> con cuerpo de volteo de 9\' (2–3 yardas cúbicas):</strong> Paisajismo, proyectos residenciales, acarreo ligero.</p><p><strong><a href="/trucks/f-450">F-450</a> con cuerpo de volteo de 11\' (3–4 yardas cúbicas):</strong> Paisajismo comercial, construcción ligera, trabajo municipal.</p><p><strong><a href="/trucks/f-550">F-550</a> con cuerpo de volteo de 12\' (4–5 yardas cúbicas):</strong> Comercial pesado, escombros de techado, aplicaciones municipales más grandes.</p><p><strong><a href="/trucks/f-650-f-750">F-650/F-750</a> (5–16 yardas cúbicas):</strong> Construcción, excavación, acarreo de servicio pesado.</p><p><strong>Importante:</strong> Calcule por peso, no por volumen. La grava pesa aproximadamente 2,800 lb por yarda cúbica.</p>', cat: 'body' },
+          { q: '¿Cuál es la diferencia entre una plataforma plana y una cama con estacas?', a: '<p><strong>Plataforma Plana:</strong> Plataforma abierta sin lados. Máxima versatilidad para cargas sobredimensionadas o de forma irregular. Fácil acceso de montacargas desde cualquier dirección. Común para madera, materiales de construcción, transporte de equipos.</p><p><strong>Cama con Estacas:</strong> Plataforma plana con estacas/lados verticales removibles. Mantiene los materiales sueltos contenidos. Las estacas se pueden quitar cuando no se necesitan. Popular entre paisajistas, viveros y entrega de materiales de construcción.</p><p><strong>Cama con Estacas y Plataforma Elevadora:</strong> Agrega plataforma elevadora hidráulica para entrega de artículos pesados sin acceso a muelle.</p>', cat: 'body' },
+          // TRANSIT
+          { q: '¿Cuál Transit debo comprar: carga, pasajeros o cuadrilla?', a: '<p><strong>Transit de Carga:</strong> Compartimento de carga sólido detrás de los asientos delanteros. Ideal para entrega, servicio técnico y transporte de mercancía. La configuración más popular para flotas comerciales.</p><p><strong>Transit de Pasajeros:</strong> Asientos para hasta 15 pasajeros con ventanas. Ideal para shuttle de hotel, transporte corporativo, excursiones.</p><p><strong>Transit de Cuadrilla:</strong> Asientos delanteros para 5 personas + carga completa en la parte trasera. Ideal para cuadrillas de construcción, HVAC, electricidad que necesitan transportar personal Y herramientas.</p>', cat: 'transit' },
+          { q: '¿Cuál altura de techo de Transit necesito?', a: '<p><strong>Techo Bajo:</strong> Altura interior 56.7". Cabe en estacionamientos estándar. Ideal para entrega cuando los conductores no trabajan dentro de la van.</p><p><strong>Techo Medio:</strong> Altura interior 72". Cabe en la mayoría de los estacionamientos (clearance 7\'). Permite pararse erguido a la mayoría de los conductores (menos de 6\').</p><p><strong>Techo Alto:</strong> Altura interior 81.5". Requiere clearance de 9\'+. Permite pararse erguido a todos los conductores. Máximo volumen de carga (487 pies³). Estándar para talleres móviles, técnicos de servicio y operaciones médicas.</p>', cat: 'transit' },
+          { q: '¿Cuánta carga puede llevar la Transit?', a: '<p>La capacidad de carga de la Transit varía según la configuración:</p><ul><li><strong>Transit 250:</strong> Hasta 3,530 lb de carga</li><li><strong>Transit 350:</strong> Hasta 4,160 lb de carga</li><li><strong>Transit 350 HD:</strong> Hasta 4,650 lb de carga</li></ul><p>El volumen de carga varía de 247 a 487 pies cúbicos dependiendo del largo de la batalla (regular vs extendida) y la altura del techo.</p>', cat: 'transit' },
+          // FINANCE
+          { q: '¿Qué opciones de financiamiento hay para camionetas comerciales Ford?', a: '<p><strong>Ford Motor Credit — Préstamo Comercial:</strong> Tasas competitivas, términos de 24–84 meses. Disponible para propietarios únicos hasta grandes flotas.</p><p><strong>Ford Motor Credit — Arrendamiento Comercial:</strong> Pagos más bajos, actualización de vehículos cada 2–4 años. Requiere millaje de negocio con anticipación.</p><p><strong>Línea de Crédito de Flota:</strong> Crédito giratorio para flotas de 10+ unidades. Simplifica la facturación y puede incluir servicios de gestión de flota.</p><p><strong>Financiamiento Bancario/SBA:</strong> Préstamos SBA 7(a) disponibles para vehículos comerciales. Tasas potencialmente más bajas para negocios calificados.</p>', cat: 'finance' },
+          { q: '¿Cuáles son los beneficios fiscales de comprar una camioneta comercial?', a: '<p><strong>Sección 179 del IRS:</strong> Deducción inmediata de hasta $1,220,000 (2024) del costo del vehículo en el año de la compra. Aplica a vehículos de más de 6,000 lb PBRV usados más del 50% para negocios.</p><p><strong>Depreciación Adicional (Bonus Depreciation):</strong> Deducción del 60% adicional del costo restante en el primer año (2024). Se reduce anualmente.</p><p><strong>Ejemplo:</strong> Camioneta de $80,000 → deducción de Sección 179 de $80,000 en el Año 1 → ahorro fiscal de ~$17,600–$26,400 dependiendo del tramo impositivo.</p><p><em>Siempre consulte a su asesor fiscal para su situación específica.</em></p>', cat: 'finance' },
+          // WARRANTY
+          { q: '¿Qué garantía tienen las camionetas comerciales Ford?', a: '<p><strong>Garantía Básica:</strong> 3 años/36,000 millas</p><p><strong>Tren Motriz:</strong> 5 años/60,000 millas</p><p><strong>Motor Power Stroke Diésel:</strong> 5 años/100,000 millas</p><p><strong>Garantía de Corrosión:</strong> 5 años/sin límite de millas</p><p><strong>Cobertura de Emisiones:</strong> 8 años/80,000 millas</p><p>Las adaptaciones realizadas por carroceros certificados QVM de Ford mantienen la cobertura de garantía del vehículo. Los carroceros no certificados pueden anular la garantía de la fábrica.</p>', cat: 'warranty' },
+          { q: '¿Qué es la certificación QVM de Ford?', a: '<p>El <strong>Programa de Verificación de Calidad de Modificación (QVM)</strong> de Ford es un programa de certificación para carroceros comerciales que garantiza que las adaptaciones:</p><ul><li>Cumplen los estándares de ingeniería de Ford</li><li>Mantienen la cobertura de garantía del vehículo</li><li>Pasan inspecciones de calidad regulares</li><li>Usan componentes aprobados por Ford</li></ul><p>Siempre elija carroceros certificados QVM para proteger la garantía de su vehículo. Peoria Ford trabaja exclusivamente con carroceros certificados QVM.</p>', cat: 'warranty' },
+          // FLEET
+          { q: '¿Qué es Ford Pro y cómo ayuda a mi flota?', a: '<p><strong>Ford Pro</strong> es la división de soluciones comerciales y de flota de Ford. Ofrece:</p><ul><li><strong>Ford Pro Telematics:</strong> Seguimiento GPS, alertas de diagnóstico, análisis de conductores, reportes de combustible</li><li><strong>Ford Pro FinSimple:</strong> Financiamiento simplificado para flotas</li><li><strong>Ford Pro Charging:</strong> Soluciones de carga para vehículos eléctricos de flota</li><li><strong>Ford Pro Intelligence:</strong> Insights basados en datos para optimizar la operación de la flota</li><li><strong>Precios de Flota:</strong> Descuentos por volumen para empresas con múltiples vehículos</li></ul>', cat: 'fleet' },
+          { q: '¿Cuántas camionetas necesito para calificar para precios de flota?', a: '<p>Los umbrales de precio de flota de Ford generalmente son:</p><ul><li><strong>3–4 vehículos:</strong> Califica para precio comercial básico con algunos descuentos</li><li><strong>5–14 vehículos:</strong> Precio de flota estándar con ahorros adicionales</li><li><strong>15+ vehículos:</strong> Precio de flota premium, gestión de cuenta dedicada</li><li><strong>75+ vehículos:</strong> Cuenta de flota corporativa con maximización de descuentos</li></ul><p>Peoria Ford trabaja con flotas de todos los tamaños. Contáctenos para una cotización personalizada.</p>', cat: 'fleet' },
+        ];
+
+        let currentLang = 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            // Toggle button styles
+            document.getElementById('btn-en').style.background = lang === 'en' ? 'var(--ford-blue)' : '#fff';
+            document.getElementById('btn-en').style.color = lang === 'en' ? '#fff' : 'var(--ford-blue)';
+            document.getElementById('btn-es').style.background = lang === 'es' ? 'var(--ford-blue)' : '#fff';
+            document.getElementById('btn-es').style.color = lang === 'es' ? '#fff' : 'var(--ford-blue)';
+
+            // Update category button labels
+            document.querySelectorAll('.qa-cat-btn').forEach(btn => {
+                const label = btn.dataset[lang];
+                if (label) btn.textContent = label;
+            });
+
+            const qaItems = document.querySelectorAll('.qa-item');
+
+            if (lang === 'es') {
+                // Hide all English items, inject Spanish
+                qaItems.forEach(item => item.style.display = 'none');
+
+                // Remove old ES items if any
+                document.querySelectorAll('.qa-item-es').forEach(el => el.remove());
+
+                // Update section titles
+                const sectionTitles = {
+                    'build': 'Configurar y Precio',
+                    'upfit': 'Camionetas Adaptadas en Venta',
+                    'body': 'Tipos de Carrocería (Servicio, Plataforma, Volteo)',
+                    'transit': 'Ford Transit',
+                    'finance': 'Financiamiento',
+                    'warranty': 'Carroceros y Garantía',
+                    'fleet': 'Gestión de Flota'
+                };
+                document.querySelectorAll('.qa-section__title').forEach(title => {
+                    const section = title.closest('.qa-section');
+                    if (section && sectionTitles[section.dataset.section]) {
+                        title.dataset.en = title.dataset.en || title.textContent;
+                        title.textContent = sectionTitles[section.dataset.section];
+                    }
+                });
+
+                // Get active category
+                const activeBtn = document.querySelector('.qa-cat-btn.active');
+                const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+
+                esQA.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'qa-item qa-item-es';
+                    div.dataset.category = item.cat;
+                    div.innerHTML = '<button class="qa-question">' + item.q + '</button><div class="qa-answer"><div class="qa-answer__content">' + item.a + '</div></div>';
+
+                    // Apply category filter
+                    if (activeCat !== 'all' && item.cat !== activeCat) {
+                        div.style.display = 'none';
+                    }
+
+                    // Find matching section
+                    const section = document.querySelector('.qa-section[data-section="' + item.cat + '"]');
+                    if (section) section.appendChild(div);
+
+                    // Accordion behavior
+                    div.querySelector('.qa-question').addEventListener('click', function() {
+                        const wasActive = div.classList.contains('active');
+                        document.querySelectorAll('.qa-item').forEach(i => i.classList.remove('active'));
+                        if (!wasActive) div.classList.add('active');
+                    });
+                });
+
+                // Show/hide sections based on active category
+                document.querySelectorAll('.qa-section').forEach(section => {
+                    section.style.display = (activeCat === 'all' || section.dataset.section === activeCat) ? 'block' : 'none';
+                });
+
+            } else {
+                // Back to English
+                document.querySelectorAll('.qa-item-es').forEach(el => el.remove());
+                qaItems.forEach(item => item.style.display = 'block');
+
+                // Restore section titles
+                document.querySelectorAll('.qa-section__title').forEach(title => {
+                    if (title.dataset.en) title.textContent = title.dataset.en;
+                });
+
+                // Re-apply active category filter
+                const activeBtn = document.querySelector('.qa-cat-btn.active');
+                const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+                document.querySelectorAll('.qa-section').forEach(section => {
+                    section.style.display = (activeCat === 'all' || section.dataset.section === activeCat) ? 'block' : 'none';
+                });
+                document.querySelectorAll('.qa-item').forEach(item => {
+                    item.style.display = (activeCat === 'all' || item.dataset.category === activeCat) ? 'block' : 'none';
+                });
+            }
+        }
+
         // Category Filter
         document.querySelectorAll('.qa-cat-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.qa-cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 const category = btn.dataset.category;
-                
+
                 document.querySelectorAll('.qa-section').forEach(section => {
-                    if (category === 'all') {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = section.dataset.section === category ? 'block' : 'none';
-                    }
+                    section.style.display = (category === 'all' || section.dataset.section === category) ? 'block' : 'none';
                 });
-                
+
                 document.querySelectorAll('.qa-item').forEach(item => {
-                    if (category === 'all') {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = item.dataset.category === category ? 'block' : 'none';
-                    }
+                    item.style.display = (category === 'all' || item.dataset.category === category) ? 'block' : 'none';
                 });
             });
         });
-        
+
         // Accordion
         document.querySelectorAll('.qa-question').forEach(question => {
             question.addEventListener('click', () => {
                 const item = question.parentElement;
                 const wasActive = item.classList.contains('active');
-                
-                // Close all
                 document.querySelectorAll('.qa-item').forEach(i => i.classList.remove('active'));
-                
-                // Toggle clicked
-                if (!wasActive) {
-                    item.classList.add('active');
-                }
+                if (!wasActive) item.classList.add('active');
             });
         });
     </script>
