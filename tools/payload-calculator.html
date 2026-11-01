@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Commercial Truck Payload Calculator | Which Ford Do I Need?</title>
-<meta name="description" content="Enter your cargo weight, crew, and body type to find the right Ford Super Duty. Free payload calculator for F-250 through F-550 from Peoria Ford.">
+<title>Commercial Truck Payload Requirement Planner | FordCommercial.AI</title>
+<meta name="description" content="Plan cargo, occupant, added-equipment and trailer tongue weight. Compare the total with a verified vehicle-specific payload limit; no model-wide capacity assumptions.">
 <link rel="canonical" href="https://fordcommercial.ai/tools/payload-calculator">
-<meta property="og:title" content="Commercial Truck Payload Calculator">
-<meta property="og:description" content="Enter your cargo weight, crew, and body type to find the right Ford Super Duty. Free payload calculator for F-250 through F-550 from Peoria Ford.">
+<meta property="og:title" content="Commercial Truck Payload Requirement Planner">
+<meta property="og:description" content="Plan cargo, occupant, added-equipment and trailer tongue weight. Compare the total with a verified vehicle-specific payload limit; no model-wide capacity assumptions.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://fordcommercial.ai/tools/payload-calculator">
 <meta property="og:image" content="https://fordcommercial.ai/og-image.jpg">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.worktrucksolutions.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;500&display=swap" as="style">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Commercial Truck Payload Calculator", "url": "https://fordcommercial.ai/tools/payload-calculator", "description": "Enter your cargo weight, crew, and body type to find the right Ford Super Duty. Free payload calculator for F-250 through F-550 from Peoria Ford.", "isPartOf": {"@type": "WebSite", "url": "https://fordcommercial.ai"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Commercial Truck Payload Requirement Planner", "url": "https://fordcommercial.ai/tools/payload-calculator", "description": "Plan added load using actual weights and an optional verified vehicle-specific payload capacity."}</script>
 <style>
 :root{--fb:#003478;--fbd:#00254d;--fbl:#1a5dab;--cop:#b87333;--sun:#e85d04;--wh:#fff;--ow:#f8f9fa;--ch:#1a1a1a;--td:#2d2d2d;--tm:#6c757d;--sl:#d1d3d4;--fd:'Oswald',sans-serif;--fb2:'Source Sans 3',sans-serif;--pad:clamp(1rem,4vw,2rem);--sec:clamp(2.5rem,6vw,4.5rem)}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
@@ -101,113 +101,52 @@ a{color:inherit;text-decoration:none}.container{max-width:1200px;margin:0 auto;p
 .bf{height:100%;border-radius:5px;transition:width .4s}
 .bf.ok{background:#2e7d32}.bf.warn{background:var(--sun)}
 .bv{width:70px;text-align:right;font-weight:500;flex-shrink:0}
-@media(max-width:600px){.cr{grid-template-columns:1fr}}
+@media(max-width:600px){.cr{grid-template-columns:1fr}.cw{padding:1rem}.rp{padding:1rem}.rm{font-size:1.5rem}}
 </style>
 </head><body><a href="#main-content" class="skip-nav" onfocus="this.style.top='1rem'" onblur="this.style.top='-100px'">Skip to main content</a>
 <header class="header">
   <a href="/" class="logo"><div class="logo-mark"><img src="/images/peoria-logo-v2.jpg" alt="Peoria Ford" width="80" height="60" style="display:block;width:80px;height:auto;"></div><div class="logo-text">Ford<em>Commercial</em>.AI</div></a>
   <a href="/#selector" class="hcta">Find My Truck →</a>
 </header><nav class="bc" aria-label="Breadcrumb"><a href="/">FordCommercial.AI</a><span>›</span><a href="/#contact">Tools</a><span>›</span><span>Payload Calculator</span></nav>
-<section id="main-content" class="hero">
-  <div class="container">
-    <h1>Commercial Truck <em>Payload Calculator</em></h1>
-    <p>Enter your cargo weight, crew size, body type, and safety buffer — get an instant Ford Super Duty model recommendation with a payload utilization breakdown. Know the right truck before you buy.</p>
-    <div class="chips"><span class="chip">F-250 to F-550</span><span class="chip">Body weight included</span><span class="chip">Crew weight</span><span class="chip">Safety buffer</span><span class="chip">Instant result</span></div>
-  </div>
-</section>
-
-<section class="section" style="background:var(--ow)">
-  <div class="container">
-    <div class="ey">Find your truck</div>
-    <div class="st">Payload Requirement Calculator</div>
-    <div class="cw">
-      <div class="cr">
-        <div class="cf">
-          <label>Cargo / Materials Weight (lbs)</label>
-          <input type="number" id="cargo" value="2500" min="0" max="20000" step="100" oninput="calc()">
-          <div class="hint">Tools, materials, products — your actual load weight</div>
-        </div>
-        <div class="cf">
-          <label>Crew Members in Truck</label>
-          <select id="crew" onchange="calc()">
-            <option value="1">1 person (driver only)</option>
-            <option value="2" selected>2 people</option>
-            <option value="3">3 people</option>
-            <option value="4">4 people</option>
-            <option value="5">5 people (crew cab max)</option>
-          </select>
-          <div class="hint">Counted at 200 lbs average per person</div>
-        </div>
-      </div>
-      <div class="cr">
-        <div class="cf">
-          <label>Upfit Body Type</label>
-          <select id="body" onchange="calc()">
-            <option value="0">Stock pickup — no body</option>
-            <option value="800">Ladder rack + tool boxes</option>
-            <option value="1500" selected>Standard service body (steel)</option>
-            <option value="1800">Service body (aluminum)</option>
-            <option value="2500">Steel flatbed deck</option>
-            <option value="3000">Hydraulic dump body</option>
-            <option value="3500">Crane / mechanics body</option>
-          </select>
-          <div class="hint">Body weight reduces your available cargo payload</div>
-        </div>
-        <div class="cf">
-          <label>Safety Buffer</label>
-          <select id="buf" onchange="calc()">
-            <option value="1.0">None — exact weights known</option>
-            <option value="1.1">10% margin</option>
-            <option value="1.2" selected>20% margin (recommended)</option>
-            <option value="1.3">30% margin (heavy duty ops)</option>
-          </select>
-          <div class="hint">Buffer accounts for weight variation and growth</div>
-        </div>
-      </div>
-      <div class="rp" id="rp">
-        <div class="rm" id="rm">—</div>
-        <div class="rs" id="rs">Enter your values above to get a recommendation</div>
-        <div id="rbars"></div>
-      </div>
+<section id="main-content" class="hero"><div class="container">
+  <h1>Commercial Truck <em>Payload Planner</em></h1>
+  <p>Add the weights your truck must carry. Compare them with a verified capacity for the actual configuration. This planner does not choose a truck or certify a vehicle for a load.</p>
+  <div class="chips"><span class="chip">Actual weights</span><span class="chip">Tongue / pin weight included</span><span class="chip">Vehicle-specific capacity</span></div>
+</div></section>
+<section class="section" style="background:var(--ow)"><div class="container">
+  <div class="ey">Plan your added load</div><div class="st">Payload Requirement</div>
+  <div class="cw">
+    <div class="cr">
+      <div class="cf"><label for="cargo">Cargo / materials (lbs)</label><input type="number" id="cargo" value="2500" min="0" max="1000000" step="1" oninput="calc()"><p class="hint">Include tools, materials and other carried items.</p></div>
+      <div class="cf"><label for="crew">All occupants combined (lbs)</label><input type="number" id="crew" value="400" min="0" max="1000000" step="1" oninput="calc()"><p class="hint">Enter actual combined weight, including the driver.</p></div>
     </div>
-    <p style="font-size:.8rem;color:var(--tm)">Ratings shown are maximum published values for diesel engine configurations. Your specific truck's rated payload is on the door-jamb sticker. Never exceed GVWR.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="ey">Reference table</div>
-    <div class="st">Ford Super Duty Max Payload by Model</div>
-    <div style="overflow-x:auto">
-    <table class="tbl" aria-label="Ford Super Duty max payload ratings">
-      <thead><tr><th class="lc">Model</th><th>GVWR</th><th>Max Payload (Gas)</th><th>Max Payload (Diesel)</th></tr></thead>
-      <tbody>
-        <tr><td class="lc">F-250 Super Duty</td><td>10,000 lbs</td><td>3,240 lbs</td><td>4,260 lbs</td></tr>
-        <tr><td class="lc">F-350 SRW Chassis Cab</td><td>14,000 lbs</td><td>4,460 lbs</td><td class="win">7,850 lbs</td></tr>
-        <tr><td class="lc">F-350 DRW Chassis Cab</td><td>14,000 lbs</td><td>4,460 lbs</td><td class="win">7,850 lbs</td></tr>
-        <tr><td class="lc">F-450 Chassis Cab</td><td>16,500 lbs</td><td>4,800 lbs</td><td class="win">8,000 lbs</td></tr>
-        <tr><td class="lc">F-550 Chassis Cab</td><td>19,500 lbs</td><td>~5,000 lbs</td><td class="win">12,750 lbs</td></tr>
-      </tbody>
-    </table>
+    <div class="cr">
+      <div class="cf"><label for="body">Net added body / equipment (lbs)</label><input type="number" id="body" value="0" min="0" max="1000000" step="1" oninput="calc()"><p class="hint">Count only equipment not already included in the capacity baseline. Use actual supplier or scale weights.</p></div>
+      <div class="cf"><label for="tongue">Trailer tongue / pin weight (lbs)</label><input type="number" id="tongue" value="0" min="0" max="1000000" step="1" oninput="calc()"><p class="hint">Enter the load transferred to the truck, not the full trailer weight.</p></div>
+    </div>
+    <div class="cr">
+      <div class="cf"><label for="buf">Planning margin (%)</label><input type="number" id="buf" value="20" min="0" max="100" step="1" oninput="calc()"><p class="hint">A planning allowance for additional load; it does not increase the vehicle rating.</p></div>
+      <div class="cf"><label for="capacity">Verified available payload (lbs, optional)</label><input type="number" id="capacity" placeholder="Enter vehicle-specific capacity" min="0" max="1000000" step="1" oninput="calc()"><p class="hint">Use the same unloaded baseline as the weights above. Do not count already-installed body or equipment twice.</p></div>
+    </div>
+    <div class="rp" id="rp" role="status" aria-live="polite" aria-atomic="true">
+      <div class="rm" id="rm">—</div><div class="rs" id="rs">Enter actual weights to plan the load.</div><div id="rbars"></div>
     </div>
   </div>
-</section>
-
-<section class="section" style="background:var(--ow)">
-  <div class="container">
-    <div class="ey">Why the math matters</div>
-    <div class="st">The 3 Numbers Every Buyer Must Know</div>
-    <div class="grid3">
-      <div class="card"><h3>GVWR</h3><p>Gross Vehicle Weight Rating — the maximum safe operating weight of the fully loaded truck. Set by Ford engineers. Your payload capacity is GVWR minus the truck's curb weight. Exceeding GVWR is a DOT violation and voids your warranty.</p></div>
-      <div class="card"><h3>Payload Rating</h3><p>The weight you can legally carry — crew, cargo, tools, and body combined. Printed on the door-jamb sticker. The calculator uses published maximum payload values; your specific truck may vary based on options and configuration.</p></div>
-      <div class="card"><h3>Body Weight</h3><p>The most overlooked factor. A Knapheide steel service body weighs 1,400–1,800 lbs before you put a single tool in it. Always subtract body weight from rated payload to find your actual usable cargo capacity.</p></div>
-    </div>
+  <p>Use the vehicle's labels and final-stage upfit documentation to establish its capacity; check actual axle and total weights on a scale. A model's advertised maximum cannot verify a particular truck.</p>
+</div></section>
+<section class="section"><div class="container">
+  <div class="ey">Verify before loading</div><div class="st">Check the Complete Vehicle</div>
+  <div class="grid3">
+    <div class="card"><h3>Vehicle and axle limits</h3><p>A payload total alone does not check front/rear axle ratings, tires, load distribution or the completed vehicle's GVWR.</p></div>
+    <div class="card"><h3>Body and equipment</h3><p>Stock pickup, incomplete chassis and completed upfit ratings use different weight baselines. Confirm which body, fuel and equipment are already included before adding weight.</p></div>
+    <div class="card"><h3>Trailer limits</h3><p>Tongue or pin load uses payload capacity. Towing also requires separate checks of trailer, hitch and combined-weight limits.</p></div>
   </div>
-</section>
+  <p style="margin-top:1rem">Reference: <a href="https://www.ford.com/towing/" target="_blank" rel="noopener noreferrer">Ford towing and payload guidance</a>. Ask a commercial specialist to verify the finished configuration.</p>
+</div></section>
 <section class="cta-sec section">
   <div class="container">
     <h2>Let AI Match You to the Right Truck</h2>
-    <p>Answer 7 quick questions. Get 3 specific Ford commercial truck recommendations with live Peoria Ford inventory and real pricing.</p>
+    <p>Answer 7 quick questions. Get 3 specific Ford commercial truck recommendations with inventory links and illustrative price estimates; confirm the final configuration and price with a dealer.</p>
     <div class="btn-g">
       <a href="/#selector" class="btn-p">Run the Truck Matchmaker →</a>
       <a href="tel:+18448779033" class="btn-o">Call (844) 877-9033</a>
@@ -219,41 +158,46 @@ a{color:inherit;text-decoration:none}.container{max-width:1200px;margin:0 auto;p
 </footer>
 <script>function toggleFAQ(el){const it=el.parentElement;const ic=el.querySelector('.fi');const op=it.classList.toggle('open');ic.textContent=op?'−':'+';el.setAttribute('aria-expanded',op);}</script>
 <script>
-const MODELS=[
-  {name:'F-250 Super Duty',  payload:4260},
-  {name:'F-350 Chassis Cab', payload:7850},
-  {name:'F-450 Chassis Cab', payload:8000},
-  {name:'F-550 Chassis Cab', payload:12750},
-];
 function fmt(n){return Math.round(n).toLocaleString()+' lbs'}
-function calc(){
-  const cargo=parseFloat(document.getElementById('cargo').value)||0;
-  const crew=parseInt(document.getElementById('crew').value)||1;
-  const body=parseFloat(document.getElementById('body').value)||0;
-  const buf=parseFloat(document.getElementById('buf').value)||1.2;
-  const crewW=crew*200;
-  const raw=cargo+crewW+body;
-  const total=raw*buf;
-  const rec=MODELS.find(m=>m.payload>=total);
-  const rp=document.getElementById('rp');
-  const rm=document.getElementById('rm');
-  const rs=document.getElementById('rs');
-  const rb=document.getElementById('rbars');
-  if(!rec){
-    rp.className='rp warn';
-    rm.textContent='F-650 Medium Duty';
-    rs.textContent=`Requirement: ${fmt(total)} — exceeds F-550 capacity. Step up to F-650 or contact Peoria Ford to spec the right platform.`;
-    rb.innerHTML=''; return;
+function calculatePayload(input){
+  for(const key of ['cargo','crew','body','tongue','buf']) {
+    const max=key==='buf'?100:1000000;
+    if(typeof input[key]!=='number'||!Number.isFinite(input[key])||input[key]<0||input[key]>max) throw new Error('Enter a valid, non-negative weight in every load field and a planning margin from 0% to 100%.');
   }
-  const pct=Math.min(100,Math.round(total/rec.payload*100));
-  rp.className='rp '+(pct<=80?'ok':'warn');
-  rm.textContent=rec.name;
-  rs.textContent=`Total need: ${fmt(total)} · Rated: ${fmt(rec.payload)} · ${pct}% utilized`;
-  const rows=[['Cargo / materials',cargo],['Crew ('+crew+'×200 lbs)',crewW],['Body / upfit',body],['Buffer ('+(Math.round((buf-1)*100))+'%)',Math.round(raw*(buf-1))]];
-  rb.innerHTML=rows.map(([l,v])=>{
-    const p=Math.min(100,Math.round(v/rec.payload*100));
-    return`<div class="br"><div class="bl">${l}</div><div class="bt"><div class="bf ${p>60?'warn':'ok'}" style="width:${p}%"></div></div><div class="bv">${fmt(v)}</div></div>`;
-  }).join('')+`<div class="br" style="margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--sl)"><div class="bl"><strong>Total w/ buffer</strong></div><div class="bt"><div class="bf ${pct>80?'warn':'ok'}" style="width:${pct}%"></div></div><div class="bv"><strong>${fmt(total)}</strong></div></div>`;
+  if(input.capacity!==null&&(typeof input.capacity!=='number'||!Number.isFinite(input.capacity)||input.capacity<0||input.capacity>1000000)) throw new Error('Enter a valid vehicle-specific payload capacity, or leave that field blank.');
+  const raw=input.cargo+input.crew+input.body+input.tongue;
+  const margin=raw*input.buf/100;
+  const target=raw+margin;
+  let status='unverified';
+  if(input.capacity!==null) {
+    status=raw>input.capacity?'exceeded':raw===input.capacity?'at-limit':target>input.capacity?'margin-exceeded':'within-entered-limit';
+  }
+  return {raw,margin,target,status,remaining:input.capacity===null?null:input.capacity-raw};
+}
+function calc(){
+  const read=id=>{const raw=document.getElementById(id).value.trim();return raw===''?NaN:Number(raw);};
+  const capacityText=document.getElementById('capacity').value.trim();
+  const input={cargo:read('cargo'),crew:read('crew'),body:read('body'),tongue:read('tongue'),buf:read('buf'),capacity:capacityText===''?null:Number(capacityText)};
+  const panel=document.getElementById('rp'),title=document.getElementById('rm'),summary=document.getElementById('rs'),breakdown=document.getElementById('rbars');
+  breakdown.replaceChildren();
+  try {
+    const result=calculatePayload(input);
+    const labels={unverified:'Vehicle capacity not verified',exceeded:'Entered payload limit exceeded','at-limit':'No payload allowance remains','margin-exceeded':'Planning margin exceeds limit','within-entered-limit':'Within entered payload limit'};
+    panel.className='rp '+(result.status==='within-entered-limit'?'':'warn');
+    title.textContent=labels[result.status];
+    summary.textContent='Added load: '+fmt(result.raw)+' · Planning target: '+fmt(result.target)+'. '+
+      (result.remaining===null?'Enter a verified capacity for comparison. ':'Allowance remaining before planning margin: '+fmt(result.remaining)+'. ')+
+      'This arithmetic does not verify axle, tire, hitch or combined-weight limits.';
+    const rows=[['Cargo / materials',input.cargo],['All occupants',input.crew],['Added body / equipment',input.body],['Trailer tongue / pin',input.tongue],['Planning allowance',result.margin],['Total planning target',result.target]];
+    rows.forEach(([label,value])=>{
+      const row=document.createElement('div');row.className='br';row.style.justifyContent='space-between';row.style.flexWrap='wrap';
+      const name=document.createElement('span');name.textContent=label;
+      const weight=document.createElement('strong');weight.textContent=fmt(value);
+      row.appendChild(name);row.appendChild(weight);breakdown.appendChild(row);
+    });
+  } catch(error) {
+    panel.className='rp warn';title.textContent='Check your inputs';summary.textContent=error.message;
+  }
 }
 calc();
 </script>
