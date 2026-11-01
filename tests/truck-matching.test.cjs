@@ -47,7 +47,7 @@ test('all actual body/towing/fuel/crew choices return a well-formed outcome', ()
     assert.ok(result.models.length ? result.constraint : result.reason);
   }
 });
-const truck = {model:'F-350 Super Duty',config:'Crew Cab, 6.7L diesel'};
+const truck = {model:'F-350 Super Duty',config:'Crew Cab, 6.7L diesel',description:'Research candidate; final capacity requires verification.',score:88};
 test('returned AI models are validated against the exact candidate list', () => {
   assert.throws(()=>context.validateTruckRecommendations([{...truck,model:'F-250 Super Duty'},truck,truck], {...base,towing:'26k_35k'}, candidates({towing:'26k_35k'})));
   assert.throws(()=>context.validateTruckRecommendations([truck], base,candidates({})));
@@ -68,7 +68,7 @@ test('incompatible requirements stop before the AI request', async () => {
     showMatchmakerError:message=>{ctx.message=message;},fetch:()=>{requests++;},
   });
   vm.runInContext(source,ctx);
-  vm.runInContext(html.slice(html.indexOf('        async function mmRunAI()'),html.indexOf('        // ── mmRenderTopCards')),ctx);
+  vm.runInContext(html.slice(html.indexOf('        async function mmRunAI()'),html.indexOf('        function truckElement(')),ctx);
   await ctx.mmRunAI(); assert.equal(requests,0);
   assert.equal(nodes['mm-form-card'].style.display,'block'); assert.ok(ctx.message);
 });
