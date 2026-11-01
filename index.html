@@ -603,6 +603,25 @@
         /* ============================================
            HERO SECTION
         ============================================ */
+        .ad-slot {
+            width: 100%;
+            max-width: 610px;
+            margin: 1.5rem auto 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .ad-slot ins {
+            display: block;
+            width: 100%;
+            max-width: 610px;
+            margin: 0 auto;
+            min-height: calc((100vw - 2rem) * 154 / 610);
+        }
+        .ad-slot img, .ad-slot iframe { max-width: 100%; height: auto; }
+        @media (min-width: 640px) { .ad-slot ins { min-height: 154px; } }
+        @media (max-width: 480px) { .ad-slot { margin-top: 4.5rem; } }
+
         .hero {
             min-height: auto;
             padding: 1.25rem 0 1rem;
@@ -2989,6 +3008,11 @@
     ============================================ -->
     <section id="main-content" class="hero">
         <div class="container">
+            <div class="ad-slot" aria-label="Advertisement">
+<!-- Revive Adserver Hosted edition Asynchronous JS Tag - Generated with Revive Adserver v6.0.6 -->
+<ins data-revive-zoneid="31384" data-revive-id="727bec5e09208690b050ccfc6a45d384"></ins>
+<script async src="//servedby.revive-adserver.net/asyncjs.php"></script>
+            </div>
             <div class="hero__content">
 
                 <h1 class="hero__title">Ford Commercial Truck Guide</h1>
