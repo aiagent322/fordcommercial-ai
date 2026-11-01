@@ -186,7 +186,7 @@ function calc(){
     panel.className='rp '+(result.status==='within-entered-limit'?'':'warn');
     title.textContent=labels[result.status];
     summary.textContent='Added load: '+fmt(result.raw)+' · Planning target: '+fmt(result.target)+'. '+
-      (result.remaining===null?'Enter a verified capacity for comparison.':'Allowance remaining before planning margin: '+fmt(result.remaining)+'. ')+
+      (result.remaining===null?'Enter a verified capacity for comparison. ':'Allowance remaining before planning margin: '+fmt(result.remaining)+'. ')+
       'This arithmetic does not verify axle, tire, hitch or combined-weight limits.';
     const rows=[['Cargo / materials',input.cargo],['All occupants',input.crew],['Added body / equipment',input.body],['Trailer tongue / pin',input.tongue],['Planning allowance',result.margin],['Total planning target',result.target]];
     rows.forEach(([label,value])=>{
