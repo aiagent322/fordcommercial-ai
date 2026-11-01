@@ -5,10 +5,10 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Section 179 Tax Deduction Calculator for Commercial Trucks 2026</title>
-<meta name="description" content="Calculate your Section 179 tax deduction on a Ford commercial truck. See net cost after tax savings. All Super Duty models qualify. Free 2026 calculator.">
+<meta name="description" content="Illustrate 2026 Section 179 savings for an adviser-confirmed eligible commercial vehicle. Includes business use, income limits and phaseout; results are estimates.">
 <link rel="canonical" href="https://fordcommercial.ai/tools/section-179-calculator">
 <meta property="og:title" content="Section 179 Tax Deduction Calculator for Commercial Trucks 2026">
-<meta property="og:description" content="Calculate your Section 179 tax deduction on a Ford commercial truck purchase. See net cost after tax savings. All Super Duty models qualify. Free 2026 calculator.">
+<meta property="og:description" content="Illustrate 2026 Section 179 savings for an adviser-confirmed eligible commercial vehicle. Includes business use, income limits and phaseout; results are estimates.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://fordcommercial.ai/tools/section-179-calculator">
 <meta property="og:image" content="https://fordcommercial.ai/og-image.jpg">
@@ -94,54 +94,57 @@ a{color:inherit;text-decoration:none}.container{max-width:1200px;margin:0 auto;p
 .rr:last-child{border:none;padding-top:.75rem;font-size:1rem;font-weight:500}
 @media(max-width:600px){.cr{grid-template-columns:1fr}}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Section 179 Tax Calculator for Commercial Trucks 2026", "url": "https://fordcommercial.ai/tools/section-179-calculator", "description": "Calculate your Section 179 deduction on a Ford commercial truck purchase. See net cost after tax savings. All Super Duty models qualify. Free 2026 tool.", "isPartOf": {"@type": "WebSite", "url": "https://fordcommercial.ai"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Section 179 Tax Illustration for Commercial Vehicles 2026", "url": "https://fordcommercial.ai/tools/section-179-calculator", "description": "Illustrate potential 2026 Section 179 savings using adviser-confirmed eligibility, business use, income and phaseout assumptions."}</script>
 </head><body><a href="#main-content" class="skip-nav" onfocus="this.style.top='1rem'" onblur="this.style.top='-100px'">Skip to main content</a>
 <header class="header">
   <a href="/" class="logo"><div class="logo-mark"><img src="/images/peoria-logo-v2.jpg" alt="Peoria Ford" width="80" height="60" style="display:block;width:80px;height:auto;"></div><div class="logo-text">Ford<em>Commercial</em>.AI</div></a>
   <a href="/#selector" class="hcta">Find My Truck →</a>
 </header><nav class="bc" aria-label="Breadcrumb"><a href="/">FordCommercial.AI</a><span>›</span><a href="/#contact">Tools</a><span>›</span><span>Section 179 Calculator</span></nav>
 <section id="main-content" class="hero"><div class="container">
-  <h1>Section 179 <em>Tax Calculator</em> 2026</h1>
-  <p>See your real net cost after the Section 179 deduction. All Ford Super Duty commercial trucks qualify — deduct up to 100% of the purchase price in the year you buy.</p>
-  <div class="chips"><span class="chip">2026 limit: $1.16M</span><span class="chip">All Super Duty qualify</span><span class="chip">100% first-year</span><span class="chip">&gt;50% business use</span></div>
+  <h1>Section 179 <em>Tax Illustration</em> 2026</h1>
+  <p>Explore a potential deduction using assumptions confirmed by your tax adviser. A deduction reduces taxable income; it is not a dealer discount or a guaranteed refund.</p>
+  <div class="chips"><span class="chip">2026 limit: $2.56M</span><span class="chip">Phaseout starts at $4.09M</span><span class="chip">More than 50% business use</span></div>
 </div></section>
 <section class="section" style="background:var(--ow)"><div class="container">
-  <div class="ey">Calculate your savings</div><div class="st">Section 179 Deduction Estimator</div>
+  <div class="ey">Illustrative savings</div><div class="st">Section 179 Deduction Estimator</div>
   <div class="cw">
+    <p style="margin-bottom:1.25rem"><label for="eligible"><input id="eligible" type="checkbox" onchange="c179()"> For this illustration, assume my tax adviser has confirmed this vehicle is eligible and is not subject to a vehicle-specific deduction cap.</label></p>
     <div class="cr">
-      <div class="cf"><label>Vehicle Cost ($)</label><input type="number" id="cost" value="72000" min="30000" max="300000" step="500" oninput="c179()"></div>
-      <div class="cf"><label>Business Use (%)</label><input type="number" id="biz" value="100" min="51" max="100" step="1" oninput="c179()"></div>
+      <div class="cf"><label for="cost">Vehicle cost ($)</label><input type="number" id="cost" value="72000" min="0" max="100000000" step="100" oninput="c179()"></div>
+      <div class="cf"><label for="biz">Qualified business use (%)</label><input type="number" id="biz" value="100" min="0" max="100" step="1" oninput="c179()"></div>
     </div>
     <div class="cr">
-      <div class="cf"><label>Federal Tax Rate</label><select id="fed" onchange="c179()"><option value="0.21">21% (C-Corp)</option><option value="0.24">24%</option><option value="0.28" selected>28%</option><option value="0.32">32%</option><option value="0.37">37%</option></select></div>
-      <div class="cf"><label>State Tax Rate (%)</label><input type="number" id="state" value="5" min="0" max="15" step="0.5" oninput="c179()"></div>
+      <div class="cf"><label for="fed">Illustrative federal tax rate (%)</label><input type="number" id="fed" value="24" min="0" max="50" step="0.1" oninput="c179()"></div>
+      <div class="cf"><label for="state">Illustrative state rate (%)</label><input type="number" id="state" value="0" min="0" max="20" step="0.1" oninput="c179()"><p class="hint">Leave at 0 unless your adviser confirms the same deduction basis applies in your state.</p></div>
     </div>
-    <div class="rb">
+    <div class="cr">
+      <div class="cf"><label for="spending">Total qualifying property cost for phaseout ($)</label><input type="number" id="spending" value="72000" min="0" max="100000000" step="100" oninput="c179()"><p class="hint">Include this vehicle and other qualifying property placed in service in 2026. Use the phaseout amount provided by your adviser.</p></div>
+      <div class="cf"><label for="other">Section 179 allocated to other property ($)</label><input type="number" id="other" value="0" min="0" max="100000000" step="100" oninput="c179()"></div>
+    </div>
+    <div class="cr">
+      <div class="cf"><label for="income">Remaining business-income limit for this deduction ($)</label><input type="number" id="income" value="72000" min="0" max="100000000" step="100" oninput="c179()"><p class="hint">Ask your adviser for the remaining amount after other Section 179 deductions.</p></div>
+    </div>
+    <p id="calc-status" role="status" style="margin:1rem 0;font-weight:600"></p>
+    <div class="rb" aria-live="polite" aria-atomic="true">
       <div class="rb-big" id="net">—</div>
-      <div style="font-size:.9rem;color:rgba(255,255,255,.75);margin:.25rem 0 1.25rem">Your net cost after Section 179</div>
-      <div style="max-width:400px;margin:0 auto;text-align:left">
+      <div style="font-size:.9rem;color:rgba(255,255,255,.75);margin:.25rem 0 1.25rem">Illustrative cost after estimated tax savings</div>
+      <div style="max-width:440px;margin:0 auto;text-align:left">
         <div class="rr"><span>Vehicle cost</span><span id="r1">—</span></div>
-        <div class="rr"><span>Section 179 deduction</span><span id="r2">—</span></div>
-        <div class="rr"><span>Federal tax savings</span><span id="r3" style="color:#4ade80">—</span></div>
-        <div class="rr"><span>State tax savings</span><span id="r4" style="color:#4ade80">—</span></div>
-        <div class="rr"><span>Total savings</span><span id="r5" style="color:#4ade80">—</span></div>
-        <div class="rr"><span>Net truck cost</span><span id="r6" style="color:#4ade80;font-size:1.15rem">—</span></div>
+        <div class="rr"><span>Illustrative Section 179 deduction</span><span id="r2">—</span></div>
+        <div class="rr"><span>Estimated federal savings</span><span id="r3">—</span></div>
+        <div class="rr"><span>Illustrative state savings</span><span id="r4">—</span></div>
+        <div class="rr"><span>Total estimated savings</span><span id="r5">—</span></div>
+        <div class="rr"><span>Illustrative after-tax cost</span><span id="r6">—</span></div>
       </div>
     </div>
   </div>
-  <p style="font-size:.8rem;color:var(--tm)">Estimate only. Consult your tax advisor. Section 179 limit 2026: $1,160,000. All Ford Super Duty (GVWR &gt;6,000 lbs) qualify. Requires &gt;50% business use.</p>
+  <p style="font-size:.9rem;color:var(--tm)">Vehicle eligibility is configuration-specific. This tool excludes SUVs and passenger vehicles subject to special caps; the 2026 heavy-SUV Section 179 cap is $32,000. It does not model bonus depreciation, carryovers, recapture, entity-level rules, credits, or federal/state tax interactions. Entering a state rate assumes the same deduction basis; state conformity must be checked separately. Buying alone is not enough: qualifying property must be placed in service during the tax year.</p>
+  <p style="margin-top:1rem">Sources: <a href="https://www.irs.gov/irb/2025-45_IRB" target="_blank" rel="noopener noreferrer">IRS 2026 limits</a> · <a href="https://www.irs.gov/publications/p946" target="_blank" rel="noopener noreferrer">IRS Publication 946</a>. Reviewed November 1, 2026.</p>
 </div></section>
-<section class="section"><div class="container">
-  <div class="ey">Why it matters</div><div class="st">The Real Power of Section 179</div>
-  <div class="grid3">
-    <div class="card"><h3>What qualifies?</h3><p>All Ford Super Duty (F-250 through F-750) and Transit models qualify. GVWR must exceed 6,000 lbs and business use must exceed 50%.</p></div>
-    <div class="card"><h3>100% year-one deduction</h3><p>Instead of depreciating over 5 years, you deduct the full purchase price in year one — dramatically reducing your tax bill when you need it most.</p></div>
-    <div class="card"><h3>Real example</h3><p>A $75,000 F-350 at 28% combined tax rate saves ~$21,000 in taxes — making your effective net cost just $54,000. That's a real $21K discount for buying the truck you need.</p></div>
-  </div>
-</div></section><section class="cta-sec section">
+<section class="cta-sec section">
   <div class="container">
     <h2>Let AI Match You to the Right Truck</h2>
-    <p>Answer 7 quick questions. Get 3 specific Ford commercial truck recommendations with live Peoria Ford inventory and real pricing.</p>
+    <p>Answer 7 quick questions. Get 3 specific Ford commercial truck recommendations with inventory links and illustrative price estimates; confirm the final configuration and price with a dealer.</p>
     <div class="btn-g">
       <a href="/#selector" class="btn-p">Run the Truck Matchmaker →</a>
       <a href="tel:+18448779033" class="btn-o">Call (844) 877-9033</a>
@@ -154,20 +157,40 @@ a{color:inherit;text-decoration:none}.container{max-width:1200px;margin:0 auto;p
 <script>function toggleFAQ(el){const it=el.parentElement;const ic=el.querySelector('.fi');const op=it.classList.toggle('open');ic.textContent=op?'−':'+';el.setAttribute('aria-expanded',op);}</script>
 <script>
 function fmt(n){return '$'+Math.round(n).toLocaleString()}
+function estimateSection179(input) {
+  const limits={cost:100000000,biz:100,fed:50,state:20,spending:100000000,other:100000000,income:100000000};
+  for(const key of Object.keys(limits)) {
+    if(typeof input[key]!=='number'||!Number.isFinite(input[key])||input[key]<0||input[key]>limits[key]) {
+      throw new Error('Enter a valid, non-negative value in every field. Business use and tax rates must stay within the displayed ranges.');
+    }
+  }
+  if(!input.eligible) throw new Error('Select the eligibility assumption to run an illustration. Have your tax adviser verify the actual vehicle treatment.');
+  const basis=input.cost*input.biz/100;
+  if(input.spending < basis) throw new Error('Total qualifying property cost must include at least this vehicle’s business-use cost.');
+  const phasedLimit=Math.max(0,2560000-Math.max(0,input.spending-4090000));
+  const remainingLimit=Math.max(0,phasedLimit-input.other);
+  const deduction=input.biz>50?Math.min(basis,remainingLimit,input.income):0;
+  const federal=deduction*input.fed/100;
+  const state=deduction*input.state/100;
+  return {deduction,federal,state,savings:federal+state,net:input.cost-federal-state,
+    message:input.biz<=50?'No Section 179 deduction illustrated: qualified business use must exceed 50%.':
+      deduction===0?'No current-year Section 179 deduction illustrated under the entered limits. Other depreciation or carryover treatment requires adviser review.':
+      'Illustration only. The deduction and estimated savings depend on the entered assumptions.'};
+}
 function c179(){
-  const c=parseFloat(document.getElementById('cost').value)||72000;
-  const b=parseFloat(document.getElementById('biz').value)/100||1;
-  const f=parseFloat(document.getElementById('fed').value)||0.28;
-  const s=parseFloat(document.getElementById('state').value)/100||0.05;
-  const ded=Math.min(c*b,1160000);
-  const fs=ded*f; const ss=ded*s; const tot=fs+ss;
-  document.getElementById('r1').textContent=fmt(c);
-  document.getElementById('r2').textContent=fmt(ded);
-  document.getElementById('r3').textContent='-'+fmt(fs);
-  document.getElementById('r4').textContent='-'+fmt(ss);
-  document.getElementById('r5').textContent='-'+fmt(tot);
-  document.getElementById('r6').textContent=fmt(c-tot);
-  document.getElementById('net').textContent=fmt(c-tot);
+  const ids=['cost','biz','fed','state','spending','other','income'];
+  const values={eligible:document.getElementById('eligible').checked};
+  ids.forEach(id=>{const raw=document.getElementById(id).value.trim();values[id]=raw===''?NaN:Number(raw);});
+  const status=document.getElementById('calc-status');
+  try {
+    const result=estimateSection179(values);
+    const output={r1:fmt(values.cost),r2:fmt(result.deduction),r3:fmt(result.federal),r4:fmt(result.state),r5:fmt(result.savings),r6:fmt(result.net),net:fmt(result.net)};
+    Object.entries(output).forEach(([id,value])=>{document.getElementById(id).textContent=value;});
+    status.textContent=result.message;
+  } catch(error) {
+    ['r1','r2','r3','r4','r5','r6','net'].forEach(id=>{document.getElementById(id).textContent='—';});
+    status.textContent=error.message;
+  }
 }
 c179();
 </script></body></html>
