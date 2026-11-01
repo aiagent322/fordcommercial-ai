@@ -3016,7 +3016,7 @@
             <div class="matchmaker__header">
                 <span class="section__eyebrow" style="font-size:1.105rem;">AI Truck Matchmaker</span>
                 <h2 class="section__title" style="color:var(--white)">Find Your <span style="color:var(--arizona-copper)">Perfect Match!</span></h2>
-                <p style="font-size:1.32rem;font-weight:700;color:#fff;line-height:1.5;">Answer 7 questions about your operation. Our AI scores the full Ford commercial lineup and returns your top 6 truck matches with live Peoria Ford inventory and personalized explanations.</p>
+                <p style="font-size:1.32rem;font-weight:700;color:#fff;line-height:1.5;">Answer 7 questions about your operation. Our AI scores the full Ford commercial lineup and returns your top 6 truck matches with Peoria Ford inventory links and personalized explanations. Recommendations are research starting points; a commercial specialist must verify the final vehicle configuration, capacity and price.</p>
             </div>
 
             <!-- TRUCK PROFILE FORM CARD -->
@@ -3197,10 +3197,10 @@
                             <textarea id="mm-notes" rows="2" placeholder="Colors, special upfits, fleet quantity, or any other requirements"></textarea>
                         </div>
                         <button type="submit" class="mm-run-btn" style="margin-top:1rem" aria-label="Submit quote request">Submit Quote Request →</button>
-                        <div id="mm-lead-success" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
-                            Quote Submitted — A Peoria Ford Commercial Specialist Will Contact You Within 1 Business Day
-                        </div>
                     </form>
+                    <div id="mm-lead-success" role="status" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
+                        Quote Request Received — A Commercial Specialist Will Follow Up
+                    </div>
                 </div>
             </div>
 
@@ -3661,12 +3661,12 @@
                 </form>
                 
                 <!-- Success State -->
-                <div id="quote-success" class="quote-success" style="display:none;">
+                <div id="quote-success" class="quote-success" role="status" style="display:none;">
                     <div class="success-icon">
                         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                     </div>
                     <h3>Quote Request Submitted!</h3>
-                    <p>A Peoria Ford commercial specialist will contact you within 24 hours.</p>
+                    <p>A commercial specialist will follow up about your request.</p>
                     <button type="button" class="btn btn--secondary" onclick="resetQuoteForm()">Submit Another Request</button>
                 </div>
             </div>
@@ -4288,7 +4288,7 @@ F-250 Super Duty: GVWR 10,000 lbs, Max Tow 22,000 lbs, Max Payload 4,260 lbs, En
 F-350 Super Duty: GVWR 14,000 lbs, Max Tow 35,750 lbs, Max Payload 7,850 lbs, same engines, Cab: Regular/SuperCab/Crew or Chassis Cab, From $49,885.
 F-450 Super Duty: GVWR 16,500 lbs, Max Tow 40,000 lbs, Payload 8,000 lbs, Diesel only, Crew Cab or Chassis Cab, From $58,355.
 F-550 Chassis Cab: GVWR 19,500 lbs, Payload 12,750 lbs, Diesel, chassis cab purpose-built for heavy upfits, From $61,145.
-F-650/F-750: GVWR 25,999-37,000 lbs, medium duty, Cummins diesel, From $72,000+.
+F-650/F-750: GVWR 25,999-37,000 lbs, medium duty, 7.3L V8 gas or 6.7L Power Stroke diesel, From $72,000+.
 Ford Transit Cargo Van: GVWR 8,550-10,360 lbs, 487 cu ft cargo, 4,650 lbs payload, three roof heights (Low/Medium/High), three wheelbases, From $44,730.
 Ford Transit 350 HD: Higher GVWR version of Transit for heavier payloads.
 
@@ -4302,208 +4302,215 @@ HARD RULES — enforce without exception:
 
 OUTPUT FORMAT — return ONLY this JSON array, nothing else:
 [{"tier":"primary","model":"Ford Transit 350 High Roof","config":"148" WB, High Roof, 3.5L EcoBoost","upfit":"Adrian Steel full shelving system","price_range":"$50,000-$56,000 equipped","score":96,"explanation":"One sentence why this fits their exact inputs."},{"tier":"value","model":"...","config":"...","upfit":"...","price_range":"...","score":88,"explanation":"..."},{"tier":"capable","model":"...","config":"...","upfit":"...","price_range":"...","score":82,"explanation":"..."},{"tier":"alt1","model":"...","config":"...","upfit":"...","price_range":"...","score":79,"explanation":"..."},{"tier":"alt2","model":"...","config":"...","upfit":"...","price_range":"...","score":74,"explanation":"..."},{"tier":"alt3","model":"...","config":"...","upfit":"...","price_range":"...","score":70,"explanation":"..."}]
-Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down. First 3 are primary picks, last 3 are alternatives.`;
+Return the number of objects requested in the user message. Use exact candidate model names and explicit cab and fuel descriptions. Vary configurations meaningfully. Score from 100 down. First 3 are primary picks, last 3 are alternatives.`;
 
-        function mmInit() {
-            if (dotsEl) {
-                dotsEl.innerHTML = Array.from({length: mmState.totalSteps}, (_, i) =>
-                    `<span class="mm-dot ${i === 0 ? 'active' : ''}" data-step="${i+1}"></span>`
-                ).join('');
-            }
-            mmUpdateProgress();
-
-            // Option click delegation
-            document.addEventListener('click', function(e) {
-                const btn = e.target.closest('.mm-option');
-                if (btn) mmSelectOption(btn);
-            });
-
-            // Back/Next buttons
-
-            // Lead form submit
-            document.getElementById('mm-lead-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                let valid = true;
-                const name     = document.getElementById('mm-name').value.trim();
-                const company  = document.getElementById('mm-company').value.trim();
-                const email    = document.getElementById('mm-email').value.trim();
-                const phone    = document.getElementById('mm-phone').value.trim();
-                const state    = document.getElementById('mm-state').value;
-                const timeline = document.getElementById('mm-timeline').value;
-                if (!name)                        { showError('mm-name','mm-name-error'); valid=false; }
-                if (!company)                     { showError('mm-company','mm-company-error'); valid=false; }
-                if (!email || !validateEmail(email)) { showError('mm-email','mm-email-error'); valid=false; }
-                if (!phone || !validatePhone(phone)) { showError('mm-phone','mm-phone-error'); valid=false; }
-                if (!state)                       { showError('mm-state','mm-state-error'); valid=false; }
-                if (!timeline)                    { showError('mm-timeline','mm-timeline-error'); valid=false; }
-                if (!valid) return;
-                const payload = {
-                    name, company, email, phone, state, timeline,
-                    notes: document.getElementById('mm-notes').value.trim(),
-                    matchmakerAnswers: mmState.answers,
-                    formType: 'matchmaker'
-                };
-                submitLead(payload, 'matchmaker');
-            });
-        }
-
-
-        function submitLead(payload, formType) {
-            var btn = formType === 'matchmaker'
-                ? document.getElementById('mm-lead-wrap').querySelector('button[type="submit"]')
-                : document.querySelector('#quote-form button[type="submit"]');
-            if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
-
-            // Format lead as readable text
-            var body = 'NEW LEAD — ' + (formType === 'matchmaker' ? 'AI Matchmaker' : 'Quote Form') + '\n\n';
-            body += 'Name: '     + (payload.name     || payload['name']    || '') + '\n';
-            body += 'Company: '  + (payload.company   || '') + '\n';
-            body += 'Email: '    + (payload.email     || '') + '\n';
-            body += 'Phone: '    + (payload.phone     || '') + '\n';
-            body += 'State: '    + (payload.state     || '') + '\n';
-            body += 'Timeline: ' + (payload.timeline  || '') + '\n';
-            if (payload.notes)   body += 'Notes: ' + payload.notes + '\n';
-            if (payload.truck)   body += 'Truck interest: ' + payload.truck + '\n';
-            if (payload.message) body += 'Message: ' + payload.message + '\n';
-            if (payload.matchmakerAnswers) {
-                body += '\nMatchmaker Answers:\n';
-                var a = payload.matchmakerAnswers;
-                body += 'Industry: '  + (a.industry || '') + '\n';
-                body += 'Job: '        + (a.primary_job || '') + '\n';
-                body += 'Towing: '     + (a.towing || '') + '\n';
-                body += 'Crew: '       + (a.crew || '') + '\n';
-                body += 'Body: '       + (a.body || '') + '\n';
-                body += 'Budget: '     + (a.budget || '') + '\n';
-                body += 'Fuel: '       + (a.fuel || '') + '\n';
-            }
-
-            // Send to lead capture worker (stores in KV + emails commercial@peoriaford.com)
-            fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function() {});  // fire-and-forget — success shown regardless
-
-            // Show success immediately (don't wait for API)
-            setTimeout(function() {
-                if (formType === 'matchmaker') {
-                    var successEl = document.getElementById('mm-lead-success');
-                    if (successEl) successEl.style.display = 'block';
-                    var formEl = document.getElementById('mm-lead-form');
-                    if (formEl) formEl.style.display = 'none';
-                } else {
-                    var successEl = document.getElementById('quote-success');
-                    if (successEl) successEl.style.display = 'block';
-                    var formEl = document.getElementById('quote-form');
-                    if (formEl) formEl.style.display = 'none';
-                }
-                if (btn) { btn.disabled = false; }
-            }, 400);
-        }
-
-                function mmUpdateProgress() {
-
-        // ── Quote form submit ──────────────────────────────────────────────
-        var qForm = document.getElementById('quote-form');
-        if (qForm) {
-            qForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var name     = document.getElementById('quote-name').value.trim();
-                var company  = document.getElementById('quote-company').value.trim();
-                var email    = document.getElementById('quote-email').value.trim();
-                var phone    = document.getElementById('quote-phone').value.trim();
-                var state    = document.getElementById('quote-state').value;
-                var truck    = document.getElementById('quote-truck').value;
-                var timeline = document.getElementById('quote-timeline').value;
-                var message  = document.getElementById('quote-message').value.trim();
-                var valid = true;
-                ['quote-name','quote-company','quote-email','quote-phone','quote-state','quote-truck','quote-timeline'].forEach(function(id) {
-                    var el = document.getElementById(id);
-                    if (!el || !el.value.trim()) {
-                        el && el.classList.add('error');
-                        valid = false;
-                    } else {
-                        el && el.classList.remove('error');
-                    }
+        function initLeadForms() {
+            ['quote', 'mm'].forEach(function(prefix) {
+                var form = document.getElementById(prefix === 'mm' ? 'mm-lead-form' : 'quote-form');
+                if (!form || form.dataset.leadBound === 'true') return;
+                form.dataset.leadBound = 'true';
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    clearAllErrors(prefix);
+                    var fields = ['name', 'company', 'email', 'phone', 'state', 'timeline'];
+                    if (prefix === 'quote') fields.push('truck');
+                    var payload = {};
+                    var firstInvalid = null;
+                    fields.forEach(function(field) {
+                        var input = document.getElementById(prefix + '-' + field);
+                        var value = input ? input.value.trim() : '';
+                        payload[field] = value;
+                        var valid = Boolean(value);
+                        if (field === 'email') valid = valid && validateEmail(value);
+                        if (field === 'phone') valid = valid && validatePhone(value);
+                        if (!valid) {
+                            showError(prefix + '-' + field, prefix + '-' + field + '-error');
+                            if (input) input.setAttribute('aria-invalid', 'true');
+                            if (!firstInvalid) firstInvalid = input;
+                        } else if (input) {
+                            input.removeAttribute('aria-invalid');
+                        }
+                    });
+                    if (firstInvalid) { firstInvalid.focus(); return; }
+                    var extra = document.getElementById(prefix === 'mm' ? 'mm-notes' : 'quote-message');
+                    payload[prefix === 'mm' ? 'notes' : 'message'] = extra ? extra.value.trim() : '';
+                    payload.formType = prefix === 'mm' ? 'matchmaker' : 'quote';
+                    if (prefix === 'mm') payload.matchmakerAnswers = Object.assign({}, mmState.answers);
+                    submitLead(payload, payload.formType);
                 });
-                if (!valid) { return; }
-                submitLead({ name:name, company:company, email:email, phone:phone, state:state, truck:truck, timeline:timeline, message:message }, 'quote');
             });
         }
 
-            const pct  = ((mmState.currentStep - 1) / mmState.totalSteps) * 100;
-            if (fill) fill.style.width = pct + '%';
-            if (lbl)  lbl.textContent  = 'Step ' + mmState.currentStep + ' of ' + mmState.totalSteps;
-            if (back) back.style.display = mmState.currentStep > 1 ? 'block' : 'none';
-            document.querySelectorAll('.mm-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === mmState.currentStep - 1);
-                dot.classList.toggle('done',   i <  mmState.currentStep - 1);
-            });
+        function resetQuoteForm() {
+            var form = document.getElementById('quote-form');
+            var success = document.getElementById('quote-success');
+            if (form) { form.reset(); form.style.display = ''; }
+            if (success) success.style.display = 'none';
+            clearAllErrors('quote');
+            if (form) {
+                form.querySelectorAll('[aria-invalid]').forEach(function(input) {
+                    input.removeAttribute('aria-invalid');
+                });
+                var name = document.getElementById('quote-name');
+                if (name) name.focus();
+            }
         }
 
-        function mmSelectOption(btn) {
-            btn.closest('.mm-step').querySelectorAll('.mm-option').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]] = btn.dataset.value;
-            if (window.innerWidth <= 768) { setTimeout(mmNext, 380); }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLeadForms, { once: true });
+        } else {
+            initLeadForms();
         }
 
-        function mmNext() {
-            if (!mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]]) return;
-            if (mmState.currentStep === mmState.totalSteps) { mmRunAI(); return; }
-            const cur  = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            mmState.currentStep++;
-            const next = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            cur.classList.remove('active'); cur.classList.add('exit');
-            setTimeout(() => cur.classList.remove('exit'), 300);
-            next.classList.add('active');
-            mmUpdateProgress();
-            const nextQId = MM_QUESTION_IDS[mmState.currentStep - 1];
+        async function submitLead(payload, formType) {
+            var isMatchmaker = formType === 'matchmaker';
+            var form = document.getElementById(isMatchmaker ? 'mm-lead-form' : 'quote-form');
+            var success = document.getElementById(isMatchmaker ? 'mm-lead-success' : 'quote-success');
+            if (!form || form.dataset.submitting === 'true') return;
+            var btn = form.querySelector('button[type="submit"]');
+            var originalLabel = btn ? btn.textContent : '';
+            var errorId = isMatchmaker ? 'mm-submit-error' : 'quote-submit-error';
+            var error = document.getElementById(errorId);
+            if (!error) {
+                error = document.createElement('p');
+                error.id = errorId;
+                error.setAttribute('role', 'alert');
+                error.style.cssText = 'color:#b91c1c;margin-top:1rem;font-weight:600;';
+                form.appendChild(error);
+            }
+            error.textContent = '';
+            error.hidden = true;
+            if (success) success.style.display = 'none';
+            form.dataset.submitting = 'true';
+            form.setAttribute('aria-busy', 'true');
+            if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+            var controller = new AbortController();
+            var timeout = setTimeout(function() { controller.abort(); }, 15000);
+            try {
+                var response = await fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error('Lead service rejected request');
+                var result = await response.json();
+                if (!result || (result.success !== true && result.ok !== true) || result.error) {
+                    throw new Error('Lead service did not confirm acceptance');
+                }
+                form.style.display = 'none';
+                if (success) {
+                    success.style.display = 'block';
+                    success.setAttribute('tabindex', '-1');
+                    success.focus();
+                }
+                return true;
+            } catch (err) {
+                error.textContent = 'We could not confirm your request. Your details are still here. Please call (844) 877-9033 before retrying if the request may have gone through.';
+                error.hidden = false;
+                return false;
+            } finally {
+                clearTimeout(timeout);
+                form.dataset.submitting = 'false';
+                form.removeAttribute('aria-busy');
+                if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
+            }
         }
 
-        function mmBack() {
-            if (mmState.currentStep <= 1) return;
-            const cur  = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            mmState.currentStep--;
-            const prev = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            cur.classList.remove('active');
-            prev.classList.add('active');
-            mmUpdateProgress();
-        }
-
-        
         // ── Matchmaker: model pre-filter ─────────────────────────────
+        // These are research candidates, not VIN-specific capacity approvals.
+        // Ford towing guide (2026), consulted 2026-11-01:
+        // https://www.ford.com/content/dam/brand_ford/en_us/brand/towing/pdf/2026-Ford-RV-and-Trailer-Towing-Guide-v3.pdf
         function getApprovedModels(a) {
-            var body   = a.body   || '';
-            var towing = a.towing || '';
-            if (body === 'van_shelving') return {
-                models: ['Ford Transit 250 Low Roof','Ford Transit 350 Medium Roof','Ford Transit 350 High Roof','Ford Transit 350 HD High Roof','Ford Transit 350 Extended High Roof'],
-                constraint: 'CRITICAL: User selected van with shelving. ALL 6 picks MUST be Ford Transit cargo van configurations only — vary by roof height and wheelbase. DO NOT recommend any pickup truck or chassis cab.'
+            var pickups = ['F-250 Super Duty', 'F-350 Super Duty', 'F-450 Super Duty'];
+            var chassis = ['F-350 Chassis Cab', 'F-450 Chassis Cab', 'F-550 Chassis Cab', 'F-650/F-750'];
+            var vans = ['Ford Transit 250 Low Roof', 'Ford Transit 350 Medium Roof', 'Ford Transit 350 High Roof', 'Ford Transit 350 HD High Roof', 'Ford Transit 350 Extended High Roof'];
+            var bodies = {
+                stock_pickup: pickups,
+                service_body: chassis,
+                flatbed: chassis,
+                dump_body: chassis,
+                crane_mechanics: chassis,
+                utility_body: chassis,
+                van_shelving: vans,
+                not_sure: pickups.concat(chassis, vans)
             };
-            if (['dump_body','crane_mechanics'].includes(body)) return {
-                models: ['F-350 Chassis Cab','F-450 Chassis Cab','F-550 Chassis Cab','F-650/F-750'],
-                constraint: 'User needs ' + body.replace(/_/g,' ') + '. ALL picks must be chassis cab models only.'
+            var towingModels = {
+                none: pickups.concat(chassis, vans),
+                under_10k: pickups.concat(chassis),
+                '10k_18k': pickups.concat(chassis),
+                '18k_26k': ['F-350 Super Duty', 'F-450 Super Duty'],
+                '26k_35k': ['F-350 Super Duty', 'F-450 Super Duty'],
+                over_35k: []
             };
-            if (['service_body','flatbed','utility_body'].includes(body)) return {
-                models: ['F-250 Super Duty','F-350 Super Duty','F-350 Chassis Cab','F-450 Chassis Cab','F-550 Chassis Cab'],
-                constraint: 'User needs ' + body.replace(/_/g,' ') + '. Prefer chassis cab configurations. No vans.'
-            };
-            if (towing === 'over_35k') return {
-                models: ['F-450 Chassis Cab','F-450 Super Duty','F-550 Chassis Cab','F-650/F-750'],
-                constraint: 'User needs over 35,000 lbs towing. Only F-450, F-550, or F-650/F-750 qualify.'
-            };
-            if (towing === '26k_35k') return {
-                models: ['F-350 Super Duty','F-350 Chassis Cab','F-450 Super Duty','F-450 Chassis Cab'],
-                constraint: 'User needs 26,000-35,000 lbs towing. Only F-350 diesel or F-450.'
-            };
-            if (towing === '18k_26k') return {
-                models: ['F-350 Super Duty','F-350 Chassis Cab','F-450 Super Duty'],
-                constraint: 'User needs 18,000-26,000 lbs towing. F-350 diesel or F-450 required.'
-            };
-            return {
-                models: ['F-250 Super Duty','F-350 Super Duty','F-350 Chassis Cab','F-450 Super Duty','F-550 Chassis Cab','Ford Transit'],
-                constraint: 'Select the best models based on all stated inputs.'
-            };
+            var validFuel = ['diesel', 'gas', 'no_preference'];
+            var validCrew = ['1', '2', '3', '4-5'];
+            if (!bodies[a.body] || !towingModels[a.towing] || !validFuel.includes(a.fuel) || !validCrew.includes(a.crew)) {
+                return { models: [], constraint: '', reason: 'Please complete the truck requirements using the available choices.' };
+            }
+            var models = bodies[a.body].filter(function(model) {
+                if (!towingModels[a.towing].includes(model)) return false;
+                if (a.fuel === 'diesel' && model.startsWith('Ford Transit')) return false;
+                if (a.fuel === 'gas' && model === 'F-450 Super Duty') return false;
+                if (a.fuel === 'gas' && ['18k_26k', '26k_35k'].includes(a.towing)) return false;
+                if (a.crew === '4-5' && model.startsWith('Ford Transit')) return false;
+                return true;
+            });
+            var reason = '';
+            if (!models.length) {
+                reason = 'These requirements need a configuration review. Please contact a commercial specialist with your exact loaded trailer weight, crew size and upfit requirements; we cannot validate an automatic match.';
+            }
+            var constraint = 'Return only these exact model names. These are research candidates, not verified towing or payload approvals. Do not assert that a specific configuration meets a rating without verification. ';
+            if (a.crew === '4-5') constraint += 'Every recommendation MUST specify Crew Cab. ';
+            if (a.fuel === 'gas') constraint += 'Every recommendation MUST specify a gasoline engine. ';
+            if (a.fuel === 'diesel') constraint += 'Every recommendation MUST specify a diesel engine. ';
+            if (a.towing !== 'none') constraint += 'Exact trailer weight, hitch type, final upfit, payload, GCWR and configuration require dealer verification. ';
+            constraint += 'Do not invent a configuration or force three matches if the requirements cannot be met. Budget is a preference, not a verified vehicle price.';
+            return { models: models, constraint: constraint, reason: reason };
+        }
+
+        function validateTruckRecommendations(picks, answers, approved) {
+            if (!Array.isArray(picks) || picks.length !== 3) throw new Error('Invalid recommendation count');
+            return picks.map(function(truck) {
+                if (!truck || typeof truck !== 'object' || !approved.models.includes(truck.model)) {
+                    throw new Error('Recommendation outside candidate list');
+                }
+                if (typeof truck.config !== 'string' || !truck.config.trim()) throw new Error('Missing configuration');
+                if (answers.crew === '4-5' && !/\bcrew cab\b/i.test(truck.config)) throw new Error('Crew configuration mismatch');
+                if (answers.fuel === 'gas' && (!/\b(gas|gasoline)\b/i.test(truck.config) || /diesel/i.test(truck.config))) throw new Error('Fuel mismatch');
+                if (answers.fuel === 'diesel' && (!/diesel/i.test(truck.config) || /\b(gas|gasoline)\b/i.test(truck.config))) throw new Error('Fuel mismatch');
+                function text(value, maxLength, required) {
+                    if (value === undefined && !required) return '';
+                    if (typeof value !== 'string' || value.length > maxLength || (required && !value.trim())) {
+                        throw new Error('Invalid recommendation text');
+                    }
+                    return value.trim();
+                }
+                if (typeof truck.score !== 'number' || !Number.isFinite(truck.score) || truck.score < 0 || truck.score > 100) {
+                    throw new Error('Invalid recommendation score');
+                }
+                return {
+                    model: truck.model,
+                    config: text(truck.config, 300, true),
+                    upfit: text(truck.upfit, 300, false),
+                    description: text(truck.description || truck.explanation, 1200, true),
+                    price_range: text(truck.price_range, 150, false) || 'Contact dealer for pricing',
+                    score: Math.round(truck.score)
+                };
+            });
+        }
+
+        function showMatchmakerError(message) {
+            var form = document.getElementById('mm-form-card');
+            var error = document.getElementById('mm-error-msg');
+            if (!error) {
+                error = document.createElement('p');
+                error.id = 'mm-error-msg';
+                error.setAttribute('role', 'alert');
+                error.style.cssText = 'color:#fca5a5;padding:.75rem;font-size:1rem;';
+                form.appendChild(error);
+            }
+            error.textContent = message;
         }
 
         // ── Fuel button init ───────────────────────────────────────────────
@@ -4540,6 +4547,14 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
         async function mmRunAI() {
             var a        = mmState.answers;
             var approved = getApprovedModels(a);
+            if (!approved.models.length) {
+                document.getElementById('mm-loading').style.display = 'none';
+                document.getElementById('mm-form-card').style.display = 'block';
+                showMatchmakerError(approved.reason);
+                return;
+            }
+            var oldError = document.getElementById('mm-error-msg');
+            if (oldError) oldError.remove();
 
             var userProfile =
                 'Industry: '         + a.industry    + '\n' +
@@ -4599,8 +4614,7 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 var data1   = await resp1.json();
                 var raw1    = data1.content.map(function(c){ return c.text||''; }).join('').trim();
                 var clean1  = raw1.replace(/```json/g,'').replace(/```/g,'').trim();
-                var topPicks = JSON.parse(clean1);
-                if (!Array.isArray(topPicks)) throw new Error('Batch 1 bad response');
+                var topPicks = validateTruckRecommendations(JSON.parse(clean1), a, approved);
 
                 // Fetch inventory for top picks
                 var invByModel = {};
@@ -4651,8 +4665,7 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 .then(function(data2) {
                     var raw2   = data2.content.map(function(c){ return c.text||''; }).join('').trim();
                     var clean2 = raw2.replace(/```json/g,'').replace(/```/g,'').trim();
-                    var altPicks = JSON.parse(clean2);
-                    if (!Array.isArray(altPicks)) return;
+                    var altPicks = validateTruckRecommendations(JSON.parse(clean2), a, approved);
 
                     // Replace placeholder with real alt cards
                     if (ph) ph.remove();
@@ -4662,50 +4675,8 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                     divider.innerHTML = '<span>Also Worth Considering</span>';
                     area.appendChild(divider);
 
-                    var altGrid = document.createElement('div');
-                    altGrid.className = 'mm-three-cards mm-alt-cards';
-                    var ALT_LBLS = ['Strong Alternative','Next Best Value','Additional Option'];
+                    renderTruckCards(altPicks, {}, area, true);
 
-                    altPicks.forEach(function(t, i) {
-                        var desc  = t.description || t.explanation || '';
-                        var score = parseInt(t.score) || 74;
-                        var price = t.price_range || t.price_from || 'Call for pricing';
-                        var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return t.model && t.model.includes(k); }) || '';
-                        var invLink  = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
-
-                        var card = document.createElement('div');
-                        card.className = 'mm-card mm-card-alt';
-                        card.innerHTML =
-                            '<div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                                '<div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.35);"></div>' + (ALT_LBLS[i] || 'Alternative') +
-                            '</div>' +
-                            '<div class="mm-card-body">' +
-                                '<div>' +
-                                    '<div class="mm-card-score-row">' +
-                                        '<span class="mm-card-score" style="color:rgba(255,255,255,0.5);">' + score + '</span>' +
-                                        '<span class="mm-card-denom">&nbsp;/ 100</span>' +
-                                    '</div>' +
-                                    '<div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:' + score + '%;background:rgba(255,255,255,0.25);"></div></div>' +
-                                '</div>' +
-                                '<div>' +
-                                    '<div class="mm-card-model" style="font-size:.9rem;">' + (t.model||'') + '</div>' +
-                                    '<div class="mm-card-config">' + (t.config||'') + '</div>' +
-                                '</div>' +
-                                '<div class="mm-card-explanation">' + desc + '</div>' +
-                                '<div class="mm-card-stock">' +
-                                    '<a href="' + invLink + '" target="_blank" rel="noopener noreferrer" class="secondary-link">View Inventory &rarr;</a>' +
-                                    '<a href="#contact" class="secondary-link">Get Quote</a>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="mm-card-price">' +
-                                '<span class="mm-card-price-label">Starting Price</span>' +
-                                '<span class="mm-card-price-val" style="color:rgba(255,255,255,0.55);">' + price + '</span>' +
-                            '</div>';
-                        altGrid.appendChild(card);
-                    });
-                    area.appendChild(altGrid);
-
-                    // Update summary
                     document.getElementById('mm-results-summary').textContent =
                         lbl + ' operation — 3 primary matches and 3 strong alternatives from Peoria Ford.';
 
@@ -4732,194 +4703,82 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
                 console.error('mmRunAI error:', err.message || err);
                 document.getElementById('mm-loading').style.display  = 'none';
                 document.getElementById('mm-form-card').style.display = 'block';
-                var errEl = null;
-                if (!errEl) {
-                    errEl = document.createElement('div');
-                    errEl.id = 'mm-error-msg';
-                    errEl.style.cssText = 'color:#f87171;font-size:.85rem;text-align:center;padding:.75rem;margin-top:.5rem;';
-                    if (runWrap) runWrap.appendChild(errEl);
-                }
-                errEl.textContent = 'Something went wrong — try again or call (844) 877-9033.';
+                showMatchmakerError('We could not validate truck matches for these requirements. Please try again or call (844) 877-9033.');
             }
         }
 
-        // ── mmRenderTopCards: render top 3 primary picks ───────────────────
+        function truckElement(tag, className, text) {
+            var element = document.createElement(tag);
+            if (className) element.className = className;
+            if (text !== undefined) element.textContent = text;
+            return element;
+        }
+
+        function truckScore(value) {
+            return typeof value === 'number' && Number.isFinite(value)
+                ? Math.max(0, Math.min(100, Math.round(value))) : 0;
+        }
+
+        function renderTruckCards(picks, inventory, area, alternatives) {
+            var grid = truckElement('div', 'mm-three-cards' + (alternatives ? ' mm-alt-cards' : ''));
+            var labels = alternatives
+                ? ['Strong Alternative', 'Next Best Value', 'Additional Option']
+                : ['★ Primary Match', '✓ Best Value', '◆ Max Capability'];
+            (picks || []).forEach(function(truck, index) {
+                var tier = alternatives ? '' : ['primary', 'value', 'capable'][index] || 'primary';
+                var card = truckElement('div', 'mm-card' + (alternatives ? ' mm-card-alt' : ''));
+                var heading = truckElement('div', 'mm-card-tier-bar ' + tier);
+                heading.appendChild(truckElement('div', 'mm-card-tier-dot'));
+                heading.appendChild(truckElement('span', '', labels[index] || 'Alternative'));
+                card.appendChild(heading);
+                var body = truckElement('div', 'mm-card-body');
+                var score = truckScore(truck.score);
+                var scoreGroup = truckElement('div', '');
+                var scoreRow = truckElement('div', 'mm-card-score-row');
+                scoreRow.appendChild(truckElement('span', 'mm-card-score ' + tier, String(score)));
+                scoreRow.appendChild(truckElement('span', 'mm-card-denom', ' / 100'));
+                scoreRow.appendChild(truckElement('span', 'mm-confidence med', 'AI ranking'));
+                scoreGroup.appendChild(scoreRow);
+                var barWrap = truckElement('div', 'mm-card-bar-wrap');
+                var bar = truckElement('div', 'mm-card-bar ' + tier);
+                bar.style.width = score + '%';
+                barWrap.appendChild(bar);
+                scoreGroup.appendChild(barWrap);
+                body.appendChild(scoreGroup);
+                var details = truckElement('div', '');
+                details.appendChild(truckElement('div', 'mm-card-model', truck.model));
+                details.appendChild(truckElement('div', 'mm-card-config', truck.config));
+                if (truck.upfit) details.appendChild(truckElement('div', 'mm-card-upfit', truck.upfit));
+                body.appendChild(details);
+                body.appendChild(truckElement('div', 'mm-card-explanation', truck.description || truck.explanation || ''));
+                var stock = truckElement('div', 'mm-card-stock');
+                var modelKey = Object.keys(MM_INVENTORY_URLS).find(function(key) {
+                    return typeof truck.model === 'string' && truck.model.includes(key);
+                }) || '';
+                var count = Number((inventory || {})[modelKey]);
+                if (!Number.isSafeInteger(count) || count < 0) count = 0;
+                var inventoryLink = truckElement('a', count > 0 ? 'primary-link' : 'secondary-link',
+                    count > 0 ? count + ' In Stock →' : 'Check Inventory →');
+                inventoryLink.href = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
+                inventoryLink.target = '_blank';
+                inventoryLink.rel = 'noopener noreferrer';
+                stock.appendChild(inventoryLink);
+                var quote = truckElement('a', 'secondary-link', 'Get Quote');
+                quote.href = '#contact';
+                stock.appendChild(quote);
+                body.appendChild(stock);
+                card.appendChild(body);
+                var price = truckElement('div', 'mm-card-price');
+                price.appendChild(truckElement('span', 'mm-card-price-label', 'AI estimate · confirm with dealer'));
+                price.appendChild(truckElement('span', 'mm-card-price-val', truck.price_range || 'Contact dealer for pricing'));
+                card.appendChild(price);
+                grid.appendChild(card);
+            });
+            area.appendChild(grid);
+        }
+
         function mmRenderTopCards(topPicks, invByModel, area) {
-            var topGrid = document.createElement('div');
-            topGrid.className = 'mm-three-cards';
-            var TIER_LABELS = { primary:'&#9733; Primary Match', value:'&#10003; Best Value', capable:'&#9670; Max Capability' };
-            var TIER_TYPES  = ['primary','value','capable'];
-
-            (topPicks || []).forEach(function(t, i) {
-                var type    = TIER_TYPES[i] || 'primary';
-                var lbl     = TIER_LABELS[type] || '&#9733; Top Pick';
-                var desc    = t.description || t.explanation || t.why || '';
-                var score   = parseInt(t.score) || 88;
-                var price   = t.price_range || t.price_from || 'Call for pricing';
-                var upfit   = t.upfit || '';
-                var conf    = score >= 80 ? 'High Confidence' : score >= 65 ? 'Good Match' : 'Solid Option';
-                var confCls = score >= 80 ? 'high' : score >= 65 ? 'med' : 'low';
-                var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return t.model && t.model.includes(k); }) || '';
-                var cnt      = invByModel[modelKey] || 0;
-                var invLink  = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
-                var priceStr = price;
-
-                var card = document.createElement('div');
-                card.className = 'mm-card';
-                card.innerHTML =
-                    '<div class="mm-card-tier-bar ' + type + '"><div class="mm-card-tier-dot"></div>' + lbl + '</div>' +
-                    '<div class="mm-card-body">' +
-                        '<div>' +
-                            '<div class="mm-card-score-row">' +
-                                '<span class="mm-card-score ' + type + '">' + score + '</span>' +
-                                '<span class="mm-card-denom">&nbsp;/ 100</span>' +
-                                '<span class="mm-confidence ' + confCls + '">' + conf + '</span>' +
-                            '</div>' +
-                            '<div class="mm-card-bar-wrap"><div class="mm-card-bar ' + type + '" style="width:' + score + '%"></div></div>' +
-                        '</div>' +
-                        '<div>' +
-                            '<div class="mm-card-model">' + (t.model||'') + '</div>' +
-                            '<div class="mm-card-config">' + (t.config||'') + '</div>' +
-                            (upfit ? '<div class="mm-card-upfit">' + upfit + '</div>' : '') +
-                        '</div>' +
-                        '<div class="mm-card-explanation">' + desc + '</div>' +
-                        '<div class="mm-card-stock">' +
-                            (cnt > 0
-                                ? '<a href="' + invLink + '" target="_blank" rel="noopener noreferrer" class="primary-link">' + cnt + ' In Stock &rarr;</a>'
-                                : '<a href="' + invLink + '" target="_blank" rel="noopener noreferrer" class="secondary-link">Check Inventory &rarr;</a>') +
-                            '<a href="#contact" class="secondary-link">Get Quote</a>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="mm-card-price"><span class="mm-card-price-label">Starting Price</span><span class="mm-card-price-val">' + priceStr + '</span></div>';
-                topGrid.appendChild(card);
-            });
-            area.appendChild(topGrid);
-        }
-
-        function mmDisplayResults(topPicks, altPicks, invByModel) {
-            var res = document.getElementById('mm-results');
-            res.style.display = 'block';
-
-            var industry = mmState.answers.industry || 'your operation';
-            var label = industry.replace(/_/g,' ');
-            label = label.charAt(0).toUpperCase() + label.slice(1);
-            document.getElementById('mm-results-summary').textContent =
-                label + ' operation — 3 primary picks and 3 strong alternatives with live Peoria Ford inventory.';
-
-            var area = document.getElementById('mm-results-grid');
-            area.innerHTML = '';
-
-            var TIER_LABELS = { primary: '&#9733; Primary Match', value: '&#10003; Best Value', capable: '&#9670; Max Capability' };
-            var TIER_TYPES  = ['primary','value','capable'];
-
-            // TOP 3
-            var topGrid = document.createElement('div');
-            topGrid.className = 'mm-three-cards';
-
-            topPicks.forEach(function(t, i) {
-                var type    = TIER_TYPES[i] || 'primary';
-                var lbl     = TIER_LABELS[type] || '&#9733; Top Pick';
-                var desc    = t.description || t.explanation || t.why || '';
-                var score   = parseInt(t.score) || 88;
-                var price   = t.price_range || t.price_from || 'Call for pricing';
-                var upfit   = t.upfit || '';
-                var conf    = score >= 80 ? 'High Confidence' : score >= 65 ? 'Good Match' : 'Solid Option';
-                var confCls = score >= 80 ? 'high' : score >= 65 ? 'med' : 'low';
-
-                var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return t.model && t.model.includes(k); }) || '';
-                var cnt      = invByModel[modelKey] || 0;
-                var invLink  = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
-
-                var card = document.createElement('div');
-                card.className = 'mm-card';
-                card.innerHTML =
-                    '<div class="mm-card-tier-bar ' + type + '">' +
-                        '<div class="mm-card-tier-dot"></div>' + lbl +
-                    '</div>' +
-                    '<div class="mm-card-body">' +
-                        '<div>' +
-                            '<div class="mm-card-score-row">' +
-                                '<span class="mm-card-score ' + type + '">' + score + '</span>' +
-                                '<span class="mm-card-denom">&nbsp;/ 100</span>' +
-                                '<span class="mm-confidence ' + confCls + '">' + conf + '</span>' +
-                            '</div>' +
-                            '<div class="mm-card-bar-wrap"><div class="mm-card-bar ' + type + '" style="width:' + score + '%"></div></div>' +
-                        '</div>' +
-                        '<div>' +
-                            '<div class="mm-card-model">' + (t.model || '') + '</div>' +
-                            '<div class="mm-card-config">' + (t.config || '') + '</div>' +
-                            (upfit ? '<div class="mm-card-upfit">' + upfit + '</div>' : '') +
-                        '</div>' +
-                        '<div class="mm-card-explanation">' + desc + '</div>' +
-                        '<div class="mm-card-stock">' +
-                            (cnt > 0
-                                ? '<a href="' + invLink + '" target="_blank" rel="noopener noreferrer" class="primary-link">' + cnt + ' In Stock &rarr;</a>'
-                                : '<a href="' + invLink + '" target="_blank" rel="noopener noreferrer" class="secondary-link">Check Inventory &rarr;</a>') +
-                            '<a href="#contact" class="secondary-link">Get Quote</a>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="mm-card-price">' +
-                        '<span class="mm-card-price-label">Starting Price</span>' +
-                        '<span class="mm-card-price-val">' + price + '</span>' +
-                    '</div>';
-                topGrid.appendChild(card);
-            });
-            area.appendChild(topGrid);
-
-            // ALT 3
-            if (altPicks && altPicks.length) {
-                var div = document.createElement('div');
-                div.className = 'mm-alt-label';
-                div.innerHTML = '<span>Also Worth Considering</span>';
-                area.appendChild(div);
-
-                var altGrid = document.createElement('div');
-                altGrid.className = 'mm-three-cards mm-alt-cards';
-                var ALT_LBLS = ['Strong Alternative','Next Best Value','Additional Option'];
-
-                altPicks.forEach(function(t, i) {
-                    var desc  = t.description || t.explanation || t.why || '';
-                    var score = parseInt(t.score) || 74;
-                    var price = t.price_range || t.price_from || 'Call for pricing';
-                    var modelKey = Object.keys(MM_TRUCK_IMAGES).find(function(k){ return t.model && t.model.includes(k); }) || '';
-                    var invLink  = MM_INVENTORY_URLS[modelKey] || 'https://commercial-trucks.peoriaford.com';
-
-                    var card = document.createElement('div');
-                    card.className = 'mm-card mm-card-alt';
-                    card.innerHTML =
-                        '<div class="mm-card-tier-bar" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.1);">' +
-                            '<div class="mm-card-tier-dot" style="background:rgba(255,255,255,0.35);"></div>' + (ALT_LBLS[i] || 'Alternative') +
-                        '</div>' +
-                        '<div class="mm-card-body">' +
-                            '<div>' +
-                                '<div class="mm-card-score-row">' +
-                                    '<span class="mm-card-score" style="color:rgba(255,255,255,0.5);">' + score + '</span>' +
-                                    '<span class="mm-card-denom">&nbsp;/ 100</span>' +
-                                '</div>' +
-                                '<div class="mm-card-bar-wrap"><div class="mm-card-bar" style="width:' + score + '%;background:rgba(255,255,255,0.25);"></div></div>' +
-                            '</div>' +
-                            '<div>' +
-                                '<div class="mm-card-model" style="font-size:.9rem;">' + (t.model || '') + '</div>' +
-                                '<div class="mm-card-config">' + (t.config || '') + '</div>' +
-                            '</div>' +
-                            '<div class="mm-card-explanation">' + desc + '</div>' +
-                            '<div class="mm-card-stock">' +
-                                '<a href="' + invLink + '" target="_blank" rel="noopener noreferrer" class="secondary-link">View Inventory &rarr;</a>' +
-                                '<a href="#contact" class="secondary-link">Get Quote</a>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="mm-card-price">' +
-                            '<span class="mm-card-price-label">Starting Price</span>' +
-                            '<span class="mm-card-price-val" style="color:rgba(255,255,255,0.55);">' + price + '</span>' +
-                        '</div>';
-                    altGrid.appendChild(card);
-                });
-                area.appendChild(altGrid);
-            }
-
-            setTimeout(function() {
-                document.getElementById('mm-lead-wrap').style.display = 'block';
-            }, 600);
+            renderTruckCards(topPicks, invByModel, area, false);
         }
 
         // ── mmRestart ──────────────────────────────────────────────────────
@@ -4929,6 +4788,10 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             document.getElementById('mm-results-grid').innerHTML   = '';
             document.getElementById('mm-lead-wrap').style.display  = 'none';
             document.querySelectorAll('.mm-fuel-btn').forEach(function(b){ b.classList.remove('selected'); });
+            var leadForm = document.getElementById('mm-lead-form');
+            if (leadForm) { leadForm.reset(); leadForm.style.display = ''; }
+            document.getElementById('mm-lead-success').style.display = 'none';
+            clearAllErrors('mm');
             mmState.answers = {};
         }
         window.mmRestart = mmRestart;
