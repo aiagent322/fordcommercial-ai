@@ -3197,10 +3197,10 @@
                             <textarea id="mm-notes" rows="2" placeholder="Colors, special upfits, fleet quantity, or any other requirements"></textarea>
                         </div>
                         <button type="submit" class="mm-run-btn" style="margin-top:1rem" aria-label="Submit quote request">Submit Quote Request →</button>
-                        <div id="mm-lead-success" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
-                            Quote Submitted — A Peoria Ford Commercial Specialist Will Contact You Within 1 Business Day
-                        </div>
                     </form>
+                    <div id="mm-lead-success" role="status" style="display:none;text-align:center;padding:1.5rem;color:#2e7d32;font-family:var(--font-display);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">
+                        Quote Request Received — A Commercial Specialist Will Follow Up
+                    </div>
                 </div>
             </div>
 
@@ -3661,12 +3661,12 @@
                 </form>
                 
                 <!-- Success State -->
-                <div id="quote-success" class="quote-success" style="display:none;">
+                <div id="quote-success" class="quote-success" role="status" style="display:none;">
                     <div class="success-icon">
                         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                     </div>
                     <h3>Quote Request Submitted!</h3>
-                    <p>A Peoria Ford commercial specialist will contact you within 24 hours.</p>
+                    <p>A commercial specialist will follow up about your request.</p>
                     <button type="button" class="btn btn--secondary" onclick="resetQuoteForm()">Submit Another Request</button>
                 </div>
             </div>
@@ -4304,174 +4304,119 @@ OUTPUT FORMAT — return ONLY this JSON array, nothing else:
 [{"tier":"primary","model":"Ford Transit 350 High Roof","config":"148" WB, High Roof, 3.5L EcoBoost","upfit":"Adrian Steel full shelving system","price_range":"$50,000-$56,000 equipped","score":96,"explanation":"One sentence why this fits their exact inputs."},{"tier":"value","model":"...","config":"...","upfit":"...","price_range":"...","score":88,"explanation":"..."},{"tier":"capable","model":"...","config":"...","upfit":"...","price_range":"...","score":82,"explanation":"..."},{"tier":"alt1","model":"...","config":"...","upfit":"...","price_range":"...","score":79,"explanation":"..."},{"tier":"alt2","model":"...","config":"...","upfit":"...","price_range":"...","score":74,"explanation":"..."},{"tier":"alt3","model":"...","config":"...","upfit":"...","price_range":"...","score":70,"explanation":"..."}]
 Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down. First 3 are primary picks, last 3 are alternatives.`;
 
-        function mmInit() {
-            if (dotsEl) {
-                dotsEl.innerHTML = Array.from({length: mmState.totalSteps}, (_, i) =>
-                    `<span class="mm-dot ${i === 0 ? 'active' : ''}" data-step="${i+1}"></span>`
-                ).join('');
-            }
-            mmUpdateProgress();
-
-            // Option click delegation
-            document.addEventListener('click', function(e) {
-                const btn = e.target.closest('.mm-option');
-                if (btn) mmSelectOption(btn);
-            });
-
-            // Back/Next buttons
-
-            // Lead form submit
-            document.getElementById('mm-lead-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                let valid = true;
-                const name     = document.getElementById('mm-name').value.trim();
-                const company  = document.getElementById('mm-company').value.trim();
-                const email    = document.getElementById('mm-email').value.trim();
-                const phone    = document.getElementById('mm-phone').value.trim();
-                const state    = document.getElementById('mm-state').value;
-                const timeline = document.getElementById('mm-timeline').value;
-                if (!name)                        { showError('mm-name','mm-name-error'); valid=false; }
-                if (!company)                     { showError('mm-company','mm-company-error'); valid=false; }
-                if (!email || !validateEmail(email)) { showError('mm-email','mm-email-error'); valid=false; }
-                if (!phone || !validatePhone(phone)) { showError('mm-phone','mm-phone-error'); valid=false; }
-                if (!state)                       { showError('mm-state','mm-state-error'); valid=false; }
-                if (!timeline)                    { showError('mm-timeline','mm-timeline-error'); valid=false; }
-                if (!valid) return;
-                const payload = {
-                    name, company, email, phone, state, timeline,
-                    notes: document.getElementById('mm-notes').value.trim(),
-                    matchmakerAnswers: mmState.answers,
-                    formType: 'matchmaker'
-                };
-                submitLead(payload, 'matchmaker');
-            });
-        }
-
-
-        function submitLead(payload, formType) {
-            var btn = formType === 'matchmaker'
-                ? document.getElementById('mm-lead-wrap').querySelector('button[type="submit"]')
-                : document.querySelector('#quote-form button[type="submit"]');
-            if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
-
-            // Format lead as readable text
-            var body = 'NEW LEAD — ' + (formType === 'matchmaker' ? 'AI Matchmaker' : 'Quote Form') + '\n\n';
-            body += 'Name: '     + (payload.name     || payload['name']    || '') + '\n';
-            body += 'Company: '  + (payload.company   || '') + '\n';
-            body += 'Email: '    + (payload.email     || '') + '\n';
-            body += 'Phone: '    + (payload.phone     || '') + '\n';
-            body += 'State: '    + (payload.state     || '') + '\n';
-            body += 'Timeline: ' + (payload.timeline  || '') + '\n';
-            if (payload.notes)   body += 'Notes: ' + payload.notes + '\n';
-            if (payload.truck)   body += 'Truck interest: ' + payload.truck + '\n';
-            if (payload.message) body += 'Message: ' + payload.message + '\n';
-            if (payload.matchmakerAnswers) {
-                body += '\nMatchmaker Answers:\n';
-                var a = payload.matchmakerAnswers;
-                body += 'Industry: '  + (a.industry || '') + '\n';
-                body += 'Job: '        + (a.primary_job || '') + '\n';
-                body += 'Towing: '     + (a.towing || '') + '\n';
-                body += 'Crew: '       + (a.crew || '') + '\n';
-                body += 'Body: '       + (a.body || '') + '\n';
-                body += 'Budget: '     + (a.budget || '') + '\n';
-                body += 'Fuel: '       + (a.fuel || '') + '\n';
-            }
-
-            // Send to lead capture worker (stores in KV + emails commercial@peoriaford.com)
-            fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function() {});  // fire-and-forget — success shown regardless
-
-            // Show success immediately (don't wait for API)
-            setTimeout(function() {
-                if (formType === 'matchmaker') {
-                    var successEl = document.getElementById('mm-lead-success');
-                    if (successEl) successEl.style.display = 'block';
-                    var formEl = document.getElementById('mm-lead-form');
-                    if (formEl) formEl.style.display = 'none';
-                } else {
-                    var successEl = document.getElementById('quote-success');
-                    if (successEl) successEl.style.display = 'block';
-                    var formEl = document.getElementById('quote-form');
-                    if (formEl) formEl.style.display = 'none';
-                }
-                if (btn) { btn.disabled = false; }
-            }, 400);
-        }
-
-                function mmUpdateProgress() {
-
-        // ── Quote form submit ──────────────────────────────────────────────
-        var qForm = document.getElementById('quote-form');
-        if (qForm) {
-            qForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var name     = document.getElementById('quote-name').value.trim();
-                var company  = document.getElementById('quote-company').value.trim();
-                var email    = document.getElementById('quote-email').value.trim();
-                var phone    = document.getElementById('quote-phone').value.trim();
-                var state    = document.getElementById('quote-state').value;
-                var truck    = document.getElementById('quote-truck').value;
-                var timeline = document.getElementById('quote-timeline').value;
-                var message  = document.getElementById('quote-message').value.trim();
-                var valid = true;
-                ['quote-name','quote-company','quote-email','quote-phone','quote-state','quote-truck','quote-timeline'].forEach(function(id) {
-                    var el = document.getElementById(id);
-                    if (!el || !el.value.trim()) {
-                        el && el.classList.add('error');
-                        valid = false;
-                    } else {
-                        el && el.classList.remove('error');
-                    }
+        function initLeadForms() {
+            ['quote', 'mm'].forEach(function(prefix) {
+                var form = document.getElementById(prefix === 'mm' ? 'mm-lead-form' : 'quote-form');
+                if (!form || form.dataset.leadBound === 'true') return;
+                form.dataset.leadBound = 'true';
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    clearAllErrors(prefix);
+                    var fields = ['name', 'company', 'email', 'phone', 'state', 'timeline'];
+                    if (prefix === 'quote') fields.push('truck');
+                    var payload = {};
+                    var firstInvalid = null;
+                    fields.forEach(function(field) {
+                        var input = document.getElementById(prefix + '-' + field);
+                        var value = input ? input.value.trim() : '';
+                        payload[field] = value;
+                        var valid = Boolean(value);
+                        if (field === 'email') valid = valid && validateEmail(value);
+                        if (field === 'phone') valid = valid && validatePhone(value);
+                        if (!valid) {
+                            showError(prefix + '-' + field, prefix + '-' + field + '-error');
+                            if (input) input.setAttribute('aria-invalid', 'true');
+                            if (!firstInvalid) firstInvalid = input;
+                        } else if (input) {
+                            input.removeAttribute('aria-invalid');
+                        }
+                    });
+                    if (firstInvalid) { firstInvalid.focus(); return; }
+                    var extra = document.getElementById(prefix === 'mm' ? 'mm-notes' : 'quote-message');
+                    payload[prefix === 'mm' ? 'notes' : 'message'] = extra ? extra.value.trim() : '';
+                    payload.formType = prefix === 'mm' ? 'matchmaker' : 'quote';
+                    if (prefix === 'mm') payload.matchmakerAnswers = Object.assign({}, mmState.answers);
+                    submitLead(payload, payload.formType);
                 });
-                if (!valid) { return; }
-                submitLead({ name:name, company:company, email:email, phone:phone, state:state, truck:truck, timeline:timeline, message:message }, 'quote');
             });
         }
 
-            const pct  = ((mmState.currentStep - 1) / mmState.totalSteps) * 100;
-            if (fill) fill.style.width = pct + '%';
-            if (lbl)  lbl.textContent  = 'Step ' + mmState.currentStep + ' of ' + mmState.totalSteps;
-            if (back) back.style.display = mmState.currentStep > 1 ? 'block' : 'none';
-            document.querySelectorAll('.mm-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === mmState.currentStep - 1);
-                dot.classList.toggle('done',   i <  mmState.currentStep - 1);
-            });
+        function resetQuoteForm() {
+            var form = document.getElementById('quote-form');
+            var success = document.getElementById('quote-success');
+            if (form) { form.reset(); form.style.display = ''; }
+            if (success) success.style.display = 'none';
+            clearAllErrors('quote');
+            if (form) {
+                form.querySelectorAll('[aria-invalid]').forEach(function(input) {
+                    input.removeAttribute('aria-invalid');
+                });
+                var name = document.getElementById('quote-name');
+                if (name) name.focus();
+            }
         }
 
-        function mmSelectOption(btn) {
-            btn.closest('.mm-step').querySelectorAll('.mm-option').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]] = btn.dataset.value;
-            if (window.innerWidth <= 768) { setTimeout(mmNext, 380); }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLeadForms, { once: true });
+        } else {
+            initLeadForms();
         }
 
-        function mmNext() {
-            if (!mmState.answers[MM_QUESTION_IDS[mmState.currentStep - 1]]) return;
-            if (mmState.currentStep === mmState.totalSteps) { mmRunAI(); return; }
-            const cur  = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            mmState.currentStep++;
-            const next = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            cur.classList.remove('active'); cur.classList.add('exit');
-            setTimeout(() => cur.classList.remove('exit'), 300);
-            next.classList.add('active');
-            mmUpdateProgress();
-            const nextQId = MM_QUESTION_IDS[mmState.currentStep - 1];
+        async function submitLead(payload, formType) {
+            var isMatchmaker = formType === 'matchmaker';
+            var form = document.getElementById(isMatchmaker ? 'mm-lead-form' : 'quote-form');
+            var success = document.getElementById(isMatchmaker ? 'mm-lead-success' : 'quote-success');
+            if (!form || form.dataset.submitting === 'true') return;
+            var btn = form.querySelector('button[type="submit"]');
+            var originalLabel = btn ? btn.textContent : '';
+            var errorId = isMatchmaker ? 'mm-submit-error' : 'quote-submit-error';
+            var error = document.getElementById(errorId);
+            if (!error) {
+                error = document.createElement('p');
+                error.id = errorId;
+                error.setAttribute('role', 'alert');
+                error.style.cssText = 'color:#b91c1c;margin-top:1rem;font-weight:600;';
+                form.appendChild(error);
+            }
+            error.textContent = '';
+            error.hidden = true;
+            if (success) success.style.display = 'none';
+            form.dataset.submitting = 'true';
+            form.setAttribute('aria-busy', 'true');
+            if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+            var controller = new AbortController();
+            var timeout = setTimeout(function() { controller.abort(); }, 15000);
+            try {
+                var response = await fetch('https://fordcommercial-leads.bridleandbit.workers.dev', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error('Lead service rejected request');
+                var result = await response.json();
+                if (!result || (result.success !== true && result.ok !== true) || result.error) {
+                    throw new Error('Lead service did not confirm acceptance');
+                }
+                form.style.display = 'none';
+                if (success) {
+                    success.style.display = 'block';
+                    success.setAttribute('tabindex', '-1');
+                    success.focus();
+                }
+                return true;
+            } catch (err) {
+                error.textContent = 'We could not confirm your request. Your details are still here. Please call (844) 877-9033 before retrying if the request may have gone through.';
+                error.hidden = false;
+                return false;
+            } finally {
+                clearTimeout(timeout);
+                form.dataset.submitting = 'false';
+                form.removeAttribute('aria-busy');
+                if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
+            }
         }
 
-        function mmBack() {
-            if (mmState.currentStep <= 1) return;
-            const cur  = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            mmState.currentStep--;
-            const prev = document.querySelector('.mm-step[data-step="' + mmState.currentStep + '"]');
-            cur.classList.remove('active');
-            prev.classList.add('active');
-            mmUpdateProgress();
-        }
-
-        
         // ── Matchmaker: model pre-filter ─────────────────────────────
         function getApprovedModels(a) {
             var body   = a.body   || '';
@@ -4929,6 +4874,10 @@ Return exactly 6 objects. Vary configurations meaningfully. Score from 100 down.
             document.getElementById('mm-results-grid').innerHTML   = '';
             document.getElementById('mm-lead-wrap').style.display  = 'none';
             document.querySelectorAll('.mm-fuel-btn').forEach(function(b){ b.classList.remove('selected'); });
+            var leadForm = document.getElementById('mm-lead-form');
+            if (leadForm) { leadForm.reset(); leadForm.style.display = ''; }
+            document.getElementById('mm-lead-success').style.display = 'none';
+            clearAllErrors('mm');
             mmState.answers = {};
         }
         window.mmRestart = mmRestart;
