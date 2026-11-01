@@ -2951,7 +2951,8 @@
         .mm-card-score.secondary,
         .mm-card-score.tertiary { color: #ffffff !important; }
 
-        </style>
+                #quote, #trucks, #resources, #industries { scroll-margin-top: 7rem; }
+</style>
 </head>
 <body>
     <a href="#main-content" class="skip-nav">Skip to main content</a>
@@ -2974,7 +2975,7 @@
                 <a href="#fordpro" class="nav__link">Ford Pro</a>
                 <a href="#resources" class="nav__link">Resources</a>
                 <a href="#qa" class="nav__link">Q&amp;A</a>
-                <a href="#contact" class="nav__cta">Get a Quote</a>
+                <a href="#quote" class="nav__cta">Get a Quote</a>
                 <a href="https://camionetasford.pages.dev" class="nav__es" target="_blank" rel="noopener" aria-label="Sitio en Español">🇲🇽 En Español</a>
             </nav>
             
@@ -3366,7 +3367,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                    <a href="#quote" class="truck-card__cta">Get Quote →</a>
                 </article>
                 
                 <!-- F-350 -->
@@ -3397,7 +3398,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                    <a href="#quote" class="truck-card__cta">Get Quote →</a>
                 </article>
                 
                 <!-- F-450 -->
@@ -3428,7 +3429,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                    <a href="#quote" class="truck-card__cta">Get Quote →</a>
                 </article>
                 
                 <!-- F-550 Chassis Cab -->
@@ -3459,7 +3460,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                    <a href="#quote" class="truck-card__cta">Get Quote →</a>
                 </article>
                 
                 <!-- F-650/F-750 -->
@@ -3490,7 +3491,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                    <a href="#quote" class="truck-card__cta">Get Quote →</a>
                 </article>
                 
                 <!-- Transit -->
@@ -3521,7 +3522,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="truck-card__cta">Get Quote →</a>
+                    <a href="#quote" class="truck-card__cta">Get Quote →</a>
                 </article>
             </div>
         </div>
@@ -4127,7 +4128,7 @@
                         <a href="/upfits/enclosed-cargo">Enclosed Cargo Vans</a>
                     </div>
 
-                    <div class="footer__col">
+                    <div class="footer__col" id="industries">
                         <div class="footer__col-head">Industries</div>
                         <a href="/industries/construction">Construction</a>
                         <a href="/industries/hvac">HVAC</a>
@@ -4764,7 +4765,7 @@ Return the number of objects requested in the user message. Use exact candidate 
                 inventoryLink.rel = 'noopener noreferrer';
                 stock.appendChild(inventoryLink);
                 var quote = truckElement('a', 'secondary-link', 'Get Quote');
-                quote.href = '#contact';
+                quote.href = '#quote';
                 stock.appendChild(quote);
                 body.appendChild(stock);
                 card.appendChild(body);
